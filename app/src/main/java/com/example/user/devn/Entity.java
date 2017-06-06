@@ -30,4 +30,8 @@ public class Entity extends View {
         super.onDraw(canvas);
     }
 
+    public void action(){
+
+    }
+
 }

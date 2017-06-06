@@ -12,10 +12,11 @@ import android.view.View;
 public class Player extends Entity{
 
     //<kostil
-    int x = 10;
-    int y = 10;
+    float mx = 10;
+    float my = 10;
     int width = 200;
     int height = 200;
+    boolean isgo = false;
     //>
 
     Paint paint = new Paint();
@@ -32,12 +33,12 @@ public class Player extends Entity{
         super(context, attrs, defStyleAttr);
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public void setMx(int x) {
+        this.mx = x;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public void setMy(int y) {
+        this.my = y;
     }
 
     public void setWidth(int width) {
@@ -48,12 +49,12 @@ public class Player extends Entity{
         this.height = height;
     }
 
-    public void addX(int dx){
-        x += dx;
+    public void addMx(int dx){
+        mx += dx;
     }
 
-    public void addY(int dy){
-        y += dy;
+    public void addMy(int dy){
+        my += dy;
     }
 
     public void addWidth(int dWidth){
@@ -64,12 +65,18 @@ public class Player extends Entity{
         height += dHeight;
     }
 
-
-
     @Override
     protected void onDraw(Canvas canvas) {
         paint.setColor(Color.BLACK);
-        canvas.drawRect(x, y, width, height, paint);
+        canvas.drawRect((int)mx, (int)my, width, height, paint);
         invalidate();
+    }
+
+    @Override
+    public void action() {
+       if (isgo){
+           GameActivity.player.addMx(10);
+           GameActivity.player.addWidth(10);
+       }
     }
 }
