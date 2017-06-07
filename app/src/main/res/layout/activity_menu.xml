@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/Меню2"
+    android:background="@drawable/menu"
     tools:context="com.example.user.devn.MenuActivity">
 
     <Button
-        android:id="@+id/newGameButton"
+        android:id="@+id/start"
         android:layout_width="130dp"
         android:layout_height="75dp"
         android:background="@android:drawable/checkbox_off_background"
