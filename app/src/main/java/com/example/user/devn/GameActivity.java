@@ -19,14 +19,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         View rootView = findViewById(android.R.id.content);
-        final GestureDetector gestureDetector = new GestureDetector(this, new TouchControl());
-        rootView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                gestureDetector.onTouchEvent(event);
-                return true;
-            }
-        });
+        rootView.setOnTouchListener(new TouchControl());
 
     }
 }

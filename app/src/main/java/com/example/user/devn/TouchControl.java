@@ -2,77 +2,39 @@ package com.example.user.devn;
 
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
 
 /**
  * Created by user on 6/6/17.
  */
 
-public class TouchControl implements
-        GestureDetector.OnGestureListener,
-        GestureDetector.OnDoubleTapListener {
-    @Override
-    public boolean onSingleTapConfirmed(MotionEvent e) {
-        return false;
-    }
+public class TouchControl implements OnTouchListener{
+
+    float x = -1;
+    float y = -1;
 
     @Override
-    public boolean onDoubleTap(MotionEvent e) {
-        return false;
-    }
+    public boolean onTouch(View v, MotionEvent event) {
 
-    @Override
-    public boolean onDoubleTapEvent(MotionEvent e) {
-        /*/<Kostil!!!
-        GameActivity.player.addX(10);
-        GameActivity.player.addWidth(10);
-        //>*/
-        return false;
-    }
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                    x = event.getX();
+                    y = event.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                GameMap.player.go(event.getX() - x,event.getY() - y);
+                x = event.getX();
+                y = event.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                x = -1;
+                y = -1;
+            case MotionEvent.ACTION_CANCEL:
 
-    @Override
-    public boolean onDown(MotionEvent e) {
-        return false;
-    }
+                break;
+        }
 
-    @Override
-    public void onShowPress(MotionEvent e) {
-
-    }
-
-    @Override
-    public boolean onSingleTapUp(MotionEvent e) {
-        return false;
-    }
-
-    @Override
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        return false;
-    }
-
-    @Override
-    public void onLongPress(MotionEvent e) {
-
-    }
-
-    @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        /*if (Math.abs(e2.getX() - e1.getX()) > Math.abs(e2.getY() - e1.getY())) {
-            if (e2.getX() - e1.getX() > 0) {
-                GameActivity.player.addMx(10);
-                GameActivity.player.addWidth(10);
-            } else {
-                GameActivity.player.addMx(-10);
-                GameActivity.player.addWidth(-10);
-            }
-        } else {
-            if (e2.getY() - e1.getY() > 0) {
-                GameActivity.player.addMy(10);
-                GameActivity.player.addHeight(10);
-            } else {
-                GameActivity.player.addMy(-10);
-                GameActivity.player.addHeight(-10);
-            }
-        }*/
-        return false;
+        return true;
     }
 }

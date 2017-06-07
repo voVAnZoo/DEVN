@@ -13,13 +13,16 @@ import android.view.View;
 
 public class Entity {
 
-    float mx = 10;
-    float my = 10;
-    int width = 200;
-    int height = 200;
+    float mx;
+    float my;
+    float width;
+    float height;
 
-    public Entity(){
-
+    public Entity(float mx, float my, float width, float height) {
+        this.mx = mx;
+        this.my = my;
+        this.width = width;
+        this.height = height;
     }
 
     public float getMx() {
@@ -38,7 +41,7 @@ public class Entity {
         this.my = my;
     }
 
-    public int getWidth() {
+    public float getWidth() {
         return width;
     }
 
@@ -46,7 +49,7 @@ public class Entity {
         this.width = width;
     }
 
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
 
@@ -54,23 +57,24 @@ public class Entity {
         this.height = height;
     }
 
-    public void addMx(int dx){
+    public void addMx(float dx){
         mx += dx;
     }
 
-    public void addMy(int dy){
+    public void addMy(float dy){
         my += dy;
     }
 
-    public void addWidth(int dWidth){
+    public void addWidth(float dWidth){
         width += dWidth;
     }
 
-    public void addHeight(int dHeight){
+    public void addHeight(float dHeight){
         height += dHeight;
     }
 
-    void onDraw(Canvas canvas, Paint paint) {}
+    void onDraw(Canvas canvas, Paint paint) {
+    }
 
     public void action(){}
 

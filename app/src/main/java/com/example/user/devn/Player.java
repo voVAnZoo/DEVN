@@ -11,29 +11,24 @@ import android.view.View;
 
 public class Player extends Entity{
 
-    public void setMx(int x) {
-        this.mx = x;
+    public Player(float mx, float my, int width, int height) {
+        super(mx, my, width, height);
     }
-
-    public void setMy(int y) {
-        this.my = y;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-
 
     @Override
     public void onDraw(Canvas canvas, Paint paint) {
         paint.setColor(Color.BLACK);
-        canvas.drawRect((int)mx, (int)my, width, height, paint);
+        canvas.drawRect((int)mx, (int)my,(int) width,(int)height, paint);
         //invalidate();
+    }
+
+
+    public void go(float x, float y){
+        addMx(x);
+        addWidth(x);
+        addMy(y);
+        addHeight(y);
+
     }
 
     @Override
