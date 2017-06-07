@@ -21,14 +21,14 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        player = (Player)findViewById(R.id.player);
         entity.add(player);
         Timer t = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
                 for(int i = 0;i < entity.size();i++){
-                    Entity a = (Entity) entity.get(i);
+                    Entity e = (Entity) entity.get(i);
+                    e.action();
                 }
             }
         };

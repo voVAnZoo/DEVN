@@ -19,19 +19,6 @@ public class Player extends Entity{
     boolean isgo = false;
     //>
 
-    Paint paint = new Paint();
-
-    public Player(Context context) {
-        super(context);
-    }
-
-    public Player(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public Player(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
 
     public void setMx(int x) {
         this.mx = x;
@@ -66,10 +53,10 @@ public class Player extends Entity{
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    public void onDraw(Canvas canvas, Paint paint) {
         paint.setColor(Color.BLACK);
         canvas.drawRect((int)mx, (int)my, width, height, paint);
-        invalidate();
+        //invalidate();
     }
 
     @Override
