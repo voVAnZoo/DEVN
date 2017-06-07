@@ -56,7 +56,7 @@ public class TouchControl implements
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        if (Math.abs(e2.getX() - e1.getX()) > Math.abs(e2.getY() - e1.getY())) {
+        /*if (Math.abs(e2.getX() - e1.getX()) > Math.abs(e2.getY() - e1.getY())) {
             if (e2.getX() - e1.getX() > 0) {
                 GameActivity.player.addMx(10);
                 GameActivity.player.addWidth(10);
@@ -72,7 +72,7 @@ public class TouchControl implements
                 GameActivity.player.addMy(-10);
                 GameActivity.player.addHeight(-10);
             }
-        }
+        }*/
         return false;
     }
 }

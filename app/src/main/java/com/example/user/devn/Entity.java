@@ -18,12 +18,60 @@ public class Entity {
     int width = 200;
     int height = 200;
 
-    public void onDraw(Canvas canvas, Paint paint){
+    public Entity(){
 
     }
 
-    public void action(){
-
+    public float getMx() {
+        return mx;
     }
+
+    public void setMx(float mx) {
+        this.mx = mx;
+    }
+
+    public float getMy() {
+        return my;
+    }
+
+    public void setMy(float my) {
+        this.my = my;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void addMx(int dx){
+        mx += dx;
+    }
+
+    public void addMy(int dy){
+        my += dy;
+    }
+
+    public void addWidth(int dWidth){
+        width += dWidth;
+    }
+
+    public void addHeight(int dHeight){
+        height += dHeight;
+    }
+
+    void onDraw(Canvas canvas, Paint paint) {}
+
+    public void action(){}
 
 }
