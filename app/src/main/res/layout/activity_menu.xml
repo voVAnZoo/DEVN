@@ -40,10 +40,10 @@
         android:backgroundTint="@android:color/holo_orange_light"
         android:text="CONTINUE"
         android:visibility="visible"
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/settingButton"
-        android:layout_toStartOf="@+id/settingButton"
-        android:layout_marginRight="11dp"
-        android:layout_marginEnd="11dp" />
+        android:layout_toStartOf="@+id/settingButton" />
 
 </RelativeLayout>
