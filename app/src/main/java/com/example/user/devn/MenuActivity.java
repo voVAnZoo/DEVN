@@ -9,7 +9,7 @@ import android.widget.Button;
 public class MenuActivity extends AppCompatActivity {
 
     static Intent game;
-    static Intent list;
+    static Intent sett;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +17,6 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         game = new Intent(this, GameActivity.class);
-        list = new Intent(this,OpenMapActivity.class);
         Button bStart = (Button) findViewById(R.id.start);
 
         bStart.setOnClickListener(new View.OnClickListener() {
@@ -27,12 +26,17 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        Button bContin = (Button) findViewById(R.id.continueButton);
-        bContin.setOnClickListener(new View.OnClickListener() {
+        sett = new Intent(this, SettingActivity.class);
+        Button button = (Button) findViewById(R.id.settingButton);
+
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(list);
+                startActivity(sett);
             }
         });
+
     }
 }
+
+
