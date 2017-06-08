@@ -7,9 +7,13 @@
     tools:context="com.example.user.devn.GameActivity">
 
     <com.example.user.devn.GameMap
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
         android:id="@+id/player"
-         />
+        android:layout_width="368dp"
+        android:layout_height="551dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:background="@android:color/background_light" />
 
 </android.support.constraint.ConstraintLayout>

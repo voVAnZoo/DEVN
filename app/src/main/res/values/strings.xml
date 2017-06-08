@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Devn</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>
