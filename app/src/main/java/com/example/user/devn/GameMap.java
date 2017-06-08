@@ -96,8 +96,6 @@ public class GameMap extends View {
                 out.write(maparr[i][j]);
             }
         }
-
-        File[] files = filesDir.listFiles();
     }
 
     public void open (String name){
