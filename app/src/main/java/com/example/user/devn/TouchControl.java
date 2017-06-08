@@ -22,8 +22,8 @@ public class TouchControl implements OnTouchListener{
                     y = event.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                Data.camX += event.getX() - x;
-                Data.camY += event.getY() - y;
+                Data.camX -= event.getX() - x;
+                Data.camY -= event.getY() - y;
                 x = event.getX();
                 y = event.getY();
                 break;

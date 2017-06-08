@@ -44,6 +44,7 @@ public class Turtle{
                 return 1;
         }
     }
+
     private int choiceStepLength(int direct){
         int max = 0;
         switch (direct) {
@@ -61,33 +62,43 @@ public class Turtle{
                 break;
         }
         Random rand = new Random();
-        if (rand.nextBoolean())
+        if (rand.nextBoolean()) {
             return rand.nextInt(max + 1);
-        else
+        }else {
             return rand.nextInt(max / 2 + 1);
+        }
     }
+
     private void rightStep(int length){
-        for (int i = 0; i < height; i++)
-            for (int j = 0; j < length + width; j++)
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < length + width; j++) {
                 gameMap.maparr[y + i][x + j] = 0;
+            }
+        }
         x = x + length;
     }
     private void leftStep(int length){
-        for (int i = 0; i < height; i++)
-            for (int j = 0; j < length + 1; j++)
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < length + 1; j++) {
                 gameMap.maparr[y + i][x - j] = 0;
+            }
+        }
         x = x - length;
     }
     private void topStep(int length){
-        for (int i = 0; i < width; i++)
-            for (int j = 0; j < length + 1; j++)
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < length + 1; j++) {
                 gameMap.maparr[y - j][x + i] = 0;
+            }
+        }
         y = y - length;
     }
     private void bottomStep(int length){
-        for (int i = 0; i < width; i++)
-            for (int j = 0; j < length + height; j++)
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < length + height; j++) {
                 gameMap.maparr[y + j][x + i] = 0;
+            }
+        }
         y = y + length;
     }
     public void nextStep(){
@@ -115,14 +126,18 @@ public class Turtle{
                 break;
         }
     }
+
+
     public void finish(int finishX, int finishY) {
-        if (finishX > x)
+        if (finishX > x) {
             rightStep(finishX - x);
-        else
+        }else {
             leftStep(x - finishX);
-        if (finishY > y)
+        }
+        if (finishY > y) {
             bottomStep(finishY - y);
-        else
+        }else {
             topStep(y - finishY);
+        }
     }
 }

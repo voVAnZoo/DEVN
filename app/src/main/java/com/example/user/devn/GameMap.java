@@ -10,11 +10,13 @@ import android.view.View;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -47,7 +49,7 @@ public class GameMap extends View {
 
     public void init(){
 
-        player = new Player(10,10,200,200);
+        player = new Player(10,10,200,200,getContext());
 
         Timer t = new Timer();
         TimerTask timerTask = new TimerTask() {
@@ -78,9 +80,11 @@ public class GameMap extends View {
     public void clear(int a) {
         int i;
         int j;
-        for (i = 0; i < Data.mapHeight; i++)
-            for (j = 0; j < Data.mapWidth; j++)
+        for (i = 0; i < Data.mapHeight; i++) {
+            for (j = 0; j < Data.mapWidth; j++) {
                 maparr[i][j] = a;
+            }
+        }
     }
 
     public void generate() {
@@ -101,12 +105,16 @@ public class GameMap extends View {
         }
         turtle.finish(finishX, finishY);
         int j;
-        for (i = startY; i < startY + Data.startHeight; i++)
-            for (j = startX; j < startX + Data.startWidth; j++)
+        for (i = startY; i < startY + Data.startHeight; i++) {
+            for (j = startX; j < startX + Data.startWidth; j++) {
                 maparr[i][j] = 2;
-        for (i = finishY; i < finishY + Data.finishHeight; i++)
-            for (j = finishX; j < finishX + Data.finishWidth; j++)
+            }
+        }
+        for (i = finishY; i < finishY + Data.finishHeight; i++) {
+            for (j = finishX; j < finishX + Data.finishWidth; j++) {
                 maparr[i][j] = 3;
+            }
+        }
     }
 
     @Override
@@ -137,7 +145,6 @@ public class GameMap extends View {
             imageY += Data.cdellHeight;
         }
 
-
         for(int i = 0;i < entitys.size();i++){
             Entity e = entitys.get(i);
             e.onDraw(canvas,paint);
@@ -148,19 +155,31 @@ public class GameMap extends View {
     public void save(String name) throws IOException {
         File filesDir = getContext().getFilesDir();
         File mapFile = new File(filesDir, name + ".devn");
-        OutputStream out = new FileOutputStream(mapFile);
+        FileWriter out = new FileWriter(mapFile.getPath());
 
-        out.write(Data.mapWidth);
-        out.write(Data.mapHeight);
+        Data.save(out);
+        out.write("\n");
 
         for(int i = 0; i < Data.mapWidth;i++ ){
             for(int j = 0;j < Data.mapHeight;j++){
-                out.write(maparr[i][j]);
+                out.write(Integer.toString(maparr[i][j]) + " ");
             }
+            out.write("\n");
+        }
+
+        out.write(Integer.toString(entitys.size()) + "\n");
+
+        for(int i = 0;i < entitys.size();i++){
+            entitys.get(i).save(out);
+            out.write("\n");
         }
     }
 
-    public void open (String name){
+    public void open (String name) throws IOException{
+        File filesDir = getContext().getFilesDir();
+        File mapFile = new File(filesDir, name + ".devn");
+        Scanner in = new Scanner(mapFile);
 
+        Data.open(in.nextLine());
     }
 }
