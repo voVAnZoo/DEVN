@@ -21,5 +21,12 @@ public class GameActivity extends AppCompatActivity {
         View rootView = findViewById(android.R.id.content);
         rootView.setOnTouchListener(new TouchControl());
 
+        String name  = this.getIntent().getStringExtra("continue");
+        GameMap gm = (GameMap) findViewById(R.id.player);
+        if(name != null) {
+            gm.open(name);
+        }else {
+            gm.generate();
+        }
     }
 }

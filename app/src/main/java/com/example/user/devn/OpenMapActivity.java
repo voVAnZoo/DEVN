@@ -16,27 +16,25 @@ import java.util.List;
 
 public class OpenMapActivity extends AppCompatActivity {
 
-    static Intent game;
     static int idpos = -1;
-    static List<String> names;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_map);
 
-        game = new Intent(this, GameActivity.class);
+        final Intent game = new Intent(this, GameActivity.class);
 
         View rootView = findViewById(android.R.id.content);
         final File filesDir = rootView.getContext().getFilesDir();
-
         File[] files = filesDir.listFiles();
 
         final ListView lvMain = (ListView) findViewById(R.id.lvMain);
-        names = new ArrayList<String>();
+        final List<String> names = new ArrayList<String>();
+
         for (File f: files){
             names.add(f.getName().replaceAll(".devn",""));
         }
+
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, names);
 
