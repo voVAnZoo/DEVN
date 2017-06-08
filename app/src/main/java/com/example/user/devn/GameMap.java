@@ -4,10 +4,18 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.v4.os.EnvironmentCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -23,7 +31,7 @@ public class GameMap extends View {
 
     public List<Entity> entitys = new ArrayList<>();
 
-    public static Player player = new Player(10,10,200,200);
+    public static Player player;
 
 
     public GameMap(Context context) {
@@ -42,6 +50,8 @@ public class GameMap extends View {
     }
 
     public void init(){
+
+        player = new Player(10,10,200,200);
 
         Timer t = new Timer();
         TimerTask timerTask = new TimerTask() {
@@ -70,5 +80,24 @@ public class GameMap extends View {
             e.onDraw(canvas,paint);
         }
         invalidate();
+    }
+
+    public void seve(String name) throws IOException {
+        File filesDir = getContext().getFilesDir();
+        File mapFile = new File(filesDir, name + ".devn");
+        OutputStream out = new FileOutputStream(mapFile);
+
+        out.write(Data.mapWidth);
+        out.write(Data.mapHeight);
+
+        for(int i = 0; i < Data.mapWidth;i++ ){
+            for(int j = 0;j < Data.mapHeight;j++){
+                out.write(maparr[i][j]);
+            }
+        }
+
+
+
+        File[] files = filesDir.listFiles();
     }
 }

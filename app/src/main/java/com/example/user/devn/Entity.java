@@ -18,11 +18,14 @@ public class Entity {
     float width;
     float height;
 
+    float hp;//не больше 100
+
     public Entity(float mx, float my, float width, float height) {
         this.mx = mx;
         this.my = my;
         this.width = width;
         this.height = height;
+        hp = 100;
     }
 
     public float getMx() {

@@ -1,6 +1,5 @@
 package com.example.user.devn;
 
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -23,7 +22,8 @@ public class TouchControl implements OnTouchListener{
                     y = event.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                GameMap.player.go(event.getX() - x,event.getY() - y);
+                Data.camX += event.getX() - x;
+                Data.camY += event.getY() - y;
                 x = event.getX();
                 y = event.getY();
                 break;

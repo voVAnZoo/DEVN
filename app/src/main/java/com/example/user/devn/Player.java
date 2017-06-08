@@ -18,7 +18,7 @@ public class Player extends Entity{
     @Override
     public void onDraw(Canvas canvas, Paint paint) {
         paint.setColor(Color.BLACK);
-        canvas.drawRect((int)mx, (int)my,(int) width,(int)height, paint);
+        canvas.drawRect((int)mx - Data.camX, (int)my - Data.camY,(int) width - Data.camX,(int)height - Data.camY, paint);
         //invalidate();
     }
 
