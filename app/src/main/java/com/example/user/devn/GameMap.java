@@ -1,26 +1,20 @@
 package com.example.user.devn;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.os.Environment;
 import android.support.annotation.Nullable;
-import android.support.v4.os.EnvironmentCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Vector;
 
 /**
  * Created by user on 6/6/17.
@@ -66,6 +60,13 @@ public class GameMap extends View {
         t.schedule(timerTask,0,100);
 
         entitys.add(player);
+        /*try {
+            save("test");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+
     }
 
     public void addEntity(Entity e){
@@ -82,7 +83,7 @@ public class GameMap extends View {
         invalidate();
     }
 
-    public void seve(String name) throws IOException {
+    public void save(String name) throws IOException {
         File filesDir = getContext().getFilesDir();
         File mapFile = new File(filesDir, name + ".devn");
         OutputStream out = new FileOutputStream(mapFile);
@@ -96,8 +97,10 @@ public class GameMap extends View {
             }
         }
 
-
-
         File[] files = filesDir.listFiles();
+    }
+
+    public void open (String name){
+
     }
 }
