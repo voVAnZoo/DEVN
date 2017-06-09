@@ -1,10 +1,12 @@
 package com.example.user.devn;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 
 import java.io.IOException;
 import java.util.Timer;
@@ -33,5 +35,11 @@ public class GameActivity extends AppCompatActivity {
         }else {
             gm.generate();
         }
+
+        Button aa = (Button) findViewById(R.id.pause);
+
+        int argb = Color.argb(0,0,0,0);
+
+        aa.setBackgroundColor(argb);
     }
 }
