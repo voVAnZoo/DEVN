@@ -57,7 +57,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        he.setSpeedY(Float.parseFloat("-5"));
+                        he.setSpeedY(Float.parseFloat("-10"));
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
@@ -78,7 +78,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        he.setSpeedY(Float.parseFloat("5"));
+                        he.setSpeedY(Float.parseFloat("10"));
                         System.out.println("dfdf");
                         break;
                     case MotionEvent.ACTION_MOVE:
@@ -100,7 +100,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        he.setSpeedX(Float.parseFloat("-5"));
+                        he.setSpeedX(Float.parseFloat("-10"));
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
@@ -121,7 +121,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        he.setSpeedX(Float.parseFloat("5"));
+                        he.setSpeedX(Float.parseFloat("10"));
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
