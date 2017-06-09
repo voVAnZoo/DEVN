@@ -1,6 +1,7 @@
 package com.example.user.devn;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -30,7 +31,6 @@ public class GameMap extends View {
     public List<Entity> entitys = new ArrayList<>();
 
     public static Player player;
-
 
     public GameMap(Context context) {
         super(context);
@@ -162,7 +162,7 @@ public class GameMap extends View {
 
         for(int i = 0; i < Data.mapWidth;i++ ){
             for(int j = 0;j < Data.mapHeight;j++){
-                out.write(Integer.toString(maparr[i][j]) + " ");
+                out.write(Integer.toString(maparr[j][i]) + " ");
             }
             out.write("\n");
         }
@@ -181,5 +181,45 @@ public class GameMap extends View {
         Scanner in = new Scanner(mapFile);
 
         Data.open(in.nextLine());
+
+        String s;
+
+        for(int i = 0; i < Data.mapWidth;i++ ){
+            s = in.nextLine();
+            for(int j = 0;j < Data.mapHeight;j++){
+                maparr[j][i] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+                s = s.substring(s.indexOf(" ") + 1);
+            }
+        }
+
+        s = in.nextLine();
+
+        for(int i = 0;i < Integer.parseInt(s);i++){
+            s = in.nextLine();
+            char a = s.toCharArray()[0];
+            s.substring(s.indexOf(" ") + 1);
+            switch (a){
+                case 'p':
+                    int k[] = new int[8];
+                    k[0] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+                    s.substring(s.indexOf(" ") + 1);
+                    k[1] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+                    s.substring(s.indexOf(" ") + 1);
+                    k[2] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+                    s.substring(s.indexOf(" ") + 1);
+                    k[3] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+                    s.substring(s.indexOf(" ") + 1);
+                    k[4] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+                    s.substring(s.indexOf(" ") + 1);
+                    k[5] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+                    s.substring(s.indexOf(" ") + 1);
+                    k[6] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+                    s.substring(s.indexOf(" ") + 1);
+                    k[7] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+                    entitys.add(new Player(k[0], k[1], k[2], k[3], k[4], k[5], k[6], k[7], getContext()));
+                    s = in.nextLine();
+                    break;
+            }
+        }
     }
 }

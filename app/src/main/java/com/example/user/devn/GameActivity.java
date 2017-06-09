@@ -6,6 +6,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
@@ -24,7 +25,11 @@ public class GameActivity extends AppCompatActivity {
         String name  = this.getIntent().getStringExtra("continue");
         GameMap gm = (GameMap) findViewById(R.id.player);
         if(name != null) {
-            gm.open(name);
+            try {
+                gm.open(name);
+            }catch (IOException e){
+
+            }
         }else {
             gm.generate();
         }
