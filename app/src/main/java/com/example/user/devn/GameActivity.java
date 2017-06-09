@@ -37,8 +37,12 @@ public class GameActivity extends AppCompatActivity {
         }
 
         Button aa = (Button) findViewById(R.id.pause);
-        int argb = Color.argb(0,0,0,0);
-        aa.setBackgroundColor(argb);
+        aa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("dfdf");
+            }
+        });
 
         Button up = (Button) findViewById(R.id.up);
         Button down = (Button) findViewById(R.id.down);
@@ -53,7 +57,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        he.setSpeedY(Float.parseFloat("-0.1"));
+                        he.setSpeedY(Float.parseFloat("-5"));
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
@@ -74,7 +78,8 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        he.setSpeedY(Float.parseFloat("0.1"));
+                        he.setSpeedY(Float.parseFloat("5"));
+                        System.out.println("dfdf");
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
@@ -95,7 +100,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        he.setSpeedX(Float.parseFloat("-0.1"));
+                        he.setSpeedX(Float.parseFloat("-5"));
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
@@ -116,7 +121,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        he.setSpeedX(Float.parseFloat("-0.1"));
+                        he.setSpeedX(Float.parseFloat("5"));
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
@@ -138,6 +143,7 @@ public class GameActivity extends AppCompatActivity {
 
             }
         });
+
     }
 }
 

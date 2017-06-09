@@ -64,6 +64,7 @@ public class GameMap extends View {
                 for(int i = 0 ;i < entitys.size(); i++){
                     Entity e = entitys.get(i);
                     e.action();
+                    System.out.println("sdfsdf");
                 }
             }
         };

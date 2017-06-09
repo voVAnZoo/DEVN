@@ -74,7 +74,7 @@ public class Player extends Entity{
 
     @Override
     public void action() {
-        if((speedX != 0)&&(speedY != 0)) {
+        if((speedX != 0)||(speedY != 0)) {
 
             addMx(speedX);
             addMy(speedY);
