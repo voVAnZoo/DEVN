@@ -24,22 +24,17 @@ public class GameActivity extends AppCompatActivity {
         View rootView = findViewById(android.R.id.content);
         rootView.setOnTouchListener(new TouchControl());
 
-        String name  = this.getIntent().getStringExtra("continue");
+        String name = this.getIntent().getStringExtra("continue");
         GameMap gm = (GameMap) findViewById(R.id.player);
-        if(name != null) {
+        if (name != null) {
             try {
                 gm.open(name);
-            }catch (IOException e){
+            } catch (IOException e) {
 
             }
-        }else {
+        } else {
             gm.generate();
         }
-
-        Button aa = (Button) findViewById(R.id.pause);
-
-        int argb = Color.argb(0,0,0,0);
-
-        aa.setBackgroundColor(argb);
     }
 }
+
