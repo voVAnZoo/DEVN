@@ -139,7 +139,9 @@ public class GameMap extends View {
                         paint.setColor(Color.RED);
                         break;
                 }
-                canvas.drawRect(imageX, imageY, imageX + Data.cdellWidth, imageY + Data.cdellHeight, paint);
+                canvas.drawRect(imageX - Data.camX, imageY - Data.camY,
+                        imageX + Data.cdellWidth - Data.camX, imageY + Data.cdellHeight - Data.camY,
+                        paint);
                 imageX += Data.cdellHeight;
             }
             imageY += Data.cdellHeight;
