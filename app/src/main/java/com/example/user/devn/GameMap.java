@@ -25,6 +25,12 @@ import java.util.TimerTask;
  */
 
 public class GameMap extends View {
+    /*
+    0 - nothing
+    1 -wall
+    2 - start
+    3 - finish
+     */
     public int maparr[][];
 
     public List<Entity> entitys = new ArrayList<>();
@@ -49,13 +55,13 @@ public class GameMap extends View {
 
     public void init(){
 
-        player = new Player(10,10,200,200,getContext());
+        player = new Player(10,10,50,50,getContext());
 
         Timer t = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                for(int i = 0;i < entitys.size();i++){
+                for(int i = 0 ;i < entitys.size(); i++){
                     Entity e = entitys.get(i);
                     e.action();
                 }
@@ -69,8 +75,6 @@ public class GameMap extends View {
         } catch (IOException e) {
             e.printStackTrace();
         }*/
-
-
     }
 
     public void addEntity(Entity e){
@@ -99,7 +103,7 @@ public class GameMap extends View {
         turtle.setX(startX);
         turtle.setY(startY);
         int i = 0;
-        while (((turtle.getX() != finishX) || (turtle.getY() != finishY)) && i < 100) {
+       while (((turtle.getX() != finishX) || (turtle.getY() != finishY)) && i < 100) {
             turtle.nextStep();
             i++;
         }
@@ -115,15 +119,27 @@ public class GameMap extends View {
                 maparr[i][j] = 3;
             }
         }
+        generateMonsters();
+    }
+    public void generateMonsters(){
+        Random rand = new Random();
+        Monster monster;
+        for (int y = 0; y < Data.mapHeight; y++)
+            for (int x = 0; x < Data.mapWidth; x++)
+                if (maparr[y][x] == 0)
+                    if (rand.nextInt(10) == 1) {
+                        monster = new Monster(x * Data.cdellWidth, y * Data.cdellHeight, Data.cdellWidth / 10 * 8, Data.cdellHeight / 10 * 8, getContext());
+                        entitys.add(monster);
+                    }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         Paint paint = new Paint();
-        int imageX = 0;
-        int imageY = 0;
+        int imageX = -Data.camX;
+        int imageY = -Data.camY;
         for (int i = 0; i < Data.mapHeight; i++) {
-            imageX = 0;
+            imageX = -Data.camX;
             for (int j = 0; j < Data.mapWidth; j++) {
                 switch (maparr[i][j]) {
                     case 0:

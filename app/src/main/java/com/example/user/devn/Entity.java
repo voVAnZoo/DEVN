@@ -19,6 +19,8 @@ public class Entity {
     float height;
     int level;
     float hp;//не больше 100
+    float speedX = 0.1f;
+    float speedY = 0.1f;
 
     public Entity(float mx, float my, float width, float height, Context context) {
         this.mx = mx;
@@ -62,9 +64,7 @@ public class Entity {
         return hp;
     }
 
-    public void setMx(float mx) {
-        this.mx = mx;
-    }
+    public void setMx(float mx) {this.mx = mx;}
 
     public void setMy(float my) {
         this.my = my;
@@ -86,9 +86,7 @@ public class Entity {
         this.hp = hp;
     }
 
-    public void addMx(float dx){
-        mx += dx;
-    }
+    public void addMx(float dx) { mx += dx; }
 
     public void addMy(float dy){
         my += dy;

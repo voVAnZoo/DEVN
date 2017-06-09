@@ -51,8 +51,8 @@ public class Player extends Entity{
 
     @Override
     public void onDraw(Canvas canvas, Paint paint) {
-        paint.setColor(Color.BLACK);
-        canvas.drawRect((int)mx - Data.camX, (int)my - Data.camY,(int) width - Data.camX,(int)height - Data.camY, paint);
+        paint.setColor(Color.YELLOW);
+        canvas.drawRect((int)mx - Data.camX, (int)my - Data.camY,(int) width  + (int) mx - Data.camX,(int)height + (int)my - Data.camY, paint);
     }
 
     @Override
@@ -67,11 +67,9 @@ public class Player extends Entity{
         }
     }
 
-    public void go(float x, float y){
-        addMx(x);
-        addWidth(x);
-        addMy(y);
-        addHeight(y);
+    public void go(){
+        addMx(speedX);
+        addMy(speedY);
     }
 
     @Override
