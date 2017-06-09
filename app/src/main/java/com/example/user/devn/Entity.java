@@ -77,7 +77,6 @@ public class Entity {
     public void setHeight(int height) {
         this.height = height;
     }
-
     public void setLevel(int level) {
         this.level = level;
     }
@@ -92,17 +91,13 @@ public class Entity {
         my += dy;
     }
 
-    public void addWidth(float dWidth){
-        width += dWidth;
-    }
+    public void addWidth(float dWidth){ width += dWidth; }
 
     public void addHeight(float dHeight){
         height += dHeight;
     }
 
-    public void addLevel(int dLevel){
-        level += dLevel;
-    }
+    public void addLevel(int dLevel){level += dLevel;}
 
     public void addHp(float dHp){
         hp += dHp;
