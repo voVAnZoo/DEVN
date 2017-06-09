@@ -25,7 +25,7 @@ public class GameActivity extends AppCompatActivity {
         rootView.setOnTouchListener(new TouchControl());
 
         String name  = this.getIntent().getStringExtra("continue");
-        GameMap gm = (GameMap) findViewById(R.id.player);
+        final GameMap gm = (GameMap) findViewById(R.id.player);
         if(name != null) {
             try {
                 gm.open(name);
@@ -37,9 +37,106 @@ public class GameActivity extends AppCompatActivity {
         }
 
         Button aa = (Button) findViewById(R.id.pause);
-
         int argb = Color.argb(0,0,0,0);
-
         aa.setBackgroundColor(argb);
+
+        Button up = (Button) findViewById(R.id.up);
+        Button down = (Button) findViewById(R.id.down);
+        Button left = (Button) findViewById(R.id.left);
+        Button right = (Button) findViewById(R.id.right);
+        Button search = (Button) findViewById(R.id.search);
+
+        final Player he = (Player) gm.entitys.get(0);
+
+        up.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        he.setSpeedY(Float.parseFloat("-0.1"));
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        he.setSpeedY(Float.parseFloat("0"));
+                        he.setSpeedX(Float.parseFloat("0"));
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                        break;
+                }
+
+                return true;
+            }
+        });
+
+        down.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        he.setSpeedY(Float.parseFloat("0.1"));
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        he.setSpeedY(Float.parseFloat("0"));
+                        he.setSpeedX(Float.parseFloat("0"));
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                        break;
+                }
+
+                return true;
+            }
+        });
+
+        left.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        he.setSpeedX(Float.parseFloat("-0.1"));
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        he.setSpeedY(Float.parseFloat("0"));
+                        he.setSpeedX(Float.parseFloat("0"));
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                        break;
+                }
+
+                return true;
+            }
+        });
+
+        right.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        he.setSpeedX(Float.parseFloat("-0.1"));
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        he.setSpeedY(Float.parseFloat("0"));
+                        he.setSpeedX(Float.parseFloat("0"));
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                        break;
+                }
+
+                return true;
+            }
+        });
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 }

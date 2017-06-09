@@ -49,7 +49,7 @@ public class GameMap extends View {
 
     public void init(){
 
-        player = new Player(10,10,200,200,getContext());
+        player = new Player(10,10,40,40,getContext());
 
         Timer t = new Timer();
         TimerTask timerTask = new TimerTask() {
@@ -64,12 +64,6 @@ public class GameMap extends View {
         t.schedule(timerTask,0,100);
 
         entitys.add(player);
-        /*try {
-            save("test");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
 
     }
 
