@@ -29,10 +29,10 @@ public class GameActivity extends AppCompatActivity {
         if(name != null) {
             try {
                 gm.open(name);
-            }catch (IOException e){
+            } catch (IOException e) {
 
             }
-        }else {
+        } else {
             gm.generate();
         }
 
@@ -140,3 +140,4 @@ public class GameActivity extends AppCompatActivity {
         });
     }
 }
+

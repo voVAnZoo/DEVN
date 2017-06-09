@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context="com.example.user.devn.GameActivity">
 
     <com.example.user.devn.GameMap
@@ -17,10 +18,9 @@
         android:id="@+id/pause"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:text="||"
+        android:background="@android:drawable/ic_media_pause"
+        android:backgroundTint="@android:color/holo_orange_light"
         android:visibility="visible"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -29,24 +29,51 @@
 
 
     <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/up"/>
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/down"/>
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/left"/>
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/right"/>
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/search"/>
+        android:id="@+id/up"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_above="@+id/left"
+        android:layout_toEndOf="@+id/left"
+        android:layout_toRightOf="@+id/left"
+        android:background="@android:drawable/arrow_up_float"
+        android:backgroundTint="@android:color/holo_orange_light" />
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/down"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignLeft="@+id/search"
+        android:layout_alignStart="@+id/search"
+        android:layout_below="@+id/left"
+        android:background="@android:drawable/arrow_down_float"
+        android:backgroundTint="@android:color/holo_orange_light" />
+
+    <Button
+        android:id="@+id/left"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignBottom="@+id/search"
+        android:layout_toLeftOf="@+id/down" />
+
+    <Button
+        android:id="@+id/right"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/up"
+        android:layout_toEndOf="@+id/up"
+        android:layout_toRightOf="@+id/up" />
+
+    <Button
+        android:id="@+id/search"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="67dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@+id/pause"
+        android:layout_toRightOf="@+id/pause"
+        android:background="@android:drawable/ic_menu_search"
+        android:backgroundTint="@android:color/holo_orange_light" />
+
+</RelativeLayout>
