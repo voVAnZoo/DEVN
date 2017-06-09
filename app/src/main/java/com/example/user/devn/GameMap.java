@@ -132,10 +132,10 @@ public class GameMap extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         Paint paint = new Paint();
-        int imageX = -Data.camX;
-        int imageY = -Data.camY;
+        int imageX = 0;
+        int imageY = 0;
         for (int i = 0; i < Data.mapHeight; i++) {
-            imageX = -Data.camX;
+            imageX = 0;
             for (int j = 0; j < Data.mapWidth; j++) {
                 switch (maparr[i][j]) {
                     case 0:
