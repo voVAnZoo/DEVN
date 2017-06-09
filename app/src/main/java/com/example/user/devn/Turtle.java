@@ -107,10 +107,10 @@ public class Turtle{
         System.out.println(x);
         System.out.println(length);
         Random rand = new Random();
-        if (x < Data.mapWidth - 5)
-            width = 1;
-       // if (y < Data.mapHeight - 5)
-           // height = rand.nextInt(4) + 2;
+        if(x < Data.mapWidth - 10)
+           width = rand.nextInt(2) + 2;
+        if (y < Data.mapHeight - 10)
+           height = rand.nextInt(2) + 2;
         switch (direct){
             case 1:
                 rightStep(length);

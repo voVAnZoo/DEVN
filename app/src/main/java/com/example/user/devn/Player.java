@@ -67,11 +67,9 @@ public class Player extends Entity{
         }
     }
 
-    public void go(float x, float y){
-        addMx(x);
-        addWidth(x);
-        addMy(y);
-        addHeight(y);
+    public void go(){
+        addMx(speedX);
+        addMy(speedY);
     }
 
     @Override

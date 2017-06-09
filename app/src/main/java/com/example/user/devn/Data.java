@@ -8,8 +8,8 @@ import java.io.IOException;
  */
 
 public class Data {
-    public static int mapWidth = 100;
-    public static int mapHeight = 100;
+    public static int mapWidth = 50;
+    public static int mapHeight = 50;
 
     public static int cdellWidth = 50;
     public static int cdellHeight = 50;
