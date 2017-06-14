@@ -58,13 +58,15 @@ public class Player extends Entity{
                 mx = Data.mapWidth*Data.cdellWidth - width;
             }else{
                 if(dx < 0 ){
-                    if(Data.maparr[(int) my/Data.cdellHeight][(int) (mx + dx)/Data.cdellWidth] == 1){
+                    if((Data.maparr[(int) my/Data.cdellHeight][(int) (mx + dx)/Data.cdellWidth] == 1)||(
+                            Data.maparr[(int) (my + height - 1)/Data.cdellHeight][(int) (mx + dx)/Data.cdellWidth] == 1)){
                         mx -= (mx % Data.cdellWidth);
                     }else{
                         mx += dx;
                     }
                 }else{
-                    if (Data.maparr[(int) my/Data.cdellHeight][(int) (mx + dx + width)/Data.cdellWidth] == 1){
+                    if ((Data.maparr[(int) my/Data.cdellHeight][(int) (mx + dx + width)/Data.cdellWidth] == 1)||(
+                            Data.maparr[(int) (my + height - 1)/Data.cdellHeight][(int) (mx + dx + width)/Data.cdellWidth] == 1)){
                        mx = mx - (mx % Data.cdellWidth) + Data.cdellWidth - width;
                     }else{
                         mx += dx;
@@ -93,13 +95,15 @@ public class Player extends Entity{
                 my = Data.mapHeight*Data.cdellHeight - height;
             }else{
                 if(dy < 0 ){
-                    if(Data.maparr[(int) (my + dy)/Data.cdellHeight][(int) mx/Data.cdellWidth] == 1){
+                    if((Data.maparr[(int) (my + dy)/Data.cdellHeight][(int) mx/Data.cdellWidth] == 1)||(
+                            Data.maparr[(int) (my + dy)/Data.cdellHeight][(int) (mx + width - 1)/Data.cdellWidth] == 1)){
                         my -= (my % Data.cdellHeight);
                     }else{
                         my += dy;
                     }
                 }else{
-                    if (Data.maparr[(int) (my + dy + height)/Data.cdellHeight][(int) mx/Data.cdellWidth] == 1){
+                    if ((Data.maparr[(int) (my + dy + height)/Data.cdellHeight][(int) mx/Data.cdellWidth] == 1)||(
+                            Data.maparr[(int) (my + dy + height)/Data.cdellHeight][(int) (mx + width - 1)/Data.cdellWidth] == 1)){
                         my = my - (my % Data.cdellHeight) + Data.cdellHeight - height;
                     }else {
                         my += dy;

@@ -87,9 +87,27 @@ public class GameMap extends View {
         int finishX = rand.nextInt(Data.mapWidth - Data.finishHeight + 1);
         int finishY = rand.nextInt(Data.mapHeight - Data.finishWidth + 1);
         player = new Player(startX * Data.cdellWidth,startY * Data.cdellHeight,40,40,getContext());
+        
         entitys.add(player);
-        Data.camX = startX * Data.cdellWidth;
-        Data.camY = startY * Data.cdellHeight;
+        Data.camX = (int) (player.mx + player.width/2 - Data.sizeX/2);
+        Data.camY = (int) (player.my + player.height/2 - Data.sizeY/2);
+
+        if(Data.camX < 0 ){
+            Data.camX = 0;
+        }else {
+            if(Data.camX  > Data.mapWidth*Data.cdellWidth - Data.sizeX){
+                Data.camX = Data.mapWidth*Data.cdellWidth - Data.sizeX;
+            }
+        }
+
+        if(Data.camY < 0 ){
+            Data.camY = 0;
+        }else {
+            if(Data.camY > Data.mapHeight*Data.cdellHeight - Data.sizeY){
+                Data.camY = Data.mapHeight*Data.cdellHeight - Data.sizeY;
+            }
+        }
+        
         Turtle turtle = new Turtle(this);
         turtle.setX(startX);
         turtle.setY(startY);
