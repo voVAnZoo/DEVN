@@ -88,6 +88,7 @@ public class GameMap extends View {
 
     public void generate() {
         maparr = new int[Data.mapHeight][Data.mapWidth];
+        Data.maparr = this.maparr;
         clear(1);
         Random rand = new Random();
         int startX = rand.nextInt(Data.mapWidth - Data.startWidth + 1);
@@ -99,7 +100,7 @@ public class GameMap extends View {
             finishX = rand.nextInt(Data.mapWidth - Data.finishHeight + 1);
             finishY = rand.nextInt(Data.mapHeight - Data.finishWidth + 1);
             i++;
-        }while (finishX + finishY - startX - startY < Data.mapHeight + Data.mapWidth / 2 && i < 1000);
+        }while (finishX + finishY - startX - startY < (Data.mapHeight + Data.mapWidth) / 2 && i < 10000);
         Turtle turtle = new Turtle(this);
         turtle.setX(startX);
         turtle.setY(startY);
