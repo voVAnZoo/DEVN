@@ -131,7 +131,7 @@ public class GameMap extends View {
         for (int y = 0; y < Data.mapHeight; y++)
             for (int x = 0; x < Data.mapWidth; x++)
                 if (maparr[y][x] == 0)
-                    if (rand.nextInt(10) == 1) {
+                    if (rand.nextInt(30) == 1) {
                         monster = new Monster(x * Data.cdellWidth, y * Data.cdellHeight, Data.cdellWidth / 10 * 8, Data.cdellHeight / 10 * 8, getContext());
                         entitys.add(monster);
                     }
