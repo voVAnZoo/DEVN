@@ -1,7 +1,6 @@
 package com.example.user.devn;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,10 +9,8 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -36,7 +33,7 @@ public class GameMap extends View {
 
     public List<Entity> entitys = new ArrayList<>();
 
-    public static Player player;
+    public Player player;
 
     public GameMap(Context context) {
         super(context);
@@ -54,9 +51,6 @@ public class GameMap extends View {
     }
 
     public void init(){
-
-        player = new Player(10,10,40,40,getContext());
-
         Timer t = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
@@ -64,14 +58,10 @@ public class GameMap extends View {
                 for(int i = 0 ;i < entitys.size(); i++){
                     Entity e = entitys.get(i);
                     e.action();
-                    System.out.println("sdfsdf");
                 }
             }
         };
         t.schedule(timerTask,0,100);
-
-        entitys.add(player);
-
     }
 
     public void addEntity(Entity e){
@@ -96,11 +86,16 @@ public class GameMap extends View {
         int startY = rand.nextInt(Data.mapHeight - Data.startHeight + 1);
         int finishX = rand.nextInt(Data.mapWidth - Data.finishHeight + 1);
         int finishY = rand.nextInt(Data.mapHeight - Data.finishWidth + 1);
+        player = new Player(startX * Data.cdellWidth,startY * Data.cdellHeight,40,40,getContext());
+        entitys.add(player);
+        Data.camX = startX * Data.cdellWidth;
+        Data.camY = startY * Data.cdellHeight;
         Turtle turtle = new Turtle(this);
         turtle.setX(startX);
         turtle.setY(startY);
         int i = 0;
-       while (((turtle.getX() != finishX) || (turtle.getY() != finishY)) && i < 100) {
+
+        while (((turtle.getX() != finishX) || (turtle.getY() != finishY)) && i < 100) {
             turtle.nextStep();
             i++;
         }
@@ -116,7 +111,9 @@ public class GameMap extends View {
                 maparr[i][j] = 3;
             }
         }
+        Data.maparr = this.maparr;
         generateMonsters();
+
     }
     public void generateMonsters(){
         Random rand = new Random();

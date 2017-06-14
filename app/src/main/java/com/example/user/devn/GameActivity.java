@@ -78,14 +78,14 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        he.setSpeedY(Float.parseFloat("10"));
+                        he.setSpeedY(10);
                         System.out.println("dfdf");
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
                     case MotionEvent.ACTION_UP:
-                        he.setSpeedY(Float.parseFloat("0"));
-                        he.setSpeedX(Float.parseFloat("0"));
+                        he.setSpeedY(0);
+
                         break;
                     case MotionEvent.ACTION_CANCEL:
                         break;
@@ -100,13 +100,12 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        he.setSpeedX(Float.parseFloat("-10"));
+                        he.setSpeedX(-10);
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
                     case MotionEvent.ACTION_UP:
-                        he.setSpeedY(Float.parseFloat("0"));
-                        he.setSpeedX(Float.parseFloat("0"));
+                        he.setSpeedX(0);
                         break;
                     case MotionEvent.ACTION_CANCEL:
                         break;
@@ -121,13 +120,12 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        he.setSpeedX(Float.parseFloat("10"));
+                        he.setSpeedX(10);
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
                     case MotionEvent.ACTION_UP:
-                        he.setSpeedY(Float.parseFloat("0"));
-                        he.setSpeedX(Float.parseFloat("0"));
+                        he.setSpeedX(0);
                         break;
                     case MotionEvent.ACTION_CANCEL:
                         break;
@@ -140,7 +138,24 @@ public class GameActivity extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Data.camX = (int) (he.mx + he.width/2 - Data.sizeX/2);
+                Data.camY = (int) (he.my + he.height/2 - Data.sizeY/2);
 
+                if(Data.camX < 0 ){
+                    Data.camX = 0;
+                }else {
+                    if(Data.camX  > Data.mapWidth*Data.cdellWidth - Data.sizeX){
+                        Data.camX = Data.mapWidth*Data.cdellWidth - Data.sizeX;
+                    }
+                }
+
+                if(Data.camY < 0 ){
+                    Data.camY = 0;
+                }else {
+                    if(Data.camY > Data.mapHeight*Data.cdellHeight - Data.sizeY){
+                        Data.camY = Data.mapHeight*Data.cdellHeight - Data.sizeY;
+                    }
+                }
             }
         });
 

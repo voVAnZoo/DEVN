@@ -104,8 +104,7 @@ public class Turtle{
     public void nextStep(){
         int direct = randomDirect();
         int length = choiceStepLength(direct);
-        System.out.println(x);
-        System.out.println(length);
+
         Random rand = new Random();
         if(x < Data.mapWidth - 10)
            width = rand.nextInt(2) + 2;

@@ -25,6 +25,11 @@ public class Data {
     public static int sizeX = -1;
     public static int sizeY = -1;
 
+    /*
+    костылёк
+     */
+    public static int[][] maparr = null;
+
     public static void save(FileWriter out){
         try {
             out.write(Integer.toString(mapWidth) + " ");
@@ -70,4 +75,5 @@ public class Data {
         finishWidth = Integer.parseInt(s.substring(0, s.indexOf(" ")));
 
     }
+
 }
