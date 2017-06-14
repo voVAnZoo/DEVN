@@ -57,7 +57,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        he.setSpeedY(Float.parseFloat("-10"));
+                        he.setSpeedY(-20);
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
@@ -78,7 +78,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        he.setSpeedY(10);
+                        he.setSpeedY(20);
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
@@ -98,7 +98,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        he.setSpeedX(-10);
+                        he.setSpeedX(-20);
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
@@ -118,7 +118,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        he.setSpeedX(10);
+                        he.setSpeedX(20);
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
