@@ -7,7 +7,7 @@ import android.graphics.Paint;
 
 /**
  * Created by user on 6/9/17.
- */
+        */
 
 public class Monster extends Entity {
     public Monster(float mx, float my, float width, float height, Context context) {
