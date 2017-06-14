@@ -25,8 +25,8 @@ public class TouchControl implements OnTouchListener{
                 if(Data.camX - event.getX() + x < 0 ){
                     Data.camX = 0;
                 }else {
-                    if(Data.camX - event.getX() + x > Data.mapWidth*Data.cdellWidth - Data.sizeX){
-                        Data.camX = Data.mapWidth*Data.cdellWidth - Data.sizeX;
+                    if(Data.camX - event.getX() + x > Data.mapWidth*Data.cellWidth - Data.sizeX){
+                        Data.camX = Data.mapWidth*Data.cellWidth - Data.sizeX;
                     }else {
                         Data.camX -= event.getX() - x;
                     }
@@ -35,8 +35,8 @@ public class TouchControl implements OnTouchListener{
                 if(Data.camY - event.getY() + y < 0 ){
                     Data.camY = 0;
                 }else {
-                    if(Data.camY - event.getY() + y > Data.mapHeight*Data.cdellHeight - Data.sizeY){
-                        Data.camY = Data.mapHeight*Data.cdellHeight - Data.sizeY;
+                    if(Data.camY - event.getY() + y > Data.mapHeight*Data.cellHeight - Data.sizeY){
+                        Data.camY = Data.mapHeight*Data.cellHeight - Data.sizeY;
                     }else {
                         Data.camY -= event.getY() - y;
                     }
@@ -49,7 +49,6 @@ public class TouchControl implements OnTouchListener{
                 x = -1;
                 y = -1;
             case MotionEvent.ACTION_CANCEL:
-
                 break;
         }
 

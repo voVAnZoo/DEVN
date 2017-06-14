@@ -1,18 +1,13 @@
 package com.example.user.devn;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.Vector;
 
 public class GameActivity extends AppCompatActivity {
     @Override
@@ -32,12 +27,12 @@ public class GameActivity extends AppCompatActivity {
 
             }
         } else {
-            gm.generate();
+            start(gm);
         }
 
         final Intent pause = new Intent(this,PauseActivity.class);
-        Button aa = (Button) findViewById(R.id.pause);
-        aa.setOnClickListener(new View.OnClickListener() {
+        Button btPause = (Button) findViewById(R.id.pause);
+        btPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(pause);
@@ -68,7 +63,6 @@ public class GameActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_CANCEL:
                         break;
                 }
-
                 return true;
             }
         });
@@ -88,7 +82,6 @@ public class GameActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_CANCEL:
                         break;
                 }
-
                 return true;
             }
         });
@@ -108,7 +101,6 @@ public class GameActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_CANCEL:
                         break;
                 }
-
                 return true;
             }
         });
@@ -128,7 +120,6 @@ public class GameActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_CANCEL:
                         break;
                 }
-
                 return true;
             }
         });
@@ -142,18 +133,26 @@ public class GameActivity extends AppCompatActivity {
                 if (Data.camX < 0) {
                     Data.camX = 0;
                 } else {
-                    if (Data.camX > Data.mapWidth * Data.cdellWidth - Data.sizeX) {
-                        Data.camX = Data.mapWidth * Data.cdellWidth - Data.sizeX;
+                    if (Data.camX > Data.mapWidth * Data.cellWidth - Data.sizeX) {
+                        Data.camX = Data.mapWidth * Data.cellWidth - Data.sizeX;
                     }
                 }
                 if (Data.camY < 0) {
                     Data.camY = 0;
                 } else {
-                    if (Data.camY > Data.mapHeight * Data.cdellHeight - Data.sizeY) {
-                        Data.camY = Data.mapHeight * Data.cdellHeight - Data.sizeY;
+                    if (Data.camY > Data.mapHeight * Data.cellHeight - Data.sizeY) {
+                        Data.camY = Data.mapHeight * Data.cellHeight - Data.sizeY;
                     }
                 }
             }
         });
+    }
+
+    public void start(GameMap gm){
+        try {
+            gm.generate();
+        }catch (Exception e){
+            start(gm);
+        }
     }
 }

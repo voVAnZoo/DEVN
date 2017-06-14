@@ -11,8 +11,8 @@ public class Data {
     public static int mapWidth = 50;
     public static int mapHeight = 50;
 
-    public static int cdellWidth = 100;
-    public static int cdellHeight = 100;
+    public static int cellWidth = 100;
+    public static int cellHeight = 100;
 
     public static int camX = 0;
     public static int camY = 0;
@@ -25,9 +25,6 @@ public class Data {
     public static int sizeX = -1;
     public static int sizeY = -1;
 
-    /*
-    костылёк
-     */
     public static int[][] maparr = null;
 
     public static void save(FileWriter out){
@@ -35,8 +32,8 @@ public class Data {
             out.write(Integer.toString(mapWidth) + " ");
             out.write(Integer.toString(mapHeight) + " ");
 
-            out.write(Integer.toString(cdellWidth) + " ");
-            out.write(Integer.toString(cdellHeight) + " ");
+            out.write(Integer.toString(cellWidth) + " ");
+            out.write(Integer.toString(cellHeight) + " ");
 
             out.write(Integer.toString(camX) + " ");
             out.write(Integer.toString(camY) + " ");
@@ -56,9 +53,9 @@ public class Data {
         mapHeight = Integer.parseInt(s.substring(0, s.indexOf(" ")));
         s.substring(s.indexOf(" ") + 1);
 
-        cdellWidth = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+        cellWidth = Integer.parseInt(s.substring(0, s.indexOf(" ")));
         s.substring(s.indexOf(" ") + 1);
-        cdellHeight = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+        cellHeight = Integer.parseInt(s.substring(0, s.indexOf(" ")));
         s.substring(s.indexOf(" ") + 1);
 
         camX = Integer.parseInt(s.substring(0, s.indexOf(" ")));
@@ -73,7 +70,5 @@ public class Data {
         finishHeight = Integer.parseInt(s.substring(0, s.indexOf(" ")));
         s.substring(s.indexOf(" ") + 1);
         finishWidth = Integer.parseInt(s.substring(0, s.indexOf(" ")));
-
     }
-
 }

@@ -9,10 +9,8 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -101,23 +99,23 @@ public class GameMap extends View {
             finishY = rand.nextInt(Data.mapHeight - Data.finishWidth + 1);
             i++;
         }while (finishX + finishY - startX - startY < (Data.mapHeight + Data.mapWidth) / 2 && i < 10000);
-        player = new Player((startX + Data.startWidth / 2) * Data.cdellWidth, (startY + Data.startHeight / 2) * Data.cdellHeight, Data.cdellWidth, Data.cdellHeight, getContext());
+        player = new Player((startX + Data.startWidth / 2) * Data.cellWidth, (startY + Data.startHeight / 2) * Data.cellHeight, Data.cellWidth, Data.cellHeight, getContext());
         Data.camX = (int) (player.mx + player.width/2 - Data.sizeX/2);
         Data.camY = (int) (player.my + player.height/2 - Data.sizeY/2);
 
         if(Data.camX < 0 ){
             Data.camX = 0;
         }else {
-            if(Data.camX  > Data.mapWidth*Data.cdellWidth - Data.sizeX){
-                Data.camX = Data.mapWidth*Data.cdellWidth - Data.sizeX;
+            if(Data.camX  > Data.mapWidth*Data.cellWidth - Data.sizeX){
+                Data.camX = Data.mapWidth*Data.cellWidth - Data.sizeX;
             }
         }
 
         if(Data.camY < 0 ){
             Data.camY = 0;
         }else {
-            if(Data.camY > Data.mapHeight*Data.cdellHeight - Data.sizeY){
-                Data.camY = Data.mapHeight*Data.cdellHeight - Data.sizeY;
+            if(Data.camY > Data.mapHeight*Data.cellHeight - Data.sizeY){
+                Data.camY = Data.mapHeight*Data.cellHeight - Data.sizeY;
             }
         }
         Turtle turtle = new Turtle(this);
@@ -152,7 +150,7 @@ public class GameMap extends View {
             for (int x = 0; x < Data.mapWidth; x++)
                 if (maparr[y][x] == 0)
                     if (rand.nextInt(30) == 1) {
-                        monster = new Monster(x * Data.cdellWidth, y * Data.cdellHeight, Data.cdellWidth / 10 * 8, Data.cdellHeight / 10 * 8, getContext());
+                        monster = new Monster(x * Data.cellWidth, y * Data.cellHeight, Data.cellWidth / 10 * 8, Data.cellHeight / 10 * 8, getContext());
                         entitys.add(monster);
                     }
     }
@@ -179,10 +177,10 @@ public class GameMap extends View {
                         paint.setColor(Color.RED);
                         break;
                 }
-                canvas.drawRect(imageX, imageY, imageX + Data.cdellWidth, imageY + Data.cdellHeight, paint);
-                imageX += Data.cdellHeight;
+                canvas.drawRect(imageX, imageY, imageX + Data.cellWidth, imageY + Data.cellHeight, paint);
+                imageX += Data.cellHeight;
             }
-            imageY += Data.cdellHeight;
+            imageY += Data.cellHeight;
         }
 
         for(int i = 0;i < entitys.size();i++){
@@ -257,6 +255,24 @@ public class GameMap extends View {
                     s.substring(s.indexOf(" ") + 1);
                     k[7] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
                     entitys.add(new Player(k[0], k[1], k[2], k[3], k[4], k[5], k[6], k[7], getContext()));
+                    s = in.nextLine();
+                    break;
+                case 'm':
+                    k = new int[8];
+                    k[0] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+                    s.substring(s.indexOf(" ") + 1);
+                    k[1] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+                    s.substring(s.indexOf(" ") + 1);
+                    k[2] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+                    s.substring(s.indexOf(" ") + 1);
+                    k[3] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+                    s.substring(s.indexOf(" ") + 1);
+                    k[4] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+                    s.substring(s.indexOf(" ") + 1);
+                    k[5] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+                    s.substring(s.indexOf(" ") + 1);
+                    boolean b = Boolean.parseBoolean(s.substring(0, s.indexOf(" ")));
+                    entitys.add(new Monster(k[0], k[1], k[2], k[3], k[4], k[5],b, getContext()));
                     s = in.nextLine();
                     break;
             }

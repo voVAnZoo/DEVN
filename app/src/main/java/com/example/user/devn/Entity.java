@@ -21,8 +21,9 @@ public class Entity {
     float hp;//не больше 100
     float speedX;
     float speedY;
+    GameMap gm;
 
-    public Entity(float mx, float my, float width, float height, Context context) {
+    public Entity(float mx, float my, float width, float height, GameMap gm) {
         this.mx = mx;
         this.my = my;
         this.width = width;
@@ -31,9 +32,10 @@ public class Entity {
         this.level = 1;
         this.speedX = 0;
         this.speedY = 0;
+        this.gm = gm;
     }
 
-    public Entity(float mx, float my, float width, float height, int level, float hp, Context context) {
+    public Entity(float mx, float my, float width, float height, int level, float hp, GameMap gm) {
         this.mx = mx;
         this.my = my;
         this.width = width;
@@ -42,6 +44,7 @@ public class Entity {
         this.level = level;
         this.speedX = 0;
         this.speedY = 0;
+        this.gm = gm;
     }
 
     public float getMx() {

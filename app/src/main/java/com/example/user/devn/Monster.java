@@ -5,18 +5,38 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * Created by user on 6/9/17.
  */
 
 public class Monster extends Entity {
+
+    boolean isagr;
     public Monster(float mx, float my, float width, float height, Context context) {
         super(mx, my, width, height, context);
+        isagr = false;
     }
 
-    public Monster(float mx, float my, float width, float height, int level, float hp, Context context) {
+    public Monster(float mx, float my, float width, float height, int level, float hp,boolean isagr, Context context) {
         super(mx, my, width, height, level, hp, context);
+        this.isagr = isagr;
     }
+
+
+    @Override
+    public void save(FileWriter out) {
+        try {
+            out.write("m ");
+            super.save(out);
+            out.write(Boolean.toString(isagr) + " ");
+        }catch (IOException e){
+
+        }
+    }
+
     @Override
     public void onDraw(Canvas canvas, Paint paint) {
         paint.setColor(Color.GREEN);

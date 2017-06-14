@@ -1,9 +1,11 @@
 package com.example.user.devn;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.widget.Toast;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,14 +15,14 @@ public class Player extends Entity{
     int coins;
     float xp; //не больше 100
 
-    public Player(float mx, float my, int width, int height, Context context) {
-        super(mx, my, width, height, context);
+    public Player(float mx, float my, int width, int height, GameMap gm) {
+        super(mx, my, width, height, gm);
         coins = 0;
         xp = 0;
     }
 
-    public Player(float mx, float my, int width, int height, int level, float hp, int coins, float xp, Context context) {
-        super(mx, my, width, height, level, hp, context);
+    public Player(float mx, float my, int width, int height, int level, float hp, int coins, float xp, GameMap gm) {
+        super(mx, my, width, height, level, hp, gm);
         this.coins = coins;
         this.xp = xp;
     }
@@ -54,21 +56,21 @@ public class Player extends Entity{
         if(mx + dx < 0 ){
             mx = 0;
         }else{
-            if(mx + dx > Data.mapWidth * Data.cdellWidth - width){
-                mx = Data.mapWidth * Data.cdellWidth - width;
+            if(mx + dx > Data.mapWidth * Data.cellWidth - width){
+                mx = Data.mapWidth * Data.cellWidth - width;
             }else{
                 if(dx < 0){
-                    if((Data.maparr[(int) my/Data.cdellHeight][(int) (mx + dx)/Data.cdellWidth] == 1)||(
-                            Data.maparr[(int) (my + height - 1)/Data.cdellHeight][(int) (mx + dx)/Data.cdellWidth] == 1)){
-                        mx -= (mx % Data.cdellWidth);
+                    if((Data.maparr[(int) my/Data.cellHeight][(int) (mx + dx)/Data.cellWidth] == 1)||(
+                            Data.maparr[(int) (my + height - 1)/Data.cellHeight][(int) (mx + dx)/Data.cellWidth] == 1)){
+                        mx -= (mx % Data.cellWidth);
                     }else{
                         mx += dx;
                         Data.camX += dx;
                     }
                 }else{
-                    if ((Data.maparr[(int) my/Data.cdellHeight][(int) (mx + dx + width)/Data.cdellWidth] == 1)||(
-                            Data.maparr[(int) (my + height - 1)/Data.cdellHeight][(int) (mx + dx + width)/Data.cdellWidth] == 1)){
-                        mx = mx + dx - (mx + dx + width) % Data.cdellWidth;
+                    if ((Data.maparr[(int) my/Data.cellHeight][(int) (mx + dx + width)/Data.cellWidth] == 1)||(
+                            Data.maparr[(int) (my + height - 1)/Data.cellHeight][(int) (mx + dx + width)/Data.cellWidth] == 1)){
+                        mx = mx + dx - (mx + dx + width) % Data.cellWidth;
                     }else{
                         mx += dx;
                         Data.camX += dx;
@@ -80,8 +82,8 @@ public class Player extends Entity{
         if(Data.camX < 0 ){
             Data.camX = 0;
         }else {
-            if(Data.camX > Data.mapWidth*Data.cdellWidth - Data.sizeX){
-                Data.camX = Data.mapWidth*Data.cdellWidth - Data.sizeX;
+            if(Data.camX > Data.mapWidth*Data.cellWidth - Data.sizeX){
+                Data.camX = Data.mapWidth*Data.cellWidth - Data.sizeX;
             }
         }
     }
@@ -91,21 +93,21 @@ public class Player extends Entity{
         if(my + dy < 0 ){
             my = 0;
         }else{
-            if(my + dy > Data.mapHeight*Data.cdellHeight - height){
-                my = Data.mapHeight*Data.cdellHeight - height;
+            if(my + dy > Data.mapHeight*Data.cellHeight - height){
+                my = Data.mapHeight*Data.cellHeight - height;
             }else{
                 if(dy < 0){
-                    if((Data.maparr[(int) (my + dy)/Data.cdellHeight][(int) mx/Data.cdellWidth] == 1)||(
-                            Data.maparr[(int) (my + dy)/Data.cdellHeight][(int) (mx + width - 1)/Data.cdellWidth] == 1)){
-                        my -= (my % Data.cdellHeight);
+                    if((Data.maparr[(int) (my + dy)/Data.cellHeight][(int) mx/Data.cellWidth] == 1)||(
+                            Data.maparr[(int) (my + dy)/Data.cellHeight][(int) (mx + width - 1)/Data.cellWidth] == 1)){
+                        my -= (my % Data.cellHeight);
                     }else{
                         my += dy;
                         Data.camY += dy;
                     }
                 }else{
-                    if ((Data.maparr[(int) (my + dy + height)/Data.cdellHeight][(int) mx/Data.cdellWidth] == 1)||(
-                            Data.maparr[(int) (my + dy + height)/Data.cdellHeight][(int) (mx + width - 1)/Data.cdellWidth] == 1)){
-                        my = my + dy - (my + dy + height) % Data.cdellHeight;
+                    if ((Data.maparr[(int) (my + dy + height)/Data.cellHeight][(int) mx/Data.cellWidth] == 1)||(
+                            Data.maparr[(int) (my + dy + height)/Data.cellHeight][(int) (mx + width - 1)/Data.cellWidth] == 1)){
+                        my = my + dy - (my + dy + height) % Data.cellHeight;
                     }else {
                         my += dy;
                         Data.camY += dy;
@@ -114,11 +116,11 @@ public class Player extends Entity{
             }
         }
 
-       if(Data.camY < 0 ){
+        if(Data.camY < 0 ){
             Data.camY = 0;
         }else {
-            if(Data.camY > Data.mapHeight*Data.cdellHeight - Data.sizeY){
-                Data.camY = Data.mapHeight*Data.cdellHeight - Data.sizeY;
+            if(Data.camY > Data.mapHeight*Data.cellHeight - Data.sizeY){
+                Data.camY = Data.mapHeight*Data.cellHeight - Data.sizeY;
             }
         }
     }
