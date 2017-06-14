@@ -54,9 +54,6 @@ public class GameMap extends View {
     }
 
     public void init(){
-
-        player = new Player(10,10,50,50,getContext());
-
         Timer t = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
@@ -68,8 +65,6 @@ public class GameMap extends View {
             }
         };
         t.schedule(timerTask,0,100);
-
-        entitys.add(player);
         /*try {
             save("test");
         } catch (IOException e) {
@@ -97,8 +92,12 @@ public class GameMap extends View {
         Random rand = new Random();
         int startX = rand.nextInt(Data.mapWidth - Data.startWidth + 1);
         int startY = rand.nextInt(Data.mapHeight - Data.startHeight + 1);
-        int finishX = rand.nextInt(Data.mapWidth - Data.finishHeight + 1);
-        int finishY = rand.nextInt(Data.mapHeight - Data.finishWidth + 1);
+        int finishX;
+        int finishY;
+        do {
+            finishX = rand.nextInt(Data.mapWidth - Data.finishHeight + 1);
+            finishY = rand.nextInt(Data.mapHeight - Data.finishWidth + 1);
+        }while (finishX + finishY - startX - startY < (Data.mapWidth + Data.mapHeight) / 2);
         Turtle turtle = new Turtle(this);
         turtle.setX(startX);
         turtle.setY(startY);
@@ -119,6 +118,8 @@ public class GameMap extends View {
                 maparr[i][j] = 3;
             }
         }
+        player = new Player((startX + Data.startWidth / 2) * Data.cdellWidth, (startY + Data.startHeight / 2) * Data.cdellHeight, Data.cdellWidth, Data.cdellHeight, getContext());
+        entitys.add(player);
         generateMonsters();
     }
     public void generateMonsters(){
