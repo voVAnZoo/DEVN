@@ -22,6 +22,7 @@
             android:name=".SettingActivity"
             android:label="@string/title_activity_setting"
             android:theme="@style/AppTheme" />
+        <activity android:name=".PauseActivity"></activity>
     </application>
 
 </manifest>
