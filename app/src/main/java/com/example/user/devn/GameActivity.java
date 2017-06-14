@@ -1,5 +1,6 @@
 package com.example.user.devn;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,11 +37,12 @@ public class GameActivity extends AppCompatActivity {
             gm.generate();
         }
 
+        final Intent pause = new Intent(this,PauseActivity.class);
         Button aa = (Button) findViewById(R.id.pause);
         aa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("dfdf");
+                startActivity(pause);
             }
         });
 
@@ -79,7 +81,6 @@ public class GameActivity extends AppCompatActivity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         he.setSpeedY(10);
-                        System.out.println("dfdf");
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;

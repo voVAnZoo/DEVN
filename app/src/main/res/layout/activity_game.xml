@@ -30,43 +30,43 @@
 
     <Button
         android:id="@+id/up"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_above="@+id/left"
         android:layout_toEndOf="@+id/left"
         android:layout_toRightOf="@+id/left"
-        android:background="@android:drawable/arrow_up_float"
-        android:backgroundTint="@android:color/holo_orange_light" />
+        android:background="@drawable/top" />
 
     <Button
         android:id="@+id/down"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignLeft="@+id/search"
         android:layout_alignStart="@+id/search"
         android:layout_below="@+id/left"
-        android:background="@android:drawable/arrow_down_float"
-        android:backgroundTint="@android:color/holo_orange_light" />
+        android:background="@drawable/bot" />
 
     <Button
         android:id="@+id/left"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignBottom="@+id/search"
-        android:layout_toLeftOf="@+id/down" />
+        android:layout_toLeftOf="@+id/down"
+        android:background="@drawable/left" />
 
     <Button
         android:id="@+id/right"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_below="@+id/up"
         android:layout_toEndOf="@+id/up"
-        android:layout_toRightOf="@+id/up" />
+        android:layout_toRightOf="@+id/up"
+        android:background="@drawable/right" />
 
     <Button
         android:id="@+id/search"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="67dp"
         android:layout_marginLeft="16dp"

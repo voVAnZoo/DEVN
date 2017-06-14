@@ -7,4 +7,11 @@
     android:background="@drawable/background"
     tools:context="com.example.user.devn.PauseActivity">
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="87dp"
+        android:layout_height="53dp"
+        android:text="Button"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="253dp" />
 </android.support.constraint.ConstraintLayout>
