@@ -1,3 +1,4 @@
+
 package com.example.user.devn;
 
 import android.content.Intent;
@@ -60,5 +61,3 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 }
-
-

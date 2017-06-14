@@ -9,8 +9,10 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -33,7 +35,8 @@ public class GameMap extends View {
 
     public List<Entity> entitys = new ArrayList<>();
 
-    public Player player;
+    public static Player player;
+
 
     public GameMap(Context context) {
         super(context);
@@ -62,6 +65,11 @@ public class GameMap extends View {
             }
         };
         t.schedule(timerTask,0,100);
+        /*try {
+            save("test");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
     }
 
     public void addEntity(Entity e){
@@ -80,15 +88,20 @@ public class GameMap extends View {
 
     public void generate() {
         maparr = new int[Data.mapHeight][Data.mapWidth];
+        Data.maparr = this.maparr;
         clear(1);
         Random rand = new Random();
         int startX = rand.nextInt(Data.mapWidth - Data.startWidth + 1);
         int startY = rand.nextInt(Data.mapHeight - Data.startHeight + 1);
-        int finishX = rand.nextInt(Data.mapWidth - Data.finishHeight + 1);
-        int finishY = rand.nextInt(Data.mapHeight - Data.finishWidth + 1);
-        player = new Player(startX * Data.cdellWidth,startY * Data.cdellHeight,40,40,getContext());
-        
-        entitys.add(player);
+        int finishX;
+        int finishY;
+        int i = 0;
+        do {
+            finishX = rand.nextInt(Data.mapWidth - Data.finishHeight + 1);
+            finishY = rand.nextInt(Data.mapHeight - Data.finishWidth + 1);
+            i++;
+        }while (finishX + finishY - startX - startY < (Data.mapHeight + Data.mapWidth) / 2 && i < 10000);
+        player = new Player((startX + Data.startWidth / 2) * Data.cdellWidth, (startY + Data.startHeight / 2) * Data.cdellHeight, Data.cdellWidth, Data.cdellHeight, getContext());
         Data.camX = (int) (player.mx + player.width/2 - Data.sizeX/2);
         Data.camY = (int) (player.my + player.height/2 - Data.sizeY/2);
 
@@ -107,12 +120,10 @@ public class GameMap extends View {
                 Data.camY = Data.mapHeight*Data.cdellHeight - Data.sizeY;
             }
         }
-        
         Turtle turtle = new Turtle(this);
         turtle.setX(startX);
         turtle.setY(startY);
-        int i = 0;
-
+        i = 0;
         while (((turtle.getX() != finishX) || (turtle.getY() != finishY)) && i < 100) {
             turtle.nextStep();
             i++;
@@ -129,7 +140,8 @@ public class GameMap extends View {
                 maparr[i][j] = 3;
             }
         }
-        Data.maparr = this.maparr;
+        entitys.add(player);
+
         generateMonsters();
 
     }
@@ -148,10 +160,10 @@ public class GameMap extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         Paint paint = new Paint();
-        int imageX = 0;
-        int imageY = 0;
+        int imageX = -Data.camX;
+        int imageY = -Data.camY;
         for (int i = 0; i < Data.mapHeight; i++) {
-            imageX = 0;
+            imageX = -Data.camX;
             for (int j = 0; j < Data.mapWidth; j++) {
                 switch (maparr[i][j]) {
                     case 0:
@@ -167,9 +179,7 @@ public class GameMap extends View {
                         paint.setColor(Color.RED);
                         break;
                 }
-                canvas.drawRect(imageX - Data.camX, imageY - Data.camY,
-                        imageX + Data.cdellWidth - Data.camX, imageY + Data.cdellHeight - Data.camY,
-                        paint);
+                canvas.drawRect(imageX, imageY, imageX + Data.cdellWidth, imageY + Data.cdellHeight, paint);
                 imageX += Data.cdellHeight;
             }
             imageY += Data.cdellHeight;
@@ -192,7 +202,7 @@ public class GameMap extends View {
 
         for(int i = 0; i < Data.mapWidth;i++ ){
             for(int j = 0;j < Data.mapHeight;j++){
-                out.write(Integer.toString(maparr[j][i]) + " ");
+                out.write(Integer.toString(maparr[i][j]) + " ");
             }
             out.write("\n");
         }

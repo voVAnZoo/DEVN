@@ -15,8 +15,6 @@ import java.util.TimerTask;
 import java.util.Vector;
 
 public class GameActivity extends AppCompatActivity {
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +84,6 @@ public class GameActivity extends AppCompatActivity {
                         break;
                     case MotionEvent.ACTION_UP:
                         he.setSpeedY(0);
-
                         break;
                     case MotionEvent.ACTION_CANCEL:
                         break;
@@ -139,27 +136,24 @@ public class GameActivity extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Data.camX = (int) (he.mx + he.width/2 - Data.sizeX/2);
-                Data.camY = (int) (he.my + he.height/2 - Data.sizeY/2);
+                Data.camX = (int) (he.mx + he.width / 2 - Data.sizeX / 2);
+                Data.camY = (int) (he.my + he.height / 2 - Data.sizeY / 2);
 
-                if(Data.camX < 0 ){
+                if (Data.camX < 0) {
                     Data.camX = 0;
-                }else {
-                    if(Data.camX  > Data.mapWidth*Data.cdellWidth - Data.sizeX){
-                        Data.camX = Data.mapWidth*Data.cdellWidth - Data.sizeX;
+                } else {
+                    if (Data.camX > Data.mapWidth * Data.cdellWidth - Data.sizeX) {
+                        Data.camX = Data.mapWidth * Data.cdellWidth - Data.sizeX;
                     }
                 }
-
-                if(Data.camY < 0 ){
+                if (Data.camY < 0) {
                     Data.camY = 0;
-                }else {
-                    if(Data.camY > Data.mapHeight*Data.cdellHeight - Data.sizeY){
-                        Data.camY = Data.mapHeight*Data.cdellHeight - Data.sizeY;
+                } else {
+                    if (Data.camY > Data.mapHeight * Data.cdellHeight - Data.sizeY) {
+                        Data.camY = Data.mapHeight * Data.cdellHeight - Data.sizeY;
                     }
                 }
             }
         });
-
     }
 }
-

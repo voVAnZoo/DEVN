@@ -11,8 +11,8 @@ public class Data {
     public static int mapWidth = 50;
     public static int mapHeight = 50;
 
-    public static int cdellWidth = 50;
-    public static int cdellHeight = 50;
+    public static int cdellWidth = 100;
+    public static int cdellHeight = 100;
 
     public static int camX = 0;
     public static int camY = 0;
