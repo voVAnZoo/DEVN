@@ -94,15 +94,17 @@ public class GameMap extends View {
         int startY = rand.nextInt(Data.mapHeight - Data.startHeight + 1);
         int finishX;
         int finishY;
+        int i = 0;
         do {
             finishX = rand.nextInt(Data.mapWidth - Data.finishHeight + 1);
             finishY = rand.nextInt(Data.mapHeight - Data.finishWidth + 1);
-        }while (finishX + finishY - startX - startY < (Data.mapWidth + Data.mapHeight) / 2);
+            i++;
+        }while (finishX + finishY - startX - startY < Data.mapHeight + Data.mapWidth / 2 && i < 1000);
         Turtle turtle = new Turtle(this);
         turtle.setX(startX);
         turtle.setY(startY);
-        int i = 0;
-       while (((turtle.getX() != finishX) || (turtle.getY() != finishY)) && i < 100) {
+        i = 0;
+        while (((turtle.getX() != finishX) || (turtle.getY() != finishY)) && i < 100) {
             turtle.nextStep();
             i++;
         }

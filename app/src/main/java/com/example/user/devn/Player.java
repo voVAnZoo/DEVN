@@ -50,79 +50,9 @@ public class Player extends Entity{
     }
 
     @Override
-    public void addMx(float dx) {
-        if(mx + dx < 0 ){
-            mx = 0;
-        }else{
-            if(mx + dx > Data.mapWidth*Data.cdellWidth - width){
-                mx = Data.mapWidth*Data.cdellWidth - width;
-            }else{
-                if(dx < 0 ){
-                    if(Data.maparr[(int) my/Data.cdellHeight][(int) (mx + dx)/Data.cdellWidth] == 1){
-                        mx -= (mx % Data.cdellWidth);
-                    }else{
-                        mx += dx;
-                    }
-                }else{
-                    if (Data.maparr[(int) my/Data.cdellHeight][(int) (mx + dx + width)/Data.cdellWidth] == 1){
-                       mx = mx - (mx % Data.cdellWidth) + Data.cdellWidth - width;
-                    }else{
-                        mx += dx;
-                    }
-                }
-            }
-        }
-
-        if(Data.camX + dx < 0 ){
-            Data.camX = 0;
-        }else {
-            if(Data.camX + dx > Data.mapWidth*Data.cdellWidth - Data.sizeX){
-                Data.camX = Data.mapWidth*Data.cdellWidth - Data.sizeX;
-            }else {
-                Data.camX += dx;
-            }
-        }
-    }
-
-    @Override
-    public void addMy(float dy) {
-        if(my + dy < 0 ){
-            my = 0;
-        }else{
-            if(my + dy > Data.mapHeight*Data.cdellHeight - height){
-                my = Data.mapHeight*Data.cdellHeight - height;
-            }else{
-                if(dy < 0 ){
-                    if(Data.maparr[(int) (my + dy)/Data.cdellHeight][(int) mx/Data.cdellWidth] == 1){
-                        my -= (my % Data.cdellHeight);
-                    }else{
-                        my += dy;
-                    }
-                }else{
-                    if (Data.maparr[(int) (my + dy + height)/Data.cdellHeight][(int) mx/Data.cdellWidth] == 1){
-                        my = my - (my % Data.cdellHeight) + Data.cdellHeight - height;
-                    }else {
-                        my += dy;
-                    }
-                }
-            }
-        }
-
-        if(Data.camY + dy < 0 ){
-            Data.camY = 0;
-        }else {
-            if(Data.camY + dy > Data.mapHeight*Data.cdellHeight - Data.sizeY){
-                Data.camY = Data.mapHeight*Data.cdellHeight - Data.sizeY;
-            }else {
-                Data.camY += dy;
-            }
-        }
-    }
-
-    @Override
     public void onDraw(Canvas canvas, Paint paint) {
         paint.setColor(Color.YELLOW);
-        canvas.drawRect((int)mx - Data.camX, (int)my - Data.camY,(int) width + (int)mx - Data.camX,(int)height - Data.camY + (int)my, paint);
+        canvas.drawRect((int)mx - Data.camX, (int)my - Data.camY,(int) width  + (int) mx - Data.camX,(int)height + (int)my - Data.camY, paint);
     }
 
     @Override
@@ -143,10 +73,5 @@ public class Player extends Entity{
     }
 
     @Override
-    public void action() {
-        if((speedX != 0)||(speedY != 0)) {
-            addMx(speedX);
-            addMy(speedY);
-        }
-    }
+    public void action() {}
 }

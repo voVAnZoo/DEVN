@@ -19,8 +19,8 @@ public class Entity {
     float height;
     int level;
     float hp;//не больше 100
-    float speedX;
-    float speedY;
+    float speedX = 0.1f;
+    float speedY = 0.1f;
 
     public Entity(float mx, float my, float width, float height, Context context) {
         this.mx = mx;
@@ -29,8 +29,6 @@ public class Entity {
         this.height = height;
         this.hp = 100;
         this.level = 1;
-        this.speedX = 0;
-        this.speedY = 0;
     }
 
     public Entity(float mx, float my, float width, float height, int level, float hp, Context context) {
@@ -40,8 +38,6 @@ public class Entity {
         this.height = height;
         this.hp = hp;
         this.level = level;
-        this.speedX = 0;
-        this.speedY = 0;
     }
 
     public float getMx() {
@@ -68,19 +64,7 @@ public class Entity {
         return hp;
     }
 
-    public float getSpeedX() {
-        return speedX;
-    }
-
-    public float getSpeedY() {
-        return speedY;
-    }
-
-
-
-    public void setMx(float mx) {
-        this.mx = mx;
-    }
+    public void setMx(float mx) {this.mx = mx;}
 
     public void setMy(float my) {
         this.my = my;
@@ -93,6 +77,7 @@ public class Entity {
     public void setHeight(int height) {
         this.height = height;
     }
+
     public void setLevel(int level) {
         this.level = level;
     }
@@ -101,43 +86,27 @@ public class Entity {
         this.hp = hp;
     }
 
-    public void setSpeedX(float speedX) {
-        this.speedX = speedX;
-    }
-
-    public void setSpeedY(float speedY) {
-        this.speedY = speedY;
-    }
-
-
-    public void addMx(float dx){
-        mx += dx;
-    }
+    public void addMx(float dx) { mx += dx; }
 
     public void addMy(float dy){
         my += dy;
     }
 
-    public void addWidth(float dWidth){ width += dWidth; }
+    public void addWidth(float dWidth){
+        width += dWidth;
+    }
 
     public void addHeight(float dHeight){
         height += dHeight;
     }
 
-    public void addLevel(int dLevel){level += dLevel;}
+    public void addLevel(int dLevel){
+        level += dLevel;
+    }
 
     public void addHp(float dHp){
         hp += dHp;
     }
-
-    public void addSpeedX(float dSpeedX){
-        speedX += dSpeedX;
-    }
-
-    public void addSpeedY(float dSpeedY){
-        speedY += dSpeedY;
-    }
-
 
     public void save(FileWriter out){
         try {
