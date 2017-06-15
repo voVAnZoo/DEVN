@@ -27,7 +27,7 @@ public class GameActivity extends AppCompatActivity {
 
             }
         } else {
-            start(gm);
+            gm.generate();
         }
 
         final Intent pause = new Intent(this,PauseActivity.class);

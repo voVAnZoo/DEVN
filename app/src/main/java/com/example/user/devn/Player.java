@@ -2,6 +2,8 @@ package com.example.user.devn;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -14,17 +16,22 @@ public class Player extends Entity{
 
     int coins;
     float xp; //не больше 100
+    Bitmap bitmap1;
 
     public Player(float mx, float my, int width, int height, GameMap gm) {
         super(mx, my, width, height, gm);
         coins = 0;
         xp = 0;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        bitmap1 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dprofile1, options);
     }
 
     public Player(float mx, float my, int width, int height, int level, float hp, int coins, float xp, GameMap gm) {
         super(mx, my, width, height, level, hp, gm);
         this.coins = coins;
         this.xp = xp;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        bitmap1 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dprofile1, options);
     }
 
     public int getCoins() {
@@ -128,7 +135,8 @@ public class Player extends Entity{
     @Override
     public void onDraw(Canvas canvas, Paint paint) {
         paint.setColor(Color.YELLOW);
-        canvas.drawRect((int)mx - Data.camX, (int)my - Data.camY,(int) width + (int)mx - Data.camX,(int)height - Data.camY + (int)my, paint);
+//        canvas.drawRect((int)mx - Data.camX, (int)my - Data.camY,(int) width + (int)mx - Data.camX,(int)height - Data.camY + (int)my, paint);
+        canvas.drawBitmap(bitmap1,(int)mx - Data.camX, (int)my - Data.camY,paint);
     }
 
     @Override

@@ -15,13 +15,13 @@ import java.io.IOException;
 public class Monster extends Entity {
 
     boolean isagr;
-    public Monster(float mx, float my, float width, float height, Context context) {
-        super(mx, my, width, height, context);
+    public Monster(float mx, float my, float width, float height, GameMap gm) {
+        super(mx, my, width, height, gm);
         isagr = false;
     }
 
-    public Monster(float mx, float my, float width, float height, int level, float hp,boolean isagr, Context context) {
-        super(mx, my, width, height, level, hp, context);
+    public Monster(float mx, float my, float width, float height, int level, float hp,boolean isagr, GameMap gm) {
+        super(mx, my, width, height, level, hp, gm);
         this.isagr = isagr;
     }
 

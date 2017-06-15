@@ -99,7 +99,7 @@ public class GameMap extends View {
             finishY = rand.nextInt(Data.mapHeight - Data.finishWidth + 1);
             i++;
         }while (finishX + finishY - startX - startY < (Data.mapHeight + Data.mapWidth) / 2 && i < 10000);
-        player = new Player((startX + Data.startWidth / 2) * Data.cellWidth, (startY + Data.startHeight / 2) * Data.cellHeight, Data.cellWidth, Data.cellHeight, getContext());
+        player = new Player((startX + Data.startWidth / 2) * Data.cellWidth, (startY + Data.startHeight / 2) * Data.cellHeight, Data.cellWidth, Data.cellHeight, this);
         Data.camX = (int) (player.mx + player.width/2 - Data.sizeX/2);
         Data.camY = (int) (player.my + player.height/2 - Data.sizeY/2);
 
@@ -150,7 +150,7 @@ public class GameMap extends View {
             for (int x = 0; x < Data.mapWidth; x++)
                 if (maparr[y][x] == 0)
                     if (rand.nextInt(30) == 1) {
-                        monster = new Monster(x * Data.cellWidth, y * Data.cellHeight, Data.cellWidth / 10 * 8, Data.cellHeight / 10 * 8, getContext());
+                        monster = new Monster(x * Data.cellWidth, y * Data.cellHeight, Data.cellWidth / 10 * 8, Data.cellHeight / 10 * 8, this);
                         entitys.add(monster);
                     }
     }
@@ -238,7 +238,7 @@ public class GameMap extends View {
             s.substring(s.indexOf(" ") + 1);
             switch (a){
                 case 'p':
-                    int k[] = new int[8];
+                    float k[] = new float[8];
                     k[0] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
                     s.substring(s.indexOf(" ") + 1);
                     k[1] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
@@ -254,11 +254,11 @@ public class GameMap extends View {
                     k[6] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
                     s.substring(s.indexOf(" ") + 1);
                     k[7] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
-                    entitys.add(new Player(k[0], k[1], k[2], k[3], k[4], k[5], k[6], k[7], getContext()));
+                    entitys.add(new Player(k[0], k[1], (int)k[2], (int)k[3],(int) k[4], k[5], (int)k[6], k[7], this));
                     s = in.nextLine();
                     break;
                 case 'm':
-                    k = new int[8];
+                    k = new float[8];
                     k[0] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
                     s.substring(s.indexOf(" ") + 1);
                     k[1] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
@@ -272,7 +272,7 @@ public class GameMap extends View {
                     k[5] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
                     s.substring(s.indexOf(" ") + 1);
                     boolean b = Boolean.parseBoolean(s.substring(0, s.indexOf(" ")));
-                    entitys.add(new Monster(k[0], k[1], k[2], k[3], k[4], k[5],b, getContext()));
+                    entitys.add(new Monster(k[0], k[1], (int)k[2], (int)k[3], (int)k[4], k[5],b,this));
                     s = in.nextLine();
                     break;
             }
