@@ -1,15 +1,21 @@
 package com.example.user.devn;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.Vector;
 
 public class GameActivity extends AppCompatActivity {
+    static GameMap gm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +25,7 @@ public class GameActivity extends AppCompatActivity {
         rootView.setOnTouchListener(new TouchControl());
 
         String name  = this.getIntent().getStringExtra("continue");
-        final GameMap gm = (GameMap) findViewById(R.id.player);
+        gm = (GameMap) findViewById(R.id.player);
         if(name != null) {
             try {
                 gm.open(name);
@@ -35,7 +41,7 @@ public class GameActivity extends AppCompatActivity {
         btPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(pause);
+                startActivityForResult(pause,1);
             }
         });
 
@@ -52,13 +58,12 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        he.setSpeedY(Float.parseFloat("-10"));
+                        he.setSpeedY(-10);
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
                     case MotionEvent.ACTION_UP:
-                        he.setSpeedY(Float.parseFloat("0"));
-                        he.setSpeedX(Float.parseFloat("0"));
+                        he.setSpeedY(0);
                         break;
                     case MotionEvent.ACTION_CANCEL:
                         break;
@@ -153,6 +158,17 @@ public class GameActivity extends AppCompatActivity {
             gm.generate();
         }catch (Exception e){
             start(gm);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data == null) {return;}
+        String name = data.getStringExtra("name");
+        try {
+            gm.save(name);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

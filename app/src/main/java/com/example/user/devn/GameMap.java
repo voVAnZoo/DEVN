@@ -6,11 +6,16 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -51,18 +56,18 @@ public class GameMap extends View {
         init();
     }
 
-    public void init(){
+    public void init() {
         Timer t = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                for(int i = 0 ;i < entitys.size(); i++){
+                for (int i = 0; i < entitys.size(); i++) {
                     Entity e = entitys.get(i);
                     e.action();
                 }
             }
         };
-        t.schedule(timerTask,0,100);
+        t.schedule(timerTask, 0, 100);
         /*try {
             save("test");
         } catch (IOException e) {
@@ -70,7 +75,7 @@ public class GameMap extends View {
         }*/
     }
 
-    public void addEntity(Entity e){
+    public void addEntity(Entity e) {
         entitys.add(e);
     }
 
@@ -99,23 +104,23 @@ public class GameMap extends View {
             finishY = rand.nextInt(Data.mapHeight - Data.finishWidth + 1);
             i++;
         }while (finishX + finishY - startX - startY < (Data.mapHeight + Data.mapWidth) / 2 && i < 10000);
-        player = new Player((startX + Data.startWidth / 2) * Data.cellWidth, (startY + Data.startHeight / 2) * Data.cellHeight, Data.cellWidth, Data.cellHeight, this);
+        player = new Player((startX + Data.startWidth / 2) * Data.cdellWidth, (startY + Data.startHeight / 2) * Data.cdellHeight, Data.cdellWidth, Data.cdellHeight, getContext());
         Data.camX = (int) (player.mx + player.width/2 - Data.sizeX/2);
         Data.camY = (int) (player.my + player.height/2 - Data.sizeY/2);
 
-        if(Data.camX < 0 ){
+        if (Data.camX < 0) {
             Data.camX = 0;
         }else {
-            if(Data.camX  > Data.mapWidth*Data.cellWidth - Data.sizeX){
-                Data.camX = Data.mapWidth*Data.cellWidth - Data.sizeX;
+            if(Data.camX  > Data.mapWidth*Data.cdellWidth - Data.sizeX){
+                Data.camX = Data.mapWidth*Data.cdellWidth - Data.sizeX;
             }
         }
 
-        if(Data.camY < 0 ){
+        if (Data.camY < 0) {
             Data.camY = 0;
         }else {
-            if(Data.camY > Data.mapHeight*Data.cellHeight - Data.sizeY){
-                Data.camY = Data.mapHeight*Data.cellHeight - Data.sizeY;
+            if(Data.camY > Data.mapHeight*Data.cdellHeight - Data.sizeY){
+                Data.camY = Data.mapHeight*Data.cdellHeight - Data.sizeY;
             }
         }
         Turtle turtle = new Turtle(this);
@@ -143,7 +148,8 @@ public class GameMap extends View {
         generateMonsters();
 
     }
-    public void generateMonsters(){
+
+    public void generateMonsters() {
         Random rand = new Random();
         Monster monster;
         for (int y = 0; y < Data.mapHeight; y++)
@@ -183,9 +189,9 @@ public class GameMap extends View {
             imageY += Data.cellHeight;
         }
 
-        for(int i = 0;i < entitys.size();i++){
+        for (int i = 0; i < entitys.size(); i++) {
             Entity e = entitys.get(i);
-            e.onDraw(canvas,paint);
+            e.onDraw(canvas, paint);
         }
         invalidate();
     }
@@ -198,82 +204,91 @@ public class GameMap extends View {
         Data.save(out);
         out.write("\n");
 
-        for(int i = 0; i < Data.mapWidth;i++ ){
-            for(int j = 0;j < Data.mapHeight;j++){
-                out.write(Integer.toString(maparr[i][j]) + " ");
+        for (int i = 0; i < Data.mapWidth; i++) {
+            for (int j = 0; j < Data.mapHeight; j++) {
+                out.write(Integer.toString(maparr[j][i]) + " ");
             }
             out.write("\n");
         }
 
         out.write(Integer.toString(entitys.size()) + "\n");
 
-        for(int i = 0;i < entitys.size();i++){
+        for (int i = 0; i < entitys.size(); i++) {
             entitys.get(i).save(out);
             out.write("\n");
         }
+        out.flush();
+        out.close();
     }
 
-    public void open (String name) throws IOException{
+    public void open(String name) throws IOException {
         File filesDir = getContext().getFilesDir();
         File mapFile = new File(filesDir, name + ".devn");
-        Scanner in = new Scanner(mapFile);
 
-        Data.open(in.nextLine());
+        FileInputStream fis = new FileInputStream(mapFile);
+        byte[] data = new byte[(int) mapFile.length()];
+        fis.read(data);
+        fis.close();
+
+        String str = new String(data, "UTF-8");
+
+        Log.d("MAP_FILE", str);
+
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(mapFile));
+
+
+        Data.open(bufferedReader.readLine());
 
         String s;
-
-        for(int i = 0; i < Data.mapWidth;i++ ){
-            s = in.nextLine();
-            for(int j = 0;j < Data.mapHeight;j++){
+        maparr = new int[Data.mapHeight][Data.mapWidth];
+        for (int i = 0; i < Data.mapWidth; i++) {
+            s = bufferedReader.readLine();
+            for (int j = 0; j < Data.mapHeight; j++) {
                 maparr[j][i] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
                 s = s.substring(s.indexOf(" ") + 1);
             }
         }
 
-        s = in.nextLine();
-
-        for(int i = 0;i < Integer.parseInt(s);i++){
-            s = in.nextLine();
+        s = bufferedReader.readLine();
+        int ss = Integer.parseInt(s);
+        for (int i = 0; i < ss; i++) {
+            s = bufferedReader.readLine();
             char a = s.toCharArray()[0];
-            s.substring(s.indexOf(" ") + 1);
-            switch (a){
+            s = s.substring(s.indexOf(" ") + 1);
+            switch (a) {
                 case 'p':
                     float k[] = new float[8];
-                    k[0] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
-                    s.substring(s.indexOf(" ") + 1);
-                    k[1] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
-                    s.substring(s.indexOf(" ") + 1);
-                    k[2] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
-                    s.substring(s.indexOf(" ") + 1);
-                    k[3] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
-                    s.substring(s.indexOf(" ") + 1);
-                    k[4] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
-                    s.substring(s.indexOf(" ") + 1);
-                    k[5] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
-                    s.substring(s.indexOf(" ") + 1);
-                    k[6] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
-                    s.substring(s.indexOf(" ") + 1);
-                    k[7] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
-                    entitys.add(new Player(k[0], k[1], (int)k[2], (int)k[3],(int) k[4], k[5], (int)k[6], k[7], this));
-                    s = in.nextLine();
+                    k[0] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
+                    s = s.substring(s.indexOf(" ") + 1);
+                    k[1] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
+                    s = s.substring(s.indexOf(" ") + 1);
+                    k[2] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
+                    s = s.substring(s.indexOf(" ") + 1);
+                    k[3] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
+                    s = s.substring(s.indexOf(" ") + 1);
+                    k[4] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
+                    s = s.substring(s.indexOf(" ") + 1);
+                    k[5] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
+                    s = s.substring(s.indexOf(" ") + 1);
+                    k[6] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
+                    s = s.substring(s.indexOf(" ") + 1);
+                    k[7] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
+                    entitys.add(new Player(k[0], k[1],(int) k[2], (int)k[3], (int)k[4], k[5],(int) k[6], k[7], getContext()));
                     break;
                 case 'm':
                     k = new float[8];
-                    k[0] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
-                    s.substring(s.indexOf(" ") + 1);
-                    k[1] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
-                    s.substring(s.indexOf(" ") + 1);
-                    k[2] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
-                    s.substring(s.indexOf(" ") + 1);
-                    k[3] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
-                    s.substring(s.indexOf(" ") + 1);
-                    k[4] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
-                    s.substring(s.indexOf(" ") + 1);
-                    k[5] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
-                    s.substring(s.indexOf(" ") + 1);
-                    boolean b = Boolean.parseBoolean(s.substring(0, s.indexOf(" ")));
-                    entitys.add(new Monster(k[0], k[1], (int)k[2], (int)k[3], (int)k[4], k[5],b,this));
-                    s = in.nextLine();
+                    k[0] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
+                    s = s.substring(s.indexOf(" ") + 1);
+                    k[1] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
+                    s = s.substring(s.indexOf(" ") + 1);
+                    k[2] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
+                    s = s.substring(s.indexOf(" ") + 1);
+                    k[3] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
+                    s = s.substring(s.indexOf(" ") + 1);
+                    k[4] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
+                    s = s.substring(s.indexOf(" ") + 1);
+                    k[5] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
+                    entitys.add(new Monster(k[0], k[1],(int) k[2], (int)k[3], (int)k[4], k[5], getContext()));
                     break;
             }
         }

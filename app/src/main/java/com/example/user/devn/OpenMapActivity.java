@@ -40,15 +40,10 @@ public class OpenMapActivity extends AppCompatActivity {
 
         lvMain.setAdapter(adapter);
 
-        lvMain.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        lvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 idpos = position;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
@@ -77,8 +72,6 @@ public class OpenMapActivity extends AppCompatActivity {
                 }
             }
         });
-
-
 
     }
 }

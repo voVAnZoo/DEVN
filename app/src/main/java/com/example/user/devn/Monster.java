@@ -42,4 +42,14 @@ public class Monster extends Entity {
         paint.setColor(Color.GREEN);
         canvas.drawRect((int)mx - Data.camX, (int)my - Data.camY,(int) width  + (int) mx - Data.camX,(int)height + (int)my - Data.camY, paint);
     }
+
+    @Override
+    public void save(FileWriter out) {
+        try {
+            out.write("m ");
+            super.save(out);
+        }catch (IOException e){
+
+        }
+    }
 }
