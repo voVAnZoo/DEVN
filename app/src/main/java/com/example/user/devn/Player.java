@@ -1,12 +1,16 @@
 package com.example.user.devn;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.Image;
+import android.media.ImageReader;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Player extends Entity{
 
@@ -55,7 +59,7 @@ public class Player extends Entity{
             mx = 0;
         }else{
             if(mx + dx > Data.mapWidth * Data.cdellWidth - width){
-                mx = Data.mapWidth * Data.cdellWidth - width;
+                mx = Data.mapWidth * Data.cdellWidth - width - Data.cdellWidth;
             }else{
                 if(dx < 0){
                     if((Data.maparr[(int) my/Data.cdellHeight][(int) (mx + dx)/Data.cdellWidth] == 1)||(
@@ -94,7 +98,7 @@ public class Player extends Entity{
             my = 0;
         }else{
             if(my + dy > Data.mapHeight*Data.cdellHeight - height){
-                my = Data.mapHeight*Data.cdellHeight - height;
+                my = Data.mapHeight * Data.cdellHeight - height - Data.cdellHeight;
             }else{
                 if(dy < 0){
                     if((Data.maparr[(int) (my + dy)/Data.cdellHeight][(int) mx/Data.cdellWidth] == 1)||(

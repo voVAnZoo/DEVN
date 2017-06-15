@@ -41,16 +41,19 @@ public class GameMap extends View {
     public GameMap(Context context) {
         super(context);
         init();
+        Data.gameMap = this;
     }
 
     public GameMap(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
+        Data.gameMap = this;
     }
 
     public GameMap(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
+        Data.gameMap = this;
     }
 
     public void init(){
@@ -100,12 +103,12 @@ public class GameMap extends View {
             finishX = rand.nextInt(Data.mapWidth - Data.finishHeight + 1);
             finishY = rand.nextInt(Data.mapHeight - Data.finishWidth + 1);
             i++;
-        }while (finishX + finishY - startX - startY < (Data.mapHeight + Data.mapWidth) / 2 && i < 10000);
+        }while (finishX + finishY - startX - startY < (Data.mapHeight + Data.mapWidth) / 3 * 2 && i < 10000);
         Turtle turtle = new Turtle(this);
         turtle.setX(startX);
         turtle.setY(startY);
         i = 0;
-        while (((turtle.getX() != finishX) || (turtle.getY() != finishY)) && i < 100) {
+        while (((turtle.getX() != finishX) || (turtle.getY() != finishY)) && i < 200) {
             turtle.nextStep();
             i++;
         }
@@ -132,7 +135,7 @@ public class GameMap extends View {
             for (int x = 0; x < Data.mapWidth; x++)
                 if (maparr[y][x] == 0)
                     if (rand.nextInt(30) == 1) {
-                        monster = new Monster(x * Data.cdellWidth, y * Data.cdellHeight, Data.cdellWidth / 10 * 8, Data.cdellHeight / 10 * 8, getContext());
+                        monster = new Monster(x * Data.cdellWidth, y * Data.cdellHeight, Data.monsterWidth, Data.monsterHeight, getContext());
                         entitys.add(monster);
                     }
     }
@@ -167,7 +170,7 @@ public class GameMap extends View {
 
         for(int i = 0;i < entitys.size();i++){
             Entity e = entitys.get(i);
-            e.onDraw(canvas,paint);
+            e.onDraw(canvas, paint);
         }
         invalidate();
     }

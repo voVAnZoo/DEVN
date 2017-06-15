@@ -25,10 +25,16 @@ public class Data {
     public static int sizeX = -1;
     public static int sizeY = -1;
 
+    public static int maxR2 = (cdellWidth * cdellWidth + cdellHeight * cdellHeight) * 50;
+
+    public static float monsterWidth = 8 * cdellWidth / 10;
+    public static float monsterHeight = 8 * cdellHeight / 10;
+
     /*
     костылёк
      */
     public static int[][] maparr = null;
+    public static GameMap gameMap;
 
     public static void save(FileWriter out){
         try {
