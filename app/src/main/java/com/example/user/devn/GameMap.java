@@ -104,23 +104,23 @@ public class GameMap extends View {
             finishY = rand.nextInt(Data.mapHeight - Data.finishWidth + 1);
             i++;
         }while (finishX + finishY - startX - startY < (Data.mapHeight + Data.mapWidth) / 2 && i < 10000);
-        player = new Player((startX + Data.startWidth / 2) * Data.cdellWidth, (startY + Data.startHeight / 2) * Data.cdellHeight, Data.cdellWidth, Data.cdellHeight, getContext());
+        player = new Player((startX + Data.startWidth / 2) * Data.cellWidth, (startY + Data.startHeight / 2) * Data.cellHeight, Data.cellWidth, Data.cellHeight, this);
         Data.camX = (int) (player.mx + player.width/2 - Data.sizeX/2);
         Data.camY = (int) (player.my + player.height/2 - Data.sizeY/2);
 
         if (Data.camX < 0) {
             Data.camX = 0;
         }else {
-            if(Data.camX  > Data.mapWidth*Data.cdellWidth - Data.sizeX){
-                Data.camX = Data.mapWidth*Data.cdellWidth - Data.sizeX;
+            if(Data.camX  > Data.mapWidth*Data.cellWidth - Data.sizeX){
+                Data.camX = Data.mapWidth*Data.cellWidth - Data.sizeX;
             }
         }
 
         if (Data.camY < 0) {
             Data.camY = 0;
         }else {
-            if(Data.camY > Data.mapHeight*Data.cdellHeight - Data.sizeY){
-                Data.camY = Data.mapHeight*Data.cdellHeight - Data.sizeY;
+            if(Data.camY > Data.mapHeight*Data.cellHeight - Data.sizeY){
+                Data.camY = Data.mapHeight*Data.cellHeight - Data.sizeY;
             }
         }
         Turtle turtle = new Turtle(this);
@@ -273,7 +273,7 @@ public class GameMap extends View {
                     k[6] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
                     s = s.substring(s.indexOf(" ") + 1);
                     k[7] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
-                    entitys.add(new Player(k[0], k[1],(int) k[2], (int)k[3], (int)k[4], k[5],(int) k[6], k[7], getContext()));
+                    entitys.add(new Player(k[0], k[1],(int) k[2], (int)k[3], (int)k[4], k[5],(int) k[6], k[7], this));
                     break;
                 case 'm':
                     k = new float[8];
@@ -288,7 +288,7 @@ public class GameMap extends View {
                     k[4] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
                     s = s.substring(s.indexOf(" ") + 1);
                     k[5] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
-                    entitys.add(new Monster(k[0], k[1],(int) k[2], (int)k[3], (int)k[4], k[5], getContext()));
+                    entitys.add(new Monster(k[0], k[1], k[2],k[3], (int)k[4], k[5], this));
                     break;
             }
         }
