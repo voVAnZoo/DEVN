@@ -28,7 +28,7 @@ public class MenuActivity extends AppCompatActivity {
             Data.sizeY = display.getHeight();
         }
 
-        Data.sizeY += 50;
+       Data.sizeY -= 50;
 
         final Intent game = new Intent(this, GameActivity.class);
         Button bStart = (Button) findViewById(R.id.start);

@@ -44,16 +44,19 @@ public class GameMap extends View {
     public GameMap(Context context) {
         super(context);
         init();
+        Data.gameMap = this;
     }
 
     public GameMap(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
+        Data.gameMap = this;
     }
 
     public GameMap(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
+        Data.gameMap = this;
     }
 
     public void init() {
@@ -123,11 +126,12 @@ public class GameMap extends View {
                 Data.camY = Data.mapHeight*Data.cellHeight - Data.sizeY;
             }
         }
+        }while (finishX + finishY - startX - startY < (Data.mapHeight + Data.mapWidth) / 3 * 2 && i < 10000);
         Turtle turtle = new Turtle(this);
         turtle.setX(startX);
         turtle.setY(startY);
         i = 0;
-        while (((turtle.getX() != finishX) || (turtle.getY() != finishY)) && i < 100) {
+        while (((turtle.getX() != finishX) || (turtle.getY() != finishY)) && i < 200) {
             turtle.nextStep();
             i++;
         }

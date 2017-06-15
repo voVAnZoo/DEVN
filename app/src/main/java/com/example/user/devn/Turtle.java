@@ -49,16 +49,16 @@ public class Turtle{
         int max = 0;
         switch (direct) {
             case 1:
-                max = Data.mapWidth - x - width;
+                max = Data.mapWidth - x - width - 1;
                 break;
             case -1:
-                max = x;
+                max = x - 1;
                 break;
             case 2:
-                max = Data.mapHeight - y - height;
+                max = Data.mapHeight - y - height - 1;
                 break;
             case -2:
-                max = y;
+                max = y - 1;
                 break;
         }
         Random rand = new Random();
@@ -69,7 +69,7 @@ public class Turtle{
         }
     }
 
-    private void rightStep(int length){
+    public void rightStep(int length){
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < length + width; j++) {
                 gameMap.maparr[y + i][x + j] = 0;
@@ -104,11 +104,13 @@ public class Turtle{
     public void nextStep(){
         int direct = randomDirect();
         int length = choiceStepLength(direct);
+     //   System.out.println(x);
+       // System.out.println(length);
         Random rand = new Random();
         if(x < Data.mapWidth - 10)
-            width = rand.nextInt(2) + 2;
+            width = rand.nextInt(1) + 1;
         if (y < Data.mapHeight - 10)
-            height = rand.nextInt(2) + 2;
+            height = rand.nextInt(1) + 1;
         switch (direct){
             case 1:
                 rightStep(length);
