@@ -224,16 +224,6 @@ public class GameMap extends View {
     public void open(String name) throws IOException {
         File filesDir = getContext().getFilesDir();
         File mapFile = new File(filesDir, name + ".devn");
-
-        FileInputStream fis = new FileInputStream(mapFile);
-        byte[] data = new byte[(int) mapFile.length()];
-        fis.read(data);
-        fis.close();
-
-        String str = new String(data, "UTF-8");
-
-        Log.d("MAP_FILE", str);
-
         BufferedReader bufferedReader = new BufferedReader(new FileReader(mapFile));
 
 
