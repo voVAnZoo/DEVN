@@ -77,6 +77,7 @@ public class Turtle{
         }
         x = x + length;
     }
+
     private void leftStep(int length){
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < length + 1; j++) {
@@ -85,6 +86,7 @@ public class Turtle{
         }
         x = x - length;
     }
+
     private void topStep(int length){
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < length + 1; j++) {
@@ -93,6 +95,7 @@ public class Turtle{
         }
         y = y - length;
     }
+
     private void bottomStep(int length){
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < length + height; j++) {
@@ -101,11 +104,10 @@ public class Turtle{
         }
         y = y + length;
     }
+
     public void nextStep(){
         int direct = randomDirect();
         int length = choiceStepLength(direct);
-     //   System.out.println(x);
-       // System.out.println(length);
         Random rand = new Random();
         if(x < Data.mapWidth - 10)
             width = rand.nextInt(1) + 1;
@@ -126,7 +128,6 @@ public class Turtle{
                 break;
         }
     }
-
 
     public void finish(int finishX, int finishY) {
         if (finishX > x) {

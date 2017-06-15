@@ -1,32 +1,37 @@
 package com.example.user.devn;
 
-import android.app.Activity;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.media.Image;
-import android.media.ImageReader;
-import android.widget.Toast;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class Player extends Entity{
 
     int coins;
     float xp; //не больше 100
+    Bitmap bitmap0;
     Bitmap bitmap1;
+    Bitmap bitmap2;
+    Bitmap bitmap3;
 
+    int orientation = 0;
+//      2
+//     1 3
+//      0
     public Player(float mx, float my, int width, int height, GameMap gm) {
         super(mx, my, width, height, gm);
         coins = 0;
         xp = 0;
         BitmapFactory.Options options = new BitmapFactory.Options();
+        bitmap3 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dprofile1, options);
         bitmap1 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dprofile1, options);
+        bitmap0 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dface, options);
+        bitmap2 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dback, options);
+
     }
 
     public Player(float mx, float my, int width, int height, int level, float hp, int coins, float xp, GameMap gm) {
@@ -59,6 +64,10 @@ public class Player extends Entity{
 
     public void addXp(float dXp){
         xp += dXp;
+        if(xp > 100){
+            level += xp/100;
+            xp %= 100;
+        }
     }
 
     @Override
@@ -70,16 +79,16 @@ public class Player extends Entity{
                 mx = Data.mapWidth * Data.cellWidth - width;
             }else{
                 if(dx < 0){
-                    if((Data.maparr[(int) my/Data.cellHeight][(int) (mx + dx)/Data.cellWidth] == 1)||(
-                            Data.maparr[(int) (my + height - 1)/Data.cellHeight][(int) (mx + dx)/Data.cellWidth] == 1)){
+                    if((gm.maparr[(int) my/Data.cellHeight][(int) (mx + dx)/Data.cellWidth] == 1)||(
+                            gm.maparr[(int) (my + height - 1)/Data.cellHeight][(int) (mx + dx)/Data.cellWidth] == 1)){
                         mx -= (mx % Data.cellWidth);
                     }else{
                         mx += dx;
                         Data.camX += dx;
                     }
                 }else{
-                    if ((Data.maparr[(int) my/Data.cellHeight][(int) (mx + dx + width)/Data.cellWidth] == 1)||(
-                            Data.maparr[(int) (my + height - 1)/Data.cellHeight][(int) (mx + dx + width)/Data.cellWidth] == 1)){
+                    if ((gm.maparr[(int) my/Data.cellHeight][(int) (mx + dx + width)/Data.cellWidth] == 1)||(
+                            gm.maparr[(int) (my + height - 1)/Data.cellHeight][(int) (mx + dx + width)/Data.cellWidth] == 1)){
                         mx = mx + dx - (mx + dx + width) % Data.cellWidth;
                     }else{
                         mx += dx;
@@ -107,16 +116,16 @@ public class Player extends Entity{
                 my = Data.mapHeight*Data.cellHeight - height;
             }else{
                 if(dy < 0){
-                    if((Data.maparr[(int) (my + dy)/Data.cellHeight][(int) mx/Data.cellWidth] == 1)||(
-                            Data.maparr[(int) (my + dy)/Data.cellHeight][(int) (mx + width - 1)/Data.cellWidth] == 1)){
+                    if((gm.maparr[(int) (my + dy)/Data.cellHeight][(int) mx/Data.cellWidth] == 1)||(
+                            gm.maparr[(int) (my + dy)/Data.cellHeight][(int) (mx + width - 1)/Data.cellWidth] == 1)){
                         my -= (my % Data.cellHeight);
                     }else{
                         my += dy;
                         Data.camY += dy;
                     }
                 }else{
-                    if ((Data.maparr[(int) (my + dy + height)/Data.cellHeight][(int) mx/Data.cellWidth] == 1)||(
-                            Data.maparr[(int) (my + dy + height)/Data.cellHeight][(int) (mx + width - 1)/Data.cellWidth] == 1)){
+                    if ((gm.maparr[(int) (my + dy + height)/Data.cellHeight][(int) mx/Data.cellWidth] == 1)||(
+                            gm.maparr[(int) (my + dy + height)/Data.cellHeight][(int) (mx + width - 1)/Data.cellWidth] == 1)){
                         my = my + dy - (my + dy + height) % Data.cellHeight;
                     }else {
                         my += dy;
@@ -137,9 +146,21 @@ public class Player extends Entity{
 
     @Override
     public void onDraw(Canvas canvas, Paint paint) {
-        paint.setColor(Color.YELLOW);
-//        canvas.drawRect((int)mx - Data.camX, (int)my - Data.camY,(int) width + (int)mx - Data.camX,(int)height - Data.camY + (int)my, paint);
-        canvas.drawBitmap(bitmap1,(int)mx - Data.camX, (int)my - Data.camY,paint);
+        switch (orientation){
+            case 0:
+                canvas.drawBitmap(bitmap0,(int)mx - Data.camX, (int)my - Data.camY,paint);
+                break;
+            case 1:
+                canvas.drawBitmap(bitmap1,(int)mx - Data.camX, (int)my - Data.camY,paint);
+                break;
+            case 2:
+                canvas.drawBitmap(bitmap2,(int)mx - Data.camX, (int)my - Data.camY,paint);
+                break;
+            case 3:
+                canvas.drawBitmap(bitmap3,(int)mx - Data.camX, (int)my - Data.camY,paint);
+                break;
+        }
+
     }
 
     @Override
@@ -154,16 +175,14 @@ public class Player extends Entity{
         }
     }
 
-    public void go(){
-        addMx(speedX);
-        addMy(speedY);
-    }
-
     @Override
     public void action() {
         if((speedX != 0)||(speedY != 0)) {
             addMx(speedX);
             addMy(speedY);
+        }
+        if(gm.maparr[(int) my/Data.cellHeight][(int) mx/Data.cellWidth] == 3){
+            gm.generate();
         }
     }
 }

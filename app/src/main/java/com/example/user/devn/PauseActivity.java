@@ -43,10 +43,6 @@ public class PauseActivity extends AppCompatActivity {
                     }
                 });
                 myDialogFragment.show(manager,"sdsd");
-
-
-
-
             }
         });
     }

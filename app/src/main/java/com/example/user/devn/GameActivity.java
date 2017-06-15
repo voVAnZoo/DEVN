@@ -1,18 +1,13 @@
 package com.example.user.devn;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.Vector;
 
 public class GameActivity extends AppCompatActivity {
     static GameMap gm;
@@ -22,7 +17,52 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         View rootView = findViewById(android.R.id.content);
-        rootView.setOnTouchListener(new TouchControl());
+        rootView.setOnTouchListener(new View.OnTouchListener() {
+
+            float x = -1;
+            float y = -1;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        x = event.getX();
+                        y = event.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        if(Data.camX - event.getX() + x < 0 ){
+                            Data.camX = 0;
+                        }else {
+                            if(Data.camX - event.getX() + x > Data.mapWidth*Data.cellWidth - Data.sizeX){
+                                Data.camX = Data.mapWidth*Data.cellWidth - Data.sizeX;
+                            }else {
+                                Data.camX -= event.getX() - x;
+                            }
+                        }
+
+                        if(Data.camY - event.getY() + y < 0 ){
+                            Data.camY = 0;
+                        }else {
+                            if(Data.camY - event.getY() + y > Data.mapHeight*Data.cellHeight - Data.sizeY){
+                                Data.camY = Data.mapHeight*Data.cellHeight - Data.sizeY;
+                            }else {
+                                Data.camY -= event.getY() - y;
+                            }
+                        }
+
+                        x = event.getX();
+                        y = event.getY();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        x = -1;
+                        y = -1;
+                    case MotionEvent.ACTION_CANCEL:
+                        break;
+                }
+
+                return true;
+            }
+        });
 
         String name  = this.getIntent().getStringExtra("continue");
         gm = (GameMap) findViewById(R.id.player);
@@ -30,7 +70,7 @@ public class GameActivity extends AppCompatActivity {
             try {
                 gm.open(name);
             } catch (IOException e) {
-
+                e.printStackTrace();
             }
         } else {
             start(gm);
@@ -51,19 +91,18 @@ public class GameActivity extends AppCompatActivity {
         Button right = (Button) findViewById(R.id.right);
         Button search = (Button) findViewById(R.id.search);
 
-        final Player he = (Player) gm.entitys.get(0);
-
         up.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        he.setSpeedY(-10);
+                        gm.player.setSpeedY(-10);
+                        gm.player.orientation = 2;
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
                     case MotionEvent.ACTION_UP:
-                        he.setSpeedY(0);
+                        gm.player.setSpeedY(0);
                         break;
                     case MotionEvent.ACTION_CANCEL:
                         break;
@@ -77,12 +116,13 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        he.setSpeedY(10);
+                        gm.player.setSpeedY(10);
+                        gm.player.orientation = 0;
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
                     case MotionEvent.ACTION_UP:
-                        he.setSpeedY(0);
+                        gm.player.setSpeedY(0);
                         break;
                     case MotionEvent.ACTION_CANCEL:
                         break;
@@ -96,12 +136,13 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        he.setSpeedX(-10);
+                        gm.player.setSpeedX(-10);
+                        gm.player.orientation = 1;
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
                     case MotionEvent.ACTION_UP:
-                        he.setSpeedX(0);
+                        gm.player.setSpeedX(0);
                         break;
                     case MotionEvent.ACTION_CANCEL:
                         break;
@@ -115,12 +156,13 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        he.setSpeedX(10);
+                        gm.player.setSpeedX(10);
+                        gm.player.orientation = 3;
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
                     case MotionEvent.ACTION_UP:
-                        he.setSpeedX(0);
+                        gm.player.setSpeedX(0);
                         break;
                     case MotionEvent.ACTION_CANCEL:
                         break;
@@ -132,8 +174,8 @@ public class GameActivity extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Data.camX = (int) (he.mx + he.width / 2 - Data.sizeX / 2);
-                Data.camY = (int) (he.my + he.height / 2 - Data.sizeY / 2);
+                Data.camX = (int) (gm.player.mx + gm.player.width / 2 - Data.sizeX / 2);
+                Data.camY = (int) (gm.player.my + gm.player.height / 2 - Data.sizeY / 2);
 
                 if (Data.camX < 0) {
                     Data.camX = 0;
@@ -148,6 +190,27 @@ public class GameActivity extends AppCompatActivity {
                     if (Data.camY > Data.mapHeight * Data.cellHeight - Data.sizeY) {
                         Data.camY = Data.mapHeight * Data.cellHeight - Data.sizeY;
                     }
+                }
+            }
+        });
+
+        Button fire = (Button) findViewById(R.id.fire);
+        fire.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (gm.player.orientation){
+                    case 0:
+                        gm.entitys.add(new FireBall(gm.player.mx + gm.player.width/2 ,gm.player.my + gm.player.height/2, Data.cellWidth /5 ,Data.cellHeight /10 ,0.0,20.0 ,gm));
+                        break;
+                    case 1:
+                        gm.entitys.add(new FireBall(gm.player.mx + gm.player.width/2 ,gm.player.my + gm.player.height/2, Data.cellWidth /5 ,Data.cellHeight /10 ,-20.0,0.0 ,gm));
+                        break;
+                    case 2:
+                        gm.entitys.add(new FireBall(gm.player.mx + gm.player.width/2 ,gm.player.my + gm.player.height/2, Data.cellWidth /5 ,Data.cellHeight /10 ,0.0,-20.0 ,gm));
+                        break;
+                    case 3:
+                        gm.entitys.add(new FireBall(gm.player.mx + gm.player.width/2 ,gm.player.my+ gm.player.height/2, Data.cellWidth /5 ,Data.cellHeight /10 ,20.0,0.0 ,gm));
+                        break;
                 }
             }
         });

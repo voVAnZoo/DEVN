@@ -1,25 +1,23 @@
 package com.example.user.devn;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -35,31 +33,33 @@ public class GameMap extends View {
     3 - finish
      */
     public int maparr[][];
+    Bitmap wall;
+    Bitmap start;
+    Bitmap finish;
+    Bitmap ground;
 
-    public List<Entity> entitys = new ArrayList<>();
 
-    public static Player player;
+    public List<Entity> entitys;
 
+    public Player player;
 
     public GameMap(Context context) {
         super(context);
         init();
-        Data.gameMap = this;
     }
 
     public GameMap(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
-        Data.gameMap = this;
     }
 
     public GameMap(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
-        Data.gameMap = this;
     }
 
     public void init() {
+        entitys = new ArrayList<>();
         Timer t = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
@@ -71,15 +71,16 @@ public class GameMap extends View {
             }
         };
         t.schedule(timerTask, 0, 100);
-        /*try {
-            save("test");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-    }
+        BitmapFactory.Options options = new BitmapFactory.Options();
 
-    public void addEntity(Entity e) {
-        entitys.add(e);
+        wall = BitmapFactory.decodeResource(getContext().getApplicationContext().getResources(), R.drawable.wall, options);
+        wall = Bitmap.createScaledBitmap(wall, Data.cellWidth, Data.cellHeight, false);
+        start = BitmapFactory.decodeResource(getContext().getApplicationContext().getResources(), R.drawable.start, options);
+        start = Bitmap.createScaledBitmap(start, Data.cellWidth, Data.cellHeight, false);
+        finish = BitmapFactory.decodeResource(getContext().getApplicationContext().getResources(), R.drawable.finish, options);
+        finish = Bitmap.createScaledBitmap(finish, Data.cellWidth, Data.cellHeight, false);
+        ground = BitmapFactory.decodeResource(getContext().getApplicationContext().getResources(), R.drawable.ground, options);
+        ground = Bitmap.createScaledBitmap(ground, Data.cellWidth, Data.cellHeight, false);
     }
 
     public void clear(int a) {
@@ -94,7 +95,6 @@ public class GameMap extends View {
 
     public void generate() {
         maparr = new int[Data.mapHeight][Data.mapWidth];
-        Data.maparr = this.maparr;
         clear(1);
         Random rand = new Random();
         int startX = rand.nextInt(Data.mapWidth - Data.startWidth + 1);
@@ -126,7 +126,7 @@ public class GameMap extends View {
                 Data.camY = Data.mapHeight*Data.cellHeight - Data.sizeY;
             }
         }
-        }while (finishX + finishY - startX - startY < (Data.mapHeight + Data.mapWidth) / 3 * 2 && i < 10000);
+
         Turtle turtle = new Turtle(this);
         turtle.setX(startX);
         turtle.setY(startY);
@@ -150,7 +150,6 @@ public class GameMap extends View {
         entitys.add(player);
 
         generateMonsters();
-
     }
 
     public void generateMonsters() {
@@ -175,19 +174,18 @@ public class GameMap extends View {
             for (int j = 0; j < Data.mapWidth; j++) {
                 switch (maparr[i][j]) {
                     case 0:
-                        paint.setColor(Color.BLACK);
+                        canvas.drawBitmap(ground,imageX, imageY,paint);
                         break;
                     case 1:
-                        paint.setColor(Color.GRAY);
+                        canvas.drawBitmap(wall,imageX, imageY,paint);
                         break;
                     case 2:
-                        paint.setColor(Color.BLUE);
+                        canvas.drawBitmap(start,imageX, imageY,paint);
                         break;
                     case 3:
-                        paint.setColor(Color.RED);
+                        canvas.drawBitmap(finish,imageX, imageY,paint);
                         break;
                 }
-                canvas.drawRect(imageX, imageY, imageX + Data.cellWidth, imageY + Data.cellHeight, paint);
                 imageX += Data.cellHeight;
             }
             imageY += Data.cellHeight;
@@ -229,7 +227,6 @@ public class GameMap extends View {
         File filesDir = getContext().getFilesDir();
         File mapFile = new File(filesDir, name + ".devn");
         BufferedReader bufferedReader = new BufferedReader(new FileReader(mapFile));
-
 
         Data.open(bufferedReader.readLine());
 

@@ -51,9 +51,6 @@ public class SaveDialog extends DialogFragment {
     }
 
     interface SaveNameListener {
-
         void onSaveName(final String saveName);
-
     }
-
 }

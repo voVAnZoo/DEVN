@@ -1,13 +1,13 @@
 package com.example.user.devn;
 
-import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.Random;
 
 /**
@@ -16,9 +16,19 @@ import java.util.Random;
 
 public class Monster extends Entity {
 
+    private Random rand = new Random();
+
+    private float maxSpeedX = 20f;
+    private float maxSpeedY = 20f;
+    private float oldR = 1000000;
+    private int dt = 0;
+    Bitmap bitmap1;
 
     public Monster(float mx, float my, float width, float height, GameMap gm) {
         super(mx, my, width, height, gm);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        bitmap1 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.monster2, options);
+        bitmap1 =  Bitmap.createScaledBitmap(bitmap1, (int)width, (int)height, false);
 
     }
 
@@ -27,102 +37,83 @@ public class Monster extends Entity {
 
     }
 
-
     @Override
     public void save(FileWriter out) {
         try {
             out.write("m ");
             super.save(out);
         }catch (IOException e){
-
+            e.printStackTrace();
         }
     }
 
     @Override
     public void onDraw(Canvas canvas, Paint paint) {
-        paint.setColor(color);
-        canvas.drawRect((int)mx - Data.camX, (int)my - Data.camY,(int) width  + (int) mx - Data.camX,(int)height + (int)my - Data.camY, paint);
+
+        //canvas.drawRect((int)mx - Data.camX, (int)my - Data.camY,(int) width  + (int) mx - Data.camX,(int)height + (int)my - Data.camY, paint);
+        canvas.drawBitmap(bitmap1,(int)mx - Data.camX, (int)my - Data.camY,paint);
     }
-    private float maxSpeedX = 20f;
-    private float maxSpeedY = 20f;
-    private Random rand = new Random();
+
     @Override
     public void addMx(float dx) {
         if(mx + dx < 0 ){
             mx = 0;
         }else{
-            if(mx + dx > Data.mapWidth * Data.cdellWidth - width){
-                mx = Data.mapWidth * Data.cdellWidth - width - dx;
+            if(mx + dx > Data.mapWidth * Data.cellWidth - width){
+                mx = Data.mapWidth * Data.cellWidth - width - dx;
             }else{
                 if(dx < 0){
-                    if((Data.maparr[(int) my/Data.cdellHeight][(int) (mx + dx)/Data.cdellWidth] == 1)||(
-                            Data.maparr[(int) (my + height - 1)/Data.cdellHeight][(int) (mx + dx)/Data.cdellWidth] == 1)){
-                        mx -= (mx % Data.cdellWidth);
+                    if((gm.maparr[(int) my/Data.cellHeight][(int) (mx + dx)/Data.cellWidth] == 1)||(
+                            gm.maparr[(int) (my + height - 1)/Data.cellHeight][(int) (mx + dx)/Data.cellWidth] == 1)){
+                        mx -= (mx % Data.cellWidth);
                     }else{
                         mx += dx;
                     }
                 }else{
-                    if ((Data.maparr[(int) my/Data.cdellHeight][(int) (mx + dx + width)/Data.cdellWidth] == 1)||(
-                            Data.maparr[(int) (my + height - 1)/Data.cdellHeight][(int) (mx + dx + width)/Data.cdellWidth] == 1)){
-                        mx = mx + dx - (mx + dx + width) % Data.cdellWidth;
+                    if ((gm.maparr[(int) my/Data.cellHeight][(int) (mx + dx + width)/Data.cellWidth] == 1)||(
+                            gm.maparr[(int) (my + height - 1)/Data.cellHeight][(int) (mx + dx + width)/Data.cellWidth] == 1)){
+                        mx = mx + dx - (mx + dx + width) % Data.cellWidth;
                     }else{
                         mx += dx;
                     }
                 }
             }
         }
-
-        /*if(Data.camX + dx < 0 ){
-            Data.camX = 0;
-        }else {
-            if(Data.camX + dx > Data.mapWidth*Data.cdellWidth - Data.sizeX){
-                Data.camX = Data.mapWidth*Data.cdellWidth - Data.sizeX;
-            }else {
-                Data.camX += dx;
-            }
-        }*/
     }
+
     @Override
     public void addMy(float dy) {
         if(my + dy < 0 ){
             my = 0;
         }else{
-            if(my + dy > Data.mapHeight*Data.cdellHeight - height){
-                my = Data.mapHeight*Data.cdellHeight - height - dy;
+            if(my + dy > Data.mapHeight*Data.cellHeight - height){
+                my = Data.mapHeight*Data.cellHeight - height - dy;
             }else{
                 if(dy < 0){
-                    if((Data.maparr[(int) (my + dy)/Data.cdellHeight][(int) mx/Data.cdellWidth] == 1)||(
-                            Data.maparr[(int) (my + dy)/Data.cdellHeight][(int) (mx + width - 1)/Data.cdellWidth] == 1)){
-                        my -= (my % Data.cdellHeight);
+                    if((gm.maparr[(int) (my + dy)/Data.cellHeight][(int) mx/Data.cellWidth] == 1)||(
+                            gm.maparr[(int) (my + dy)/Data.cellHeight][(int) (mx + width - 1)/Data.cellWidth] == 1)){
+                        my -= (my % Data.cellHeight);
                     }else{
                         my += dy;
                     }
                 }else{
-                    if ((Data.maparr[(int) (my + dy + height)/Data.cdellHeight][(int) mx/Data.cdellWidth] == 1)||(
-                            Data.maparr[(int) (my + dy + height)/Data.cdellHeight][(int) (mx + width - 1)/Data.cdellWidth] == 1)){
-                        my = my + dy - (my + dy + height) % Data.cdellHeight;
+                    if ((gm.maparr[(int) (my + dy + height)/Data.cellHeight][(int) mx/Data.cellWidth] == 1)||(
+                            gm.maparr[(int) (my + dy + height)/Data.cellHeight][(int) (mx + width - 1)/Data.cellWidth] == 1)){
+                        my = my + dy - (my + dy + height) % Data.cellHeight;
                     }else {
                         my += dy;
                     }
                 }
             }
         }
-
-      /*  if(Data.camY + dy < 0 ){
-            Data.camY = 0;
-        }else {
-            if(Data.camY + dy > Data.mapHeight*Data.cdellHeight - Data.sizeY){
-                Data.camY = Data.mapHeight*Data.cdellHeight - Data.sizeY;
-            }else {
-                Data.camY += dy;
-            }
-        }*/
     }
+
     private float getR2(float x, float y) {
         float s = x - mx;
         float d = y - my;
         return s * s + d * d;
     }
+
     private void choiceSpeedX(float x, float y) {
         if (rand.nextBoolean() || rand.nextBoolean())
             if (x > mx)
@@ -134,6 +125,7 @@ public class Monster extends Entity {
         else
             speedX = rand.nextFloat() * maxSpeedX * 2 - maxSpeedX;
     }
+
     private void choiceSpeedY(float x, float y) {
         if (rand.nextBoolean())
             if (y > my)
@@ -145,18 +137,20 @@ public class Monster extends Entity {
         else
             speedY = rand.nextFloat() * maxSpeedY * 2 - maxSpeedY;
     }
+
     private void randomSpeedX(){
         speedX = rand.nextFloat() * maxSpeedX * 2 - maxSpeedX;
     }
+
     private void randomSpeedY(){
         speedY = rand.nextFloat() * maxSpeedY * 2 - maxSpeedY;
     }
-    private float oldR = 1000000;
-    private int dt = 0;
-    private int color;
 
     @Override
     public void action(){
+        if(hp < 0){
+            this.death();
+        }
         if (speedX != 0) {
             addMx(speedX);
         }
@@ -164,31 +158,37 @@ public class Monster extends Entity {
             addMy(speedY);
         }
         dt++;
-        float x = Data.gameMap.player.getMx();
-        float y =  Data.gameMap.player.getMy();
+        float x = gm.player.getMx();
+        float y =  gm.player.getMy();
         if (dt > 10) {
             if (Math.abs(mx - x) < Data.sizeX / 2 && Math.abs(my - y) < Data.sizeY / 2) {
                 choiceSpeedX(x, y);
                 choiceSpeedY(x, y);
-                color = Color.RED;
+
             } else {
                 randomSpeedX();
                 randomSpeedY();
-                color = Color.GREEN;
+
             }
             dt = 0;
         }
-        if (my + Data.monsterHeight > y && my < y + Data.cdellHeight) {
+        if (my + Data.monsterHeight > y && my < y + Data.cellHeight) {
             if (x > mx && x <= mx + Data.monsterWidth)
-                speedX = -maxSpeedX / 2 + Data.gameMap.player.speedX;
-            if (x < mx && x + Data.cdellWidth >= mx)
-                speedX = maxSpeedX / 2 + Data.gameMap.player.speedX;
+                speedX = -maxSpeedX / 2 + gm.player.speedX;
+            if (x < mx && x + Data.cellWidth >= mx)
+                speedX = maxSpeedX / 2 + gm.player.speedX;
         }
-        if (mx + Data.monsterWidth > x && mx < x + Data.cdellWidth) {
+        if (mx + Data.monsterWidth > x && mx < x + Data.cellWidth) {
             if (y > my && y <= my + Data.monsterHeight)
-                speedY = -maxSpeedY / 2 + Data.gameMap.player.speedY;
-            if (y < my && y + Data.cdellHeight >= my)
-                speedY = maxSpeedY / 2 + Data.gameMap.player.speedY;
+                speedY = -maxSpeedY / 2 + gm.player.speedY;
+            if (y < my && y + Data.cellHeight >= my)
+                speedY = maxSpeedY / 2 + gm.player.speedY;
         }
+    }
+
+    @Override
+    public void death() {
+        gm.player.addXp(5);
+        super.death();
     }
 }

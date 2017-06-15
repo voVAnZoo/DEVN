@@ -1,6 +1,5 @@
 package com.example.user.devn;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
@@ -79,8 +78,6 @@ public class Entity {
         return speedY;
     }
 
-
-
     public void setMx(float mx) {
         this.mx = mx;
     }
@@ -112,7 +109,6 @@ public class Entity {
     public void setSpeedY(float speedY) {
         this.speedY = speedY;
     }
-
 
     public void addMx(float dx){
         mx += dx;
@@ -146,7 +142,6 @@ public class Entity {
         speedY += dSpeedY;
     }
 
-
     public void save(FileWriter out){
         try {
             out.write(Float.toString(mx) + " ");
@@ -155,7 +150,6 @@ public class Entity {
             out.write(Float.toString(height) + " ");
             out.write(Integer.toString(level) + " ");
             out.write(Float.toString(hp) + " ");
-            //out.write("\n");
         }catch (IOException e){
 
         }
@@ -164,5 +158,24 @@ public class Entity {
     void onDraw(Canvas canvas, Paint paint) {}
 
     public void action(){}
+
+    public void death(){
+        gm.entitys.remove(this);
+    }
+
+    public static boolean is_collide(Entity a, Entity b){
+        double ax, ay,bx,by;
+        ax = a.mx + (a.width/2);
+        ay = a.my + (a.height/2);
+        bx = b.mx + (b.width/2);
+        by = b.my + (b.height/2);
+
+        if((Math.abs(ax - bx) < a.width/2 + b.width/2)&&
+                (Math.abs(ay - by) < a.height/2 + b.height/2 )){
+            return(true);
+        } else {
+            return (false);
+        }
+    }
 
 }
