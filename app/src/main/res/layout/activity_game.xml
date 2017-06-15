@@ -67,13 +67,13 @@
         android:id="@+id/search"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="67dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_toEndOf="@+id/pause"
-        android:layout_toRightOf="@+id/pause"
+        android:layout_marginBottom="62dp"
         android:background="@android:drawable/ic_menu_search"
-        android:backgroundTint="@android:color/holo_orange_light" />
+        android:backgroundTint="@android:color/holo_orange_light"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="68dp"
+        android:layout_marginEnd="68dp" />
 
 </RelativeLayout>

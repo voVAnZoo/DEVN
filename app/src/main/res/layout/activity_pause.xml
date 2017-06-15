@@ -14,8 +14,12 @@
         android:background="@android:drawable/editbox_dropdown_light_frame"
         android:backgroundTint="@android:color/holo_orange_light"
         android:text="Back"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="253dp" />
+        android:layout_marginLeft="29dp"
+        android:layout_marginStart="29dp"
+        android:layout_alignTop="@+id/SaveButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 
     <Button
         android:id="@+id/SaveButton"
@@ -24,10 +28,12 @@
         android:background="@android:drawable/editbox_dropdown_light_frame"
         android:backgroundTint="@android:color/holo_orange_light"
         android:text="Save Game"
-        tools:layout_editor_absoluteX="147dp"
-        tools:layout_editor_absoluteY="130dp"
-        android:layout_below="@+id/BackButton"
-        android:layout_toRightOf="@+id/BackButton"
-        android:layout_toEndOf="@+id/BackButton" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="25dp" />
+
 
 </RelativeLayout>

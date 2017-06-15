@@ -1,13 +1,12 @@
 package com.example.user.devn;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
-import android.widget.Toast;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 /**
  * Created by user on 6/14/17.
@@ -15,36 +14,46 @@ import android.widget.Toast;
 
 public class SaveDialog extends DialogFragment {
 
-    @NonNull
+    private SaveNameListener saveNameListener;
+
+    public void setSaveNameListener(SaveNameListener saveNameListener) {
+        this.saveNameListener = saveNameListener;
+    }
+
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        String title = "Выбор есть всегда";
-        String message = "Выбери пищу";
-        String button1String = "";
-        String button2String = "Здоровая пища";
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        getDialog().setTitle("Title!");
+        View v = inflater.inflate(R.layout.dialog_layout, null);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        builder.setView(inflater.inflate(R.layout.dialog_layout, null));
+        final Button btok = (Button) v.findViewById(R.id.OkButton);
+        final Button btno = (Button) v.findViewById(R.id.NoButton);
+        final EditText et = (EditText) v.findViewById(R.id.worldname);
 
-        builder.setTitle(title);  // заголовок
-        builder.setMessage(message); // сообщение
-        builder.setPositiveButton(button1String, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                Toast.makeText(getActivity(), "Вы сделали правильный выбор",
-                        Toast.LENGTH_LONG).show();
+        btok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (saveNameListener != null) {
+                    saveNameListener.onSaveName(et.getText().toString());
+                    System.out.println("dgdsfsf");
+                }
             }
         });
-        builder.setNegativeButton(button2String, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                Toast.makeText(getActivity(), "Возможно вы правы", Toast.LENGTH_LONG)
-                        .show();
+
+        btno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
             }
         });
-        builder.setCancelable(true);
 
+        return v;
+    }
 
-        return builder.create();
+    interface SaveNameListener {
+
+        void onSaveName(final String saveName);
+
     }
 
 }

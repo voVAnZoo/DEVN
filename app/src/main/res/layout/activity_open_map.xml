@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,17 +11,13 @@
         android:id="@+id/contin"
         android:layout_width="190dp"
         android:layout_height="70dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:background="@android:drawable/picture_frame"
         android:backgroundTint="@android:color/holo_orange_light"
-        android:text="Continue"
-        app:layout_constraintBaseline_toBaselineOf="@+id/del"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintBaseline_creator="1" />
+        android:text="Continue" />
 
     <Button
         android:id="@+id/del"
+        android:layout_toRightOf="@+id/contin"
         android:layout_width="190dp"
 
         android:layout_height="70dp"
@@ -30,19 +26,15 @@
         android:text="delete"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        android:layout_alignBottom="@+id/contin" />
 
     <ListView
         android:id="@+id/lvMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="3dp"
-        android:layout_marginTop="0dp"
-        app:layout_constraintLeft_toLeftOf="@+id/del"
-        app:layout_constraintTop_toTopOf="@+id/del"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/contin" />
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

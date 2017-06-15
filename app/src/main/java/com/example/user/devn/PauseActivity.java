@@ -1,5 +1,6 @@
 package com.example.user.devn;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,7 +31,22 @@ public class PauseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 FragmentManager manager = getSupportFragmentManager();
                 SaveDialog myDialogFragment = new SaveDialog();
+                final String[] name = new String[1];
+                myDialogFragment.setSaveNameListener(new SaveDialog.SaveNameListener() {
+                    @Override
+                    public void onSaveName(String saveName) {
+                        name[0] = saveName;
+                        Intent intent = new Intent();
+                        intent.putExtra("name", name[0]);
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
+                });
                 myDialogFragment.show(manager,"sdsd");
+
+
+
+
             }
         });
     }

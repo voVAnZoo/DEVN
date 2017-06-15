@@ -15,6 +15,7 @@ import java.util.TimerTask;
 import java.util.Vector;
 
 public class GameActivity extends AppCompatActivity {
+    static GameMap gm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +25,7 @@ public class GameActivity extends AppCompatActivity {
         rootView.setOnTouchListener(new TouchControl());
 
         String name  = this.getIntent().getStringExtra("continue");
-        final GameMap gm = (GameMap) findViewById(R.id.player);
+        gm = (GameMap) findViewById(R.id.player);
         if(name != null) {
             try {
                 gm.open(name);
@@ -40,7 +41,7 @@ public class GameActivity extends AppCompatActivity {
         aa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(pause);
+                startActivityForResult(pause,1);
             }
         });
 
@@ -57,13 +58,12 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        he.setSpeedY(Float.parseFloat("-10"));
+                        he.setSpeedY(-10);
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
                     case MotionEvent.ACTION_UP:
-                        he.setSpeedY(Float.parseFloat("0"));
-                        he.setSpeedX(Float.parseFloat("0"));
+                        he.setSpeedY(0);
                         break;
                     case MotionEvent.ACTION_CANCEL:
                         break;
@@ -155,5 +155,16 @@ public class GameActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data == null) {return;}
+        String name = data.getStringExtra("name");
+        try {
+            gm.save(name);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
