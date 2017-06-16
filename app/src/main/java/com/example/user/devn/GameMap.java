@@ -37,6 +37,7 @@ public class GameMap extends View {
     Bitmap start;
     Bitmap finish;
     Bitmap ground;
+    int level;
 
 
     public List<Entity> entitys;
@@ -70,7 +71,7 @@ public class GameMap extends View {
                 }
             }
         };
-        t.schedule(timerTask, 0, 100);
+        t.schedule(timerTask, 0, 50);
         BitmapFactory.Options options = new BitmapFactory.Options();
 
         wall = BitmapFactory.decodeResource(getContext().getApplicationContext().getResources(), R.drawable.wall, options);
@@ -93,7 +94,9 @@ public class GameMap extends View {
         }
     }
 
-    public void generate() {
+    public void generate(int level, Player pl) {
+        this.level = level;
+        entitys = new ArrayList<>();
         maparr = new int[Data.mapHeight][Data.mapWidth];
         clear(1);
         Random rand = new Random();
@@ -107,7 +110,13 @@ public class GameMap extends View {
             finishY = rand.nextInt(Data.mapHeight - Data.finishWidth + 1);
             i++;
         }while (finishX + finishY - startX - startY < (Data.mapHeight + Data.mapWidth) / 2 && i < 10000);
-        player = new Player((startX + Data.startWidth / 2) * Data.cellWidth, (startY + Data.startHeight / 2) * Data.cellHeight, Data.cellWidth, Data.cellHeight, this);
+        if(pl == null) {
+            player = new Player((startX + Data.startWidth / 2) * Data.cellWidth, (startY + Data.startHeight / 2) * Data.cellHeight, Data.cellWidth/2, (int) (Data.cellHeight*0.8), this);
+        }else {
+            player = pl;
+            pl.setMx((startX + Data.startWidth / 2) * Data.cellWidth);
+            pl.setMy((startY + Data.startHeight / 2) * Data.cellHeight);
+        }
         Data.camX = (int) (player.mx + player.width/2 - Data.sizeX/2);
         Data.camY = (int) (player.my + player.height/2 - Data.sizeY/2);
 
@@ -150,16 +159,20 @@ public class GameMap extends View {
         entitys.add(player);
 
         generateMonsters();
+        if(pl == null) {
+            player.hp = 100;
+        }
     }
 
     public void generateMonsters() {
         Random rand = new Random();
+        float a = 100;
         Monster monster;
         for (int y = 0; y < Data.mapHeight; y++)
             for (int x = 0; x < Data.mapWidth; x++)
                 if (maparr[y][x] == 0)
                     if (rand.nextInt(30) == 1) {
-                        monster = new Monster(x * Data.cellWidth, y * Data.cellHeight, Data.cellWidth / 10 * 8, Data.cellHeight / 10 * 8, this);
+                        monster = new Monster(x * Data.cellWidth, y * Data.cellHeight, Data.cellWidth / 10 * 8, Data.cellHeight / 10 * 8,level,a, this);
                         entitys.add(monster);
                     }
     }
@@ -195,6 +208,8 @@ public class GameMap extends View {
             Entity e = entitys.get(i);
             e.onDraw(canvas, paint);
         }
+        paint.setColor(Color.RED);
+        canvas.drawRect(Data.sizeX - 100,20,player.hp + Data.sizeX - 100,40,paint);
         invalidate();
     }
 

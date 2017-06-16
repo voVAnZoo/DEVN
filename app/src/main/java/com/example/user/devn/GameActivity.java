@@ -218,7 +218,7 @@ public class GameActivity extends AppCompatActivity {
 
     public void start(GameMap gm){
         try {
-            gm.generate();
+            gm.generate(1,null);
         }catch (Exception e){
             start(gm);
         }

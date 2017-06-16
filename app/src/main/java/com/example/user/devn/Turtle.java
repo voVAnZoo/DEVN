@@ -49,16 +49,16 @@ public class Turtle{
         int max = 0;
         switch (direct) {
             case 1:
-                max = Data.mapWidth - x - width - 1;
+                max = Data.mapWidth - x - width;
                 break;
             case -1:
-                max = x - 1;
+                max = x;
                 break;
             case 2:
-                max = Data.mapHeight - y - height - 1;
+                max = Data.mapHeight - y - height;
                 break;
             case -2:
-                max = y - 1;
+                max = y;
                 break;
         }
         Random rand = new Random();

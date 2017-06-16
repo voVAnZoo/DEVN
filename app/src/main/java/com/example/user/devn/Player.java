@@ -28,9 +28,14 @@ public class Player extends Entity{
         xp = 0;
         BitmapFactory.Options options = new BitmapFactory.Options();
         bitmap3 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dprofile1, options);
+        bitmap3 = Bitmap.createScaledBitmap(bitmap3, width,height, false);
         bitmap1 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dprofile1, options);
+        bitmap1 = Bitmap.createScaledBitmap(bitmap1, width,height, false);
         bitmap0 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dface, options);
+        bitmap0 = Bitmap.createScaledBitmap(bitmap0, width,height, false);
         bitmap2 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dback, options);
+        bitmap2 = Bitmap.createScaledBitmap(bitmap2, width,height, false);
+        bitmap1 = Utils.flip(bitmap1);
 
     }
 
@@ -39,7 +44,16 @@ public class Player extends Entity{
         this.coins = coins;
         this.xp = xp;
         BitmapFactory.Options options = new BitmapFactory.Options();
+        bitmap3 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dprofile1, options);
+        bitmap3 = Bitmap.createScaledBitmap(bitmap3, width,height, false);
         bitmap1 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dprofile1, options);
+        bitmap1 = Bitmap.createScaledBitmap(bitmap1, width,height, false);
+        bitmap0 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dface, options);
+        bitmap0 = Bitmap.createScaledBitmap(bitmap0, width,height, false);
+        bitmap2 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dback, options);
+        bitmap2 = Bitmap.createScaledBitmap(bitmap2, width,height, false);
+        bitmap1 = Utils.flip(bitmap1);
+
     }
 
     public int getCoins() {
@@ -66,6 +80,7 @@ public class Player extends Entity{
         xp += dXp;
         if(xp > 100){
             level += xp/100;
+            hp = 100;
             xp %= 100;
         }
     }
@@ -79,20 +94,28 @@ public class Player extends Entity{
                 mx = Data.mapWidth * Data.cellWidth - width;
             }else{
                 if(dx < 0){
-                    if((gm.maparr[(int) my/Data.cellHeight][(int) (mx + dx)/Data.cellWidth] == 1)||(
-                            gm.maparr[(int) (my + height - 1)/Data.cellHeight][(int) (mx + dx)/Data.cellWidth] == 1)){
+                    try {
+                        if ((gm.maparr[(int) my / Data.cellHeight][(int) (mx + dx) / Data.cellWidth] == 1) || (
+                                gm.maparr[(int) (my + height - 1) / Data.cellHeight][(int) (mx + dx) / Data.cellWidth] == 1)) {
+                            mx -= (mx % Data.cellWidth);
+                        } else {
+                            mx += dx;
+                            Data.camX += dx;
+                        }
+                    }catch (ArrayIndexOutOfBoundsException e){
                         mx -= (mx % Data.cellWidth);
-                    }else{
-                        mx += dx;
-                        Data.camX += dx;
                     }
                 }else{
-                    if ((gm.maparr[(int) my/Data.cellHeight][(int) (mx + dx + width)/Data.cellWidth] == 1)||(
-                            gm.maparr[(int) (my + height - 1)/Data.cellHeight][(int) (mx + dx + width)/Data.cellWidth] == 1)){
+                    try {
+                        if ((gm.maparr[(int) my / Data.cellHeight][(int) (mx + dx + width) / Data.cellWidth] == 1) || (
+                                gm.maparr[(int) (my + height - 1) / Data.cellHeight][(int) (mx + dx + width) / Data.cellWidth] == 1)) {
+                            mx = mx + dx - (mx + dx + width) % Data.cellWidth;
+                        } else {
+                            mx += dx;
+                            Data.camX += dx;
+                        }
+                    }catch (ArrayIndexOutOfBoundsException e){
                         mx = mx + dx - (mx + dx + width) % Data.cellWidth;
-                    }else{
-                        mx += dx;
-                        Data.camX += dx;
                     }
                 }
             }
@@ -116,20 +139,28 @@ public class Player extends Entity{
                 my = Data.mapHeight*Data.cellHeight - height;
             }else{
                 if(dy < 0){
-                    if((gm.maparr[(int) (my + dy)/Data.cellHeight][(int) mx/Data.cellWidth] == 1)||(
-                            gm.maparr[(int) (my + dy)/Data.cellHeight][(int) (mx + width - 1)/Data.cellWidth] == 1)){
+                    try {
+                        if ((gm.maparr[(int) (my + dy) / Data.cellHeight][(int) mx / Data.cellWidth] == 1) || (
+                                gm.maparr[(int) (my + dy) / Data.cellHeight][(int) (mx + width - 1) / Data.cellWidth] == 1)) {
+                            my -= (my % Data.cellHeight);
+                        } else {
+                            my += dy;
+                            Data.camY += dy;
+                        }
+                    }catch (ArrayIndexOutOfBoundsException e){
                         my -= (my % Data.cellHeight);
-                    }else{
-                        my += dy;
-                        Data.camY += dy;
                     }
                 }else{
-                    if ((gm.maparr[(int) (my + dy + height)/Data.cellHeight][(int) mx/Data.cellWidth] == 1)||(
-                            gm.maparr[(int) (my + dy + height)/Data.cellHeight][(int) (mx + width - 1)/Data.cellWidth] == 1)){
+                    try {
+                        if ((gm.maparr[(int) (my + dy + height) / Data.cellHeight][(int) mx / Data.cellWidth] == 1) || (
+                                gm.maparr[(int) (my + dy + height) / Data.cellHeight][(int) (mx + width - 1) / Data.cellWidth] == 1)) {
+                            my = my + dy - (my + dy + height) % Data.cellHeight;
+                        } else {
+                            my += dy;
+                            Data.camY += dy;
+                        }
+                    }catch (ArrayIndexOutOfBoundsException e){
                         my = my + dy - (my + dy + height) % Data.cellHeight;
-                    }else {
-                        my += dy;
-                        Data.camY += dy;
                     }
                 }
             }
@@ -182,7 +213,15 @@ public class Player extends Entity{
             addMy(speedY);
         }
         if(gm.maparr[(int) my/Data.cellHeight][(int) mx/Data.cellWidth] == 3){
-            gm.generate();
+            gm.generate(gm.level + 1,this);
+        }
+    }
+
+    @Override
+    public void addHp(float dHp) {
+        hp += dHp;
+        if(hp < 0){
+            gm.generate(1,null);
         }
     }
 }

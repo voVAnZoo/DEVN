@@ -31,7 +31,7 @@ public class Data {
     public static float monsterWidth = 8 * cellWidth / 10;
     public static float monsterHeight = 8 * cellHeight / 10;
 
-    public static float damag = -25;
+    public static float damag = -35;
 
     public static void save(FileWriter out){
         try {

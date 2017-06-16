@@ -18,8 +18,8 @@ public class Monster extends Entity {
 
     private Random rand = new Random();
 
-    private float maxSpeedX = 20f;
-    private float maxSpeedY = 20f;
+    private float maxSpeedX = 10f;
+    private float maxSpeedY = 10f;
     private float oldR = 1000000;
     private int dt = 0;
     Bitmap bitmap1;
@@ -34,6 +34,9 @@ public class Monster extends Entity {
 
     public Monster(float mx, float my, float width, float height, int level, float hp, GameMap gm) {
         super(mx, my, width, height, level, hp, gm);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        bitmap1 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.monster2, options);
+        bitmap1 =  Bitmap.createScaledBitmap(bitmap1, (int)width, (int)height, false);
 
     }
 
@@ -63,18 +66,26 @@ public class Monster extends Entity {
                 mx = Data.mapWidth * Data.cellWidth - width - dx;
             }else{
                 if(dx < 0){
-                    if((gm.maparr[(int) my/Data.cellHeight][(int) (mx + dx)/Data.cellWidth] == 1)||(
-                            gm.maparr[(int) (my + height - 1)/Data.cellHeight][(int) (mx + dx)/Data.cellWidth] == 1)){
+                    try {
+                        if ((gm.maparr[(int) my / Data.cellHeight][(int) (mx + dx) / Data.cellWidth] == 1) || (
+                                gm.maparr[(int) (my + height - 1) / Data.cellHeight][(int) (mx + dx) / Data.cellWidth] == 1)) {
+                            mx -= (mx % Data.cellWidth);
+                        } else {
+                            mx += dx;
+                        }
+                    }catch (ArrayIndexOutOfBoundsException e){
                         mx -= (mx % Data.cellWidth);
-                    }else{
-                        mx += dx;
                     }
                 }else{
-                    if ((gm.maparr[(int) my/Data.cellHeight][(int) (mx + dx + width)/Data.cellWidth] == 1)||(
-                            gm.maparr[(int) (my + height - 1)/Data.cellHeight][(int) (mx + dx + width)/Data.cellWidth] == 1)){
+                    try {
+                        if ((gm.maparr[(int) my / Data.cellHeight][(int) (mx + dx + width) / Data.cellWidth] == 1) || (
+                                gm.maparr[(int) (my + height - 1) / Data.cellHeight][(int) (mx + dx + width) / Data.cellWidth] == 1)) {
+                            mx = mx + dx - (mx + dx + width) % Data.cellWidth;
+                        } else {
+                            mx += dx;
+                        }
+                    }catch (ArrayIndexOutOfBoundsException e){
                         mx = mx + dx - (mx + dx + width) % Data.cellWidth;
-                    }else{
-                        mx += dx;
                     }
                 }
             }
@@ -90,18 +101,26 @@ public class Monster extends Entity {
                 my = Data.mapHeight*Data.cellHeight - height - dy;
             }else{
                 if(dy < 0){
-                    if((gm.maparr[(int) (my + dy)/Data.cellHeight][(int) mx/Data.cellWidth] == 1)||(
-                            gm.maparr[(int) (my + dy)/Data.cellHeight][(int) (mx + width - 1)/Data.cellWidth] == 1)){
+                    try {
+                        if ((gm.maparr[(int) (my + dy) / Data.cellHeight][(int) mx / Data.cellWidth] == 1) || (
+                                gm.maparr[(int) (my + dy) / Data.cellHeight][(int) (mx + width - 1) / Data.cellWidth] == 1)) {
+                            my -= (my % Data.cellHeight);
+                        } else {
+                            my += dy;
+                        }
+                    }catch (ArrayIndexOutOfBoundsException e){
                         my -= (my % Data.cellHeight);
-                    }else{
-                        my += dy;
                     }
                 }else{
-                    if ((gm.maparr[(int) (my + dy + height)/Data.cellHeight][(int) mx/Data.cellWidth] == 1)||(
-                            gm.maparr[(int) (my + dy + height)/Data.cellHeight][(int) (mx + width - 1)/Data.cellWidth] == 1)){
+                    try {
+                        if ((gm.maparr[(int) (my + dy + height) / Data.cellHeight][(int) mx / Data.cellWidth] == 1) || (
+                                gm.maparr[(int) (my + dy + height) / Data.cellHeight][(int) (mx + width - 1) / Data.cellWidth] == 1)) {
+                            my = my + dy - (my + dy + height) % Data.cellHeight;
+                        } else {
+                            my += dy;
+                        }
+                    }catch (ArrayIndexOutOfBoundsException e){
                         my = my + dy - (my + dy + height) % Data.cellHeight;
-                    }else {
-                        my += dy;
                     }
                 }
             }
@@ -173,16 +192,25 @@ public class Monster extends Entity {
             dt = 0;
         }
         if (my + Data.monsterHeight > y && my < y + Data.cellHeight) {
-            if (x > mx && x <= mx + Data.monsterWidth)
+            if (x > mx && x <= mx + Data.monsterWidth) {
                 speedX = -maxSpeedX / 2 + gm.player.speedX;
-            if (x < mx && x + Data.cellWidth >= mx)
+                gm.player.addHp((Data.damag * level/ gm.player.level)/5);
+            }
+
+            if (x < mx && x + Data.cellWidth >= mx) {
                 speedX = maxSpeedX / 2 + gm.player.speedX;
+                gm.player.addHp((Data.damag * level/ gm.player.level)/5);
+            }
         }
         if (mx + Data.monsterWidth > x && mx < x + Data.cellWidth) {
-            if (y > my && y <= my + Data.monsterHeight)
+            if (y > my && y <= my + Data.monsterHeight) {
                 speedY = -maxSpeedY / 2 + gm.player.speedY;
-            if (y < my && y + Data.cellHeight >= my)
+                gm.player.addHp((Data.damag * level/ gm.player.level)/5);
+            }
+            if (y < my && y + Data.cellHeight >= my) {
                 speedY = maxSpeedY / 2 + gm.player.speedY;
+                gm.player.addHp((Data.damag * level/ gm.player.level)/5);
+            }
         }
     }
 
