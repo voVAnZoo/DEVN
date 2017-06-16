@@ -96,7 +96,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        gm.player.setSpeedY(-10);
+                        gm.player.setSpeedY((float) (Data.cellHeight*-0.2));
                         gm.player.orientation = 2;
                         break;
                     case MotionEvent.ACTION_MOVE:
@@ -116,7 +116,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        gm.player.setSpeedY(10);
+                        gm.player.setSpeedY((float) (Data.cellHeight*0.2));
                         gm.player.orientation = 0;
                         break;
                     case MotionEvent.ACTION_MOVE:
@@ -136,7 +136,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        gm.player.setSpeedX(-10);
+                        gm.player.setSpeedX((float) (Data.cellWidth*-0.2));
                         gm.player.orientation = 1;
                         break;
                     case MotionEvent.ACTION_MOVE:
@@ -156,7 +156,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        gm.player.setSpeedX(10);
+                        gm.player.setSpeedX((float) (Data.cellWidth*0.2));
                         gm.player.orientation = 3;
                         break;
                     case MotionEvent.ACTION_MOVE:
