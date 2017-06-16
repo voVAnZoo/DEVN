@@ -10,7 +10,7 @@ import android.graphics.Matrix;
 
 public class Utils {
 
-    public static Bitmap flip(final Bitmap srcBitmap) {
+   public static Bitmap flip(final Bitmap srcBitmap) {
         Matrix matrix = new Matrix();
         matrix.setScale(-1, 1);
         return Bitmap.createBitmap(srcBitmap, 0, 0, srcBitmap.getWidth(), srcBitmap.getHeight(), matrix, false);

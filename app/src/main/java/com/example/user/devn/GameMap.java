@@ -234,6 +234,7 @@ public class GameMap extends View {
             entitys.get(i).save(out);
             out.write("\n");
         }
+        out.write(Integer.toString(level) + "\n");
         out.flush();
         out.close();
     }
@@ -279,7 +280,8 @@ public class GameMap extends View {
                     k[6] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
                     s = s.substring(s.indexOf(" ") + 1);
                     k[7] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
-                    entitys.add(new Player(k[0], k[1],(int) k[2], (int)k[3], (int)k[4], k[5],(int) k[6], k[7], this));
+                    player = new Player(k[0], k[1],(int) k[2], (int)k[3], (int)k[4], k[5],(int) k[6], k[7], this);
+                    entitys.add(player);
                     break;
                 case 'm':
                     k = new float[8];
@@ -296,7 +298,12 @@ public class GameMap extends View {
                     k[5] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
                     entitys.add(new Monster(k[0], k[1], k[2],k[3], (int)k[4], k[5], this));
                     break;
+                case 'f':
+                    break;
             }
         }
+
+        s = bufferedReader.readLine();
+        level = Integer.parseInt(s);
     }
 }

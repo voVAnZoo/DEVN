@@ -216,7 +216,7 @@ public class Monster extends Entity {
 
     @Override
     public void death() {
-        gm.player.addXp(5);
+        gm.player.addXp(5*level/gm.player.level);
         super.death();
     }
 }
