@@ -96,7 +96,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        gm.player.setSpeedY((float) (Data.cellHeight*-0.2));
+                        gm.player.setSpeedY((float) (Data.cellHeight*-0.15));
                         gm.player.orientation = 2;
                         break;
                     case MotionEvent.ACTION_MOVE:
@@ -116,7 +116,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        gm.player.setSpeedY((float) (Data.cellHeight*0.2));
+                        gm.player.setSpeedY((float) (Data.cellHeight*0.15));
                         gm.player.orientation = 0;
                         break;
                     case MotionEvent.ACTION_MOVE:
@@ -136,7 +136,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        gm.player.setSpeedX((float) (Data.cellWidth*-0.2));
+                        gm.player.setSpeedX((float) (Data.cellWidth*-0.15));
                         gm.player.orientation = 1;
                         break;
                     case MotionEvent.ACTION_MOVE:
@@ -156,7 +156,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        gm.player.setSpeedX((float) (Data.cellWidth*0.2));
+                        gm.player.setSpeedX((float) (Data.cellWidth*0.15));
                         gm.player.orientation = 3;
                         break;
                     case MotionEvent.ACTION_MOVE:
@@ -200,16 +200,16 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 switch (gm.player.orientation){
                     case 0:
-                        gm.entitys.add(new FireBall(gm.player.mx + gm.player.width/2 ,gm.player.my + gm.player.height/2, Data.cellWidth /5 ,Data.cellHeight /10 ,0.0,20.0 ,gm));
+                        gm.entitys.add(new FireBall(gm.player.mx + gm.player.width/2 ,gm.player.my + gm.player.height/2, Data.cellWidth /5 ,Data.cellHeight /10 ,0.0,30.0 ,gm));
                         break;
                     case 1:
-                        gm.entitys.add(new FireBall(gm.player.mx + gm.player.width/2 ,gm.player.my + gm.player.height/2, Data.cellWidth /5 ,Data.cellHeight /10 ,-20.0,0.0 ,gm));
+                        gm.entitys.add(new FireBall(gm.player.mx + gm.player.width/2 ,gm.player.my + gm.player.height/2, Data.cellWidth /5 ,Data.cellHeight /10 ,-30.0,0.0 ,gm));
                         break;
                     case 2:
-                        gm.entitys.add(new FireBall(gm.player.mx + gm.player.width/2 ,gm.player.my + gm.player.height/2, Data.cellWidth /5 ,Data.cellHeight /10 ,0.0,-20.0 ,gm));
+                        gm.entitys.add(new FireBall(gm.player.mx + gm.player.width/2 ,gm.player.my + gm.player.height/2, Data.cellWidth /5 ,Data.cellHeight /10 ,0.0,-30.0 ,gm));
                         break;
                     case 3:
-                        gm.entitys.add(new FireBall(gm.player.mx + gm.player.width/2 ,gm.player.my+ gm.player.height/2, Data.cellWidth /5 ,Data.cellHeight /10 ,20.0,0.0 ,gm));
+                        gm.entitys.add(new FireBall(gm.player.mx + gm.player.width/2 ,gm.player.my+ gm.player.height/2, Data.cellWidth /5 ,Data.cellHeight /10 ,30.0,0.0 ,gm));
                         break;
                 }
             }
