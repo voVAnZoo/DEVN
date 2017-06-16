@@ -109,7 +109,7 @@ public class GameMap extends View {
             finishX = rand.nextInt(Data.mapWidth - Data.finishHeight + 1);
             finishY = rand.nextInt(Data.mapHeight - Data.finishWidth + 1);
             i++;
-        }while (finishX + finishY - startX - startY < (Data.mapHeight + Data.mapWidth) / 2 && i < 10000);
+        }while (finishX + finishY - startX - startY < (Data.mapHeight + Data.mapWidth) / 3 * 2 && i < 10000);
         if(pl == null) {
             player = new Player((startX + Data.startWidth / 2) * Data.cellWidth, (startY + Data.startHeight / 2) * Data.cellHeight, Data.cellWidth/2, (int) (Data.cellHeight*0.8), this);
         }else {
@@ -117,8 +117,8 @@ public class GameMap extends View {
             pl.setMx((startX + Data.startWidth / 2) * Data.cellWidth);
             pl.setMy((startY + Data.startHeight / 2) * Data.cellHeight);
         }
-        Data.camX = (int) (player.mx + player.width/2 - Data.sizeX/2);
-        Data.camY = (int) (player.my + player.height/2 - Data.sizeY/2);
+        Data.camX = (int) (player.mx + player.width / 2 - Data.sizeX / 2);
+        Data.camY = (int) (player.my + player.height / 2 - Data.sizeY / 2);
 
         if (Data.camX < 0) {
             Data.camX = 0;
@@ -187,16 +187,16 @@ public class GameMap extends View {
             for (int j = 0; j < Data.mapWidth; j++) {
                 switch (maparr[i][j]) {
                     case 0:
-                        canvas.drawBitmap(ground,imageX, imageY,paint);
+                        canvas.drawBitmap(ground, imageX, imageY, paint);
                         break;
                     case 1:
-                        canvas.drawBitmap(wall,imageX, imageY,paint);
+                        canvas.drawBitmap(wall, imageX, imageY, paint);
                         break;
                     case 2:
-                        canvas.drawBitmap(start,imageX, imageY,paint);
+                        canvas.drawBitmap(start, imageX, imageY, paint);
                         break;
                     case 3:
-                        canvas.drawBitmap(finish,imageX, imageY,paint);
+                        canvas.drawBitmap(finish, imageX, imageY, paint);
                         break;
                 }
                 imageX += Data.cellHeight;
@@ -209,7 +209,7 @@ public class GameMap extends View {
             e.onDraw(canvas, paint);
         }
         paint.setColor(Color.RED);
-        canvas.drawRect(Data.sizeX - 100,20,player.hp + Data.sizeX - 100,40,paint);
+        canvas.drawRect(Data.sizeX - 100, 20, player.hp + Data.sizeX - 100, 40, paint);
         invalidate();
     }
 

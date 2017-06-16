@@ -12,6 +12,7 @@ public class Turtle{
     private int y = 0;
     private int height = 1;
     private int width = 1;
+    private Random rand = new Random();
     Turtle(GameMap gameMap){
         this.gameMap = gameMap;
     }
@@ -30,7 +31,6 @@ public class Turtle{
     -2 - top
      */
     private int randomDirect(){
-        Random rand = new Random();
         switch (rand.nextInt(4)){
             case 0:
                 return 1;
@@ -61,7 +61,6 @@ public class Turtle{
                 max = y;
                 break;
         }
-        Random rand = new Random();
         if (rand.nextBoolean()) {
             return rand.nextInt(max + 1);
         }else {
@@ -108,7 +107,6 @@ public class Turtle{
     public void nextStep(){
         int direct = randomDirect();
         int length = choiceStepLength(direct);
-        Random rand = new Random();
         if(x < Data.mapWidth - 10)
             width = rand.nextInt(1) + 1;
         if (y < Data.mapHeight - 10)

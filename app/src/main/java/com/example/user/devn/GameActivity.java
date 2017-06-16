@@ -33,8 +33,8 @@ public class GameActivity extends AppCompatActivity {
                         if(Data.camX - event.getX() + x < 0 ){
                             Data.camX = 0;
                         }else {
-                            if(Data.camX - event.getX() + x > Data.mapWidth*Data.cellWidth - Data.sizeX){
-                                Data.camX = Data.mapWidth*Data.cellWidth - Data.sizeX;
+                            if(Data.camX - event.getX() + x > Data.mapWidth * Data.cellWidth - Data.sizeX){
+                                Data.camX = Data.mapWidth * Data.cellWidth - Data.sizeX;
                             }else {
                                 Data.camX -= event.getX() - x;
                             }
@@ -43,8 +43,8 @@ public class GameActivity extends AppCompatActivity {
                         if(Data.camY - event.getY() + y < 0 ){
                             Data.camY = 0;
                         }else {
-                            if(Data.camY - event.getY() + y > Data.mapHeight*Data.cellHeight - Data.sizeY){
-                                Data.camY = Data.mapHeight*Data.cellHeight - Data.sizeY;
+                            if(Data.camY - event.getY() + y > Data.mapHeight * Data.cellHeight - Data.sizeY){
+                                Data.camY = Data.mapHeight * Data.cellHeight - Data.sizeY;
                             }else {
                                 Data.camY -= event.getY() - y;
                             }
@@ -76,12 +76,12 @@ public class GameActivity extends AppCompatActivity {
             start(gm);
         }
 
-        final Intent pause = new Intent(this,PauseActivity.class);
+        final Intent pause = new Intent(this, PauseActivity.class);
         Button btPause = (Button) findViewById(R.id.pause);
         btPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(pause,1);
+                startActivityForResult(pause, 1);
             }
         });
 
@@ -96,7 +96,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        gm.player.setSpeedY(-10);
+                        gm.player.setSpeedY(-Data.playerSpeed);
                         gm.player.orientation = 2;
                         break;
                     case MotionEvent.ACTION_MOVE:
@@ -116,7 +116,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        gm.player.setSpeedY(10);
+                        gm.player.setSpeedY(Data.playerSpeed);
                         gm.player.orientation = 0;
                         break;
                     case MotionEvent.ACTION_MOVE:
@@ -136,7 +136,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        gm.player.setSpeedX(-10);
+                        gm.player.setSpeedX(-Data.playerSpeed);
                         gm.player.orientation = 1;
                         break;
                     case MotionEvent.ACTION_MOVE:
@@ -156,7 +156,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        gm.player.setSpeedX(10);
+                        gm.player.setSpeedX(Data.playerSpeed);
                         gm.player.orientation = 3;
                         break;
                     case MotionEvent.ACTION_MOVE:
@@ -200,16 +200,16 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 switch (gm.player.orientation){
                     case 0:
-                        gm.entitys.add(new FireBall(gm.player.mx + gm.player.width/2 ,gm.player.my + gm.player.height/2, Data.cellWidth /5 ,Data.cellHeight /10 ,0.0,20.0 ,gm));
+                        gm.entitys.add(new FireBall(gm.player.mx + gm.player.width / 2 ,gm.player.my + gm.player.height / 2, Data.cellWidth / 5, Data.cellHeight / 10, 0.0, Data.fireBallSpeed ,gm));
                         break;
                     case 1:
-                        gm.entitys.add(new FireBall(gm.player.mx + gm.player.width/2 ,gm.player.my + gm.player.height/2, Data.cellWidth /5 ,Data.cellHeight /10 ,-20.0,0.0 ,gm));
+                        gm.entitys.add(new FireBall(gm.player.mx + gm.player.width / 2 ,gm.player.my + gm.player.height / 2, Data.cellWidth / 5 ,Data.cellHeight / 10, -Data.fireBallSpeed, 0.0, gm));
                         break;
                     case 2:
-                        gm.entitys.add(new FireBall(gm.player.mx + gm.player.width/2 ,gm.player.my + gm.player.height/2, Data.cellWidth /5 ,Data.cellHeight /10 ,0.0,-20.0 ,gm));
+                        gm.entitys.add(new FireBall(gm.player.mx + gm.player.width / 2 ,gm.player.my + gm.player.height / 2, Data.cellWidth / 5 ,Data.cellHeight / 10, 0.0,-Data.fireBallSpeed, gm));
                         break;
                     case 3:
-                        gm.entitys.add(new FireBall(gm.player.mx + gm.player.width/2 ,gm.player.my+ gm.player.height/2, Data.cellWidth /5 ,Data.cellHeight /10 ,20.0,0.0 ,gm));
+                        gm.entitys.add(new FireBall(gm.player.mx + gm.player.width / 2 ,gm.player.my+ gm.player.height / 2, Data.cellWidth / 5 ,Data.cellHeight / 10, Data.fireBallSpeed, 0.0, gm));
                         break;
                 }
             }
@@ -218,7 +218,7 @@ public class GameActivity extends AppCompatActivity {
 
     public void start(GameMap gm){
         try {
-            gm.generate(1,null);
+            gm.generate(1, null);
         }catch (Exception e){
             start(gm);
         }

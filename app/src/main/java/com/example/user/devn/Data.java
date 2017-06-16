@@ -8,30 +8,31 @@ import java.io.IOException;
  */
 
 public class Data {
-    /////////////////////////////
     public static int mapWidth = 50;
     public static int mapHeight = 50;
 
-    public static int cellWidth = 100;
-    public static int cellHeight = 100;
+    public static int cellWidth = 120;
+    public static int cellHeight = 120;
 
     public static int startHeight = 3;
     public static int startWidth = 3;
     public static int finishHeight = 3;
     public static int finishWidth = 3;
-    /////////////////////////////////////////////////////////
+
     public static int camX = 0;
     public static int camY = 0;
 
     public static int sizeX = -1;
     public static int sizeY = -1;
 
-    public static int maxR2 = (cellWidth * cellWidth + cellHeight * cellHeight) * 50;
-
     public static float monsterWidth = 8 * cellWidth / 10;
     public static float monsterHeight = 8 * cellHeight / 10;
 
     public static float damag = -35;
+
+    public static float playerSpeed = 12;
+    public static float monsterSpeed = 10;
+    public static float fireBallSpeed = 20;
 
     public static void save(FileWriter out){
         try {

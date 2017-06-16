@@ -3,7 +3,6 @@ package com.example.user.devn;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 
 import java.io.FileWriter;
@@ -18,11 +17,11 @@ public class Monster extends Entity {
 
     private Random rand = new Random();
 
-    private float maxSpeedX = 10f;
-    private float maxSpeedY = 10f;
+    private float maxSpeedX = Data.monsterSpeed;
+    private float maxSpeedY = Data.monsterSpeed;
     private float oldR = 1000000;
     private int dt = 0;
-    Bitmap bitmap1;
+    private Bitmap bitmap1;
 
     public Monster(float mx, float my, float width, float height, GameMap gm) {
         super(mx, my, width, height, gm);
@@ -52,7 +51,6 @@ public class Monster extends Entity {
 
     @Override
     public void onDraw(Canvas canvas, Paint paint) {
-
         //canvas.drawRect((int)mx - Data.camX, (int)my - Data.camY,(int) width  + (int) mx - Data.camX,(int)height + (int)my - Data.camY, paint);
         canvas.drawBitmap(bitmap1,(int)mx - Data.camX, (int)my - Data.camY,paint);
     }
@@ -134,7 +132,7 @@ public class Monster extends Entity {
     }
 
     private void choiceSpeedX(float x, float y) {
-        if (rand.nextBoolean() || rand.nextBoolean())
+        if (rand.nextBoolean() || rand.nextBoolean() || rand.nextBoolean())
             if (x > mx)
                 speedX = maxSpeedX;
             else if (x < mx)
@@ -146,7 +144,7 @@ public class Monster extends Entity {
     }
 
     private void choiceSpeedY(float x, float y) {
-        if (rand.nextBoolean())
+        if (rand.nextBoolean() || rand.nextBoolean() || rand.nextBoolean())
             if (y > my)
                 speedY = maxSpeedY;
             else if (y < my)
@@ -179,7 +177,7 @@ public class Monster extends Entity {
         dt++;
         float x = gm.player.getMx();
         float y =  gm.player.getMy();
-        if (dt > 10) {
+        if (dt >= 15) {
             if (Math.abs(mx - x) < Data.sizeX / 2 && Math.abs(my - y) < Data.sizeY / 2) {
                 choiceSpeedX(x, y);
                 choiceSpeedY(x, y);
@@ -194,22 +192,22 @@ public class Monster extends Entity {
         if (my + Data.monsterHeight > y && my < y + Data.cellHeight) {
             if (x > mx && x <= mx + Data.monsterWidth) {
                 speedX = -maxSpeedX / 2 + gm.player.speedX;
-                gm.player.addHp((Data.damag * level/ gm.player.level)/5);
+                gm.player.addHp((Data.damag * level / gm.player.level )/ 5);
             }
 
             if (x < mx && x + Data.cellWidth >= mx) {
                 speedX = maxSpeedX / 2 + gm.player.speedX;
-                gm.player.addHp((Data.damag * level/ gm.player.level)/5);
+                gm.player.addHp((Data.damag * level / gm.player.level) / 5);
             }
         }
         if (mx + Data.monsterWidth > x && mx < x + Data.cellWidth) {
             if (y > my && y <= my + Data.monsterHeight) {
                 speedY = -maxSpeedY / 2 + gm.player.speedY;
-                gm.player.addHp((Data.damag * level/ gm.player.level)/5);
+                gm.player.addHp((Data.damag * level / gm.player.level )/ 5);
             }
             if (y < my && y + Data.cellHeight >= my) {
                 speedY = maxSpeedY / 2 + gm.player.speedY;
-                gm.player.addHp((Data.damag * level/ gm.player.level)/5);
+                gm.player.addHp((Data.damag * level / gm.player.level) / 5);
             }
         }
     }

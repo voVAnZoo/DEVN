@@ -11,13 +11,12 @@ import java.io.IOException;
 
 public class Player extends Entity{
 
-    int coins;
-    float xp; //не больше 100
-    Bitmap bitmap0;
-    Bitmap bitmap1;
-    Bitmap bitmap2;
-    Bitmap bitmap3;
-
+    private int coins;
+    private float xp; //не больше 100
+    private Bitmap bitmap0;
+    private Bitmap bitmap1;
+    private Bitmap bitmap2;
+    private Bitmap bitmap3;
     int orientation = 0;
 //      2
 //     1 3
@@ -28,13 +27,13 @@ public class Player extends Entity{
         xp = 0;
         BitmapFactory.Options options = new BitmapFactory.Options();
         bitmap3 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dprofile1, options);
-        bitmap3 = Bitmap.createScaledBitmap(bitmap3, width,height, false);
+        bitmap3 = Bitmap.createScaledBitmap(bitmap3, width, height, false);
         bitmap1 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dprofile1, options);
-        bitmap1 = Bitmap.createScaledBitmap(bitmap1, width,height, false);
+        bitmap1 = Bitmap.createScaledBitmap(bitmap1, width, height, false);
         bitmap0 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dface, options);
-        bitmap0 = Bitmap.createScaledBitmap(bitmap0, width,height, false);
+        bitmap0 = Bitmap.createScaledBitmap(bitmap0, width, height, false);
         bitmap2 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dback, options);
-        bitmap2 = Bitmap.createScaledBitmap(bitmap2, width,height, false);
+        bitmap2 = Bitmap.createScaledBitmap(bitmap2, width, height, false);
         bitmap1 = Utils.flip(bitmap1);
 
     }
@@ -191,7 +190,6 @@ public class Player extends Entity{
                 canvas.drawBitmap(bitmap3,(int)mx - Data.camX, (int)my - Data.camY,paint);
                 break;
         }
-
     }
 
     @Override
@@ -208,11 +206,11 @@ public class Player extends Entity{
 
     @Override
     public void action() {
-        if((speedX != 0)||(speedY != 0)) {
+        if((speedX != 0) || (speedY != 0)) {
             addMx(speedX);
             addMy(speedY);
         }
-        if(gm.maparr[(int) my/Data.cellHeight][(int) mx/Data.cellWidth] == 3){
+        if(gm.maparr[(int) my / Data.cellHeight][(int) mx / Data.cellWidth] == 3){
             gm.generate(gm.level + 1,this);
         }
     }
@@ -221,7 +219,7 @@ public class Player extends Entity{
     public void addHp(float dHp) {
         hp += dHp;
         if(hp < 0){
-            gm.generate(1,null);
+            gm.generate(1, null);
         }
     }
 }
