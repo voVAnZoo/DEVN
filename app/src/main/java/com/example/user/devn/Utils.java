@@ -1,8 +1,9 @@
 package com.example.user.devn;
 
+import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.util.DisplayMetrics;
 
 /**
  * Created by user on 6/16/17.
@@ -29,6 +30,16 @@ public class Utils {
         } else {
             return (false);
         }
+    }
+
+    public static int dpToPx(final Context context, final int dp) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+
+    public static int pxToDp(final Context context, final int px) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
 }
