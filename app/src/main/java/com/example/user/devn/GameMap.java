@@ -39,7 +39,6 @@ public class GameMap extends View {
     Bitmap ground;
     int level;
 
-
     public List<Entity> entitys;
 
     public Player player;
@@ -114,8 +113,8 @@ public class GameMap extends View {
             player = new Player((startX + Data.startWidth / 2) * Data.cellWidth, (startY + Data.startHeight / 2) * Data.cellHeight, Data.cellWidth/2, (int) (Data.cellHeight*0.8), this);
         }else {
             player = pl;
-            pl.setMx((startX + Data.startWidth / 2) * Data.cellWidth);
-            pl.setMy((startY + Data.startHeight / 2) * Data.cellHeight);
+            pl.mx = (startX + Data.startWidth / 2) * Data.cellWidth;
+            pl.my = (startY + Data.startHeight / 2) * Data.cellHeight;
         }
         Data.camX = (int) (player.mx + player.width/2 - Data.sizeX/2);
         Data.camY = (int) (player.my + player.height/2 - Data.sizeY/2);
@@ -264,39 +263,11 @@ public class GameMap extends View {
             s = s.substring(s.indexOf(" ") + 1);
             switch (a) {
                 case 'p':
-                    float k[] = new float[8];
-                    k[0] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
-                    s = s.substring(s.indexOf(" ") + 1);
-                    k[1] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
-                    s = s.substring(s.indexOf(" ") + 1);
-                    k[2] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
-                    s = s.substring(s.indexOf(" ") + 1);
-                    k[3] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
-                    s = s.substring(s.indexOf(" ") + 1);
-                    k[4] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
-                    s = s.substring(s.indexOf(" ") + 1);
-                    k[5] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
-                    s = s.substring(s.indexOf(" ") + 1);
-                    k[6] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
-                    s = s.substring(s.indexOf(" ") + 1);
-                    k[7] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
-                    player = new Player(k[0], k[1],(int) k[2], (int)k[3], (int)k[4], k[5],(int) k[6], k[7], this);
+                    player = new Player(s,this);
                     entitys.add(player);
                     break;
                 case 'm':
-                    k = new float[8];
-                    k[0] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
-                    s = s.substring(s.indexOf(" ") + 1);
-                    k[1] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
-                    s = s.substring(s.indexOf(" ") + 1);
-                    k[2] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
-                    s = s.substring(s.indexOf(" ") + 1);
-                    k[3] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
-                    s = s.substring(s.indexOf(" ") + 1);
-                    k[4] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
-                    s = s.substring(s.indexOf(" ") + 1);
-                    k[5] = Float.parseFloat(s.substring(0, s.indexOf(" ")));
-                    entitys.add(new Monster(k[0], k[1], k[2],k[3], (int)k[4], k[5], this));
+                    entitys.add(new Monster(s, this));
                     break;
                 case 'f':
                     break;

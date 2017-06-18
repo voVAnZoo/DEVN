@@ -3,7 +3,6 @@ package com.example.user.devn;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 
 import java.io.FileWriter;
@@ -11,14 +10,14 @@ import java.io.IOException;
 
 public class Player extends Entity{
 
-    int coins;
-    float xp; //не больше 100
-    Bitmap bitmap0;
-    Bitmap bitmap1;
-    Bitmap bitmap2;
-    Bitmap bitmap3;
+    public int coins;
+    public float xp; //не больше 100
+    public Bitmap bitmap0;
+    public Bitmap bitmap1;
+    public Bitmap bitmap2;
+    public Bitmap bitmap3;
 
-    int orientation = 0;
+    public int orientation = 0;
 //      2
 //     1 3
 //      0
@@ -53,23 +52,39 @@ public class Player extends Entity{
         bitmap2 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dback, options);
         bitmap2 = Bitmap.createScaledBitmap(bitmap2, width,height, false);
         bitmap1 = Utils.flip(bitmap1);
-
     }
 
-    public int getCoins() {
-        return coins;
-    }
+    public Player(String s, GameMap gm){
+        super();
+        mx = Float.parseFloat(s.substring(0, s.indexOf(" ")));
+        s = s.substring(s.indexOf(" ") + 1);
+        my = Float.parseFloat(s.substring(0, s.indexOf(" ")));
+        s = s.substring(s.indexOf(" ") + 1);
+        width = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+        s = s.substring(s.indexOf(" ") + 1);
+        height = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+        s = s.substring(s.indexOf(" ") + 1);
+        level = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+        s = s.substring(s.indexOf(" ") + 1);
+        hp = Float.parseFloat(s.substring(0, s.indexOf(" ")));
+        s = s.substring(s.indexOf(" ") + 1);
+        coins = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+        s = s.substring(s.indexOf(" ") + 1);
+        xp = Float.parseFloat(s.substring(0, s.indexOf(" ")));
+        s = s.substring(s.indexOf(" ") + 1);
 
-    public float getXp() {
-        return xp;
-    }
+        this.gm = gm;
 
-    public void setCoins(int coins) {
-        this.coins = coins;
-    }
-
-    public void setXp(float xp) {
-        this.xp = xp;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        bitmap3 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dprofile1, options);
+        bitmap3 = Bitmap.createScaledBitmap(bitmap3, width,height, false);
+        bitmap1 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dprofile1, options);
+        bitmap1 = Bitmap.createScaledBitmap(bitmap1, width,height, false);
+        bitmap0 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dface, options);
+        bitmap0 = Bitmap.createScaledBitmap(bitmap0, width,height, false);
+        bitmap2 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.dback, options);
+        bitmap2 = Bitmap.createScaledBitmap(bitmap2, width,height, false);
+        bitmap1 = Utils.flip(bitmap1);
     }
 
     public void addCoins(int dCoins){

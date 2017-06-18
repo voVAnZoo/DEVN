@@ -3,7 +3,6 @@ package com.example.user.devn;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 
 import java.io.FileWriter;
@@ -16,15 +15,14 @@ import java.util.Random;
 
 public class Monster extends Entity {
 
-    private Random rand = new Random();
+    public Random rand = new Random();
 
-    private float maxSpeedX = 10f;
-    private float maxSpeedY = 10f;
-    private float oldR = 1000000;
-    private int dt = 0;
-    Bitmap bitmap1;
+    public float maxSpeedX = 10f;
+    public float maxSpeedY = 10f;
+    public int dt = 0;
+    public Bitmap bitmap1;
 
-    public Monster(float mx, float my, float width, float height, GameMap gm) {
+    public Monster(float mx, float my, int width, int height, GameMap gm) {
         super(mx, my, width, height, gm);
         BitmapFactory.Options options = new BitmapFactory.Options();
         bitmap1 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.monster2, options);
@@ -32,12 +30,27 @@ public class Monster extends Entity {
 
     }
 
-    public Monster(float mx, float my, float width, float height, int level, float hp, GameMap gm) {
+    public Monster(float mx, float my, int width, int height, int level, float hp, GameMap gm) {
         super(mx, my, width, height, level, hp, gm);
         BitmapFactory.Options options = new BitmapFactory.Options();
         bitmap1 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.monster2, options);
         bitmap1 =  Bitmap.createScaledBitmap(bitmap1, (int)width, (int)height, false);
+    }
 
+    public Monster(String s,GameMap gm){
+        super();
+        mx = Float.parseFloat(s.substring(0, s.indexOf(" ")));
+        s = s.substring(s.indexOf(" ") + 1);
+        my = Float.parseFloat(s.substring(0, s.indexOf(" ")));
+        s = s.substring(s.indexOf(" ") + 1);
+        width = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+        s = s.substring(s.indexOf(" ") + 1);
+        height = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+        s = s.substring(s.indexOf(" ") + 1);
+        level = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+        s = s.substring(s.indexOf(" ") + 1);
+        hp = Float.parseFloat(s.substring(0, s.indexOf(" ")));
+        this.gm = gm;
     }
 
     @Override
@@ -52,8 +65,6 @@ public class Monster extends Entity {
 
     @Override
     public void onDraw(Canvas canvas, Paint paint) {
-
-        //canvas.drawRect((int)mx - Data.camX, (int)my - Data.camY,(int) width  + (int) mx - Data.camX,(int)height + (int)my - Data.camY, paint);
         canvas.drawBitmap(bitmap1,(int)mx - Data.camX, (int)my - Data.camY,paint);
     }
 
@@ -127,12 +138,6 @@ public class Monster extends Entity {
         }
     }
 
-    private float getR2(float x, float y) {
-        float s = x - mx;
-        float d = y - my;
-        return s * s + d * d;
-    }
-
     private void choiceSpeedX(float x, float y) {
         if (rand.nextBoolean() || rand.nextBoolean())
             if (x > mx)
@@ -177,8 +182,8 @@ public class Monster extends Entity {
             addMy(speedY);
         }
         dt++;
-        float x = gm.player.getMx();
-        float y =  gm.player.getMy();
+        float x = gm.player.mx;
+        float y =  gm.player.my;
         if (dt > 10) {
             if (Math.abs(mx - x) < Data.sizeX / 2 && Math.abs(my - y) < Data.sizeY / 2) {
                 choiceSpeedX(x, y);

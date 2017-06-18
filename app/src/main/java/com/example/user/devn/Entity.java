@@ -12,17 +12,17 @@ import java.io.IOException;
 
 public class Entity {
 
-    float mx;
-    float my;
-    float width;
-    float height;
-    int level;
-    float hp;//не больше 100
-    float speedX;
-    float speedY;
-    GameMap gm;
+    public float mx;
+    public float my;
+    public int width;
+    public int height;
+    public int level;
+    public float hp;//не больше 100
+    public float speedX;
+    public float speedY;
+    public GameMap gm;
 
-    public Entity(float mx, float my, float width, float height, GameMap gm) {
+    public Entity(float mx, float my, int width, int height, GameMap gm) {
         this.mx = mx;
         this.my = my;
         this.width = width;
@@ -34,7 +34,7 @@ public class Entity {
         this.gm = gm;
     }
 
-    public Entity(float mx, float my, float width, float height, int level, float hp, GameMap gm) {
+    public Entity(float mx, float my, int width, int height, int level, float hp, GameMap gm) {
         this.mx = mx;
         this.my = my;
         this.width = width;
@@ -46,69 +46,7 @@ public class Entity {
         this.gm = gm;
     }
 
-    public float getMx() {
-        return mx;
-    }
-
-    public float getMy() {
-        return my;
-    }
-
-    public float getWidth() {
-        return width;
-    }
-
-    public float getHeight() {
-        return height;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public float getHp() {
-        return hp;
-    }
-
-    public float getSpeedX() {
-        return speedX;
-    }
-
-    public float getSpeedY() {
-        return speedY;
-    }
-
-    public void setMx(float mx) {
-        this.mx = mx;
-    }
-
-    public void setMy(float my) {
-        this.my = my;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public void setHp(float hp) {
-        this.hp = hp;
-    }
-
-    public void setSpeedX(float speedX) {
-        this.speedX = speedX;
-    }
-
-    public void setSpeedY(float speedY) {
-        this.speedY = speedY;
-    }
+    public Entity(){}
 
     public void addMx(float dx){
         mx += dx;
@@ -161,21 +99,6 @@ public class Entity {
 
     public void death(){
         gm.entitys.remove(this);
-    }
-
-    public static boolean is_collide(Entity a, Entity b){
-        double ax, ay,bx,by;
-        ax = a.mx + (a.width/2);
-        ay = a.my + (a.height/2);
-        bx = b.mx + (b.width/2);
-        by = b.my + (b.height/2);
-
-        if((Math.abs(ax - bx) < a.width/2 + b.width/2)&&
-                (Math.abs(ay - by) < a.height/2 + b.height/2 )){
-            return(true);
-        } else {
-            return (false);
-        }
     }
 
 }

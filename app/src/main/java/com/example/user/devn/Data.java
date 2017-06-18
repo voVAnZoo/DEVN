@@ -26,7 +26,7 @@ public class Data {
     public static int sizeX = -1;
     public static int sizeY = -1;
 
-    public static int maxR2 = (cellWidth * cellWidth + cellHeight * cellHeight) * 50;
+//    public static int maxR2 = (cellWidth * cellWidth + cellHeight * cellHeight) * 50;
 
     public static float monsterWidth = 8 * cellWidth / 10;
     public static float monsterHeight = 8 * cellHeight / 10;
