@@ -1,4 +1,4 @@
-package com.example.user.devn;
+package com.example.user.devn.Activitys;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.user.devn.R;
 
 /**
  * Created by user on 6/14/17.
