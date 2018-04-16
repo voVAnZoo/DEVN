@@ -1,7 +1,9 @@
-package com.example.user.devn;
+package com.example.user.devn.Activitys;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.example.user.devn.R;
 
 public class SettingActivity extends AppCompatActivity {
 

@@ -1,5 +1,5 @@
 
-package com.example.user.devn;
+package com.example.user.devn.Activitys;
 
 import android.content.Intent;
 import android.graphics.Point;
@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.user.devn.Data;
+import com.example.user.devn.R;
 
 public class MenuActivity extends AppCompatActivity {
 

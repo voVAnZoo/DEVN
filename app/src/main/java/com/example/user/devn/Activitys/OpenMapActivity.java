@@ -1,4 +1,4 @@
-package com.example.user.devn;
+package com.example.user.devn.Activitys;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.example.user.devn.Activitys.GameActivity;
+import com.example.user.devn.R;
 
 import java.io.File;
 import java.util.ArrayList;
