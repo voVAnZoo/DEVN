@@ -17,6 +17,8 @@ public class Entity {
     public int width;
     public int height;
     public int level;
+    public int defence;
+    public int damage;
     public float hp;//не больше 100
     public float speedX;
     public float speedY;
@@ -29,6 +31,7 @@ public class Entity {
         this.height = height;
         this.hp = 100;
         this.level = 1;
+        this.defence=level*5;
         this.speedX = 0;
         this.speedY = 0;
         this.gm = gm;

@@ -196,27 +196,12 @@ public class Monster extends Entity {
             }
             dt = 0;
         }
-        if (my + Data.monsterHeight > y && my < y + Data.cellHeight) {
-            if (x > mx && x <= mx + Data.monsterWidth) {
-                speedX = -maxSpeedX / 2 + gm.player.speedX;
-                gm.player.addHp((Data.damag * level/ gm.player.level)/5);
+    if (Math.abs(my-y)<height){
+            if(Math.abs(mx-x)<width){
+                speedY=-speedY;
+                speedX=-speedX;
             }
-
-            if (x < mx && x + Data.cellWidth >= mx) {
-                speedX = maxSpeedX / 2 + gm.player.speedX;
-                gm.player.addHp((Data.damag * level/ gm.player.level)/5);
-            }
-        }
-        if (mx + Data.monsterWidth > x && mx < x + Data.cellWidth) {
-            if (y > my && y <= my + Data.monsterHeight) {
-                speedY = -maxSpeedY / 2 + gm.player.speedY;
-                gm.player.addHp((Data.damag * level/ gm.player.level)/5);
-            }
-            if (y < my && y + Data.cellHeight >= my) {
-                speedY = maxSpeedY / 2 + gm.player.speedY;
-                gm.player.addHp((Data.damag * level/ gm.player.level)/5);
-            }
-        }
+    }
     }
 
     @Override
