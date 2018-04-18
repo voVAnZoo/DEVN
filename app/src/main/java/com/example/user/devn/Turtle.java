@@ -12,9 +12,7 @@ public class Turtle{
     private int y = 0;
     private int height = 1;
     private int width = 1;
-    Turtle(GameMap gameMap){
-        this.gameMap = gameMap;
-    }
+    public  int i;
     public int getX(){ return x; }
     public int getY(){ return y; }
     public int getHeight(){ return height; }
@@ -24,121 +22,49 @@ public class Turtle{
     public void setWidth(int value){ height = value; }
     public void setHeight(int value){ width = value; }
     /*
-    1 - right
-    -1 - left
-    2 - bottom
-    -2 - top
-     */
-    private int randomDirect(){
-        Random rand = new Random();
-        switch (rand.nextInt(4)){
-            case 0:
-                return 1;
-            case 1:
-                return -1;
-            case 2:
-                return 2;
-            case 3:
-                return -2;
-            default:
-                return 1;
+        1 - right
+        -1 - left
+        2 - bottom
+        -2 - top
+         */
+    public Room Rooms[];
+    public Turtle (int level){
+        for (i=0;i<level*50+100;){
+            Rooms[i]=new Room(level*10);
         }
-    }
+        while(!separated) {
+            let separated = true;
+            this.preRooms.forEach((room1) => {
+                    let velocity = new geom.Point();
+            let center1 = room1.createRectangle().createCenter();
+            this.preRooms.forEach((room2) => {
+            if (room1 === room2) return;
 
-    private int choiceStepLength(int direct){
-        int max = 0;
-        switch (direct) {
-            case 1:
-                max = Data.mapWidth - x - width;
-                break;
-            case -1:
-                max = x;
-                break;
-            case 2:
-                max = Data.mapHeight - y - height;
-                break;
-            case -2:
-                max = y;
-                break;
-        }
-        Random rand = new Random();
-        if (rand.nextBoolean()) {
-            return rand.nextInt(max + 1);
-        }else {
-            return rand.nextInt(max / 2 + 1);
-        }
-    }
+            if (!geom.Rectangle.intersect(room1.createRectangle(), room2.createRectangle())) return;
 
-    public void rightStep(int length){
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < length + width; j++) {
-                gameMap.maparr[y + i][x + j] = 0;
+            let center2 = room2.createRectangle().createCenter();
+
+            let diff = center1.clone().sub(center2);
+
+            let diffLength2 = diff.length2();
+
+            if (diffLength2 > 0) {
+                diff.nor();
+                velocity.add(diff);
             }
-        }
-        x = x + length;
-    }
+    });
 
-    private void leftStep(int length){
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < length + 1; j++) {
-                gameMap.maparr[y + i][x - j] = 0;
+            if (velocity.length2() > 0) {
+                separated = false;
+
+                velocity.nor().mult(4);
+
+                room1._position.add(velocity);
+                room1.setxy(room1._position);
             }
-        }
-        x = x - length;
-    }
 
-    private void topStep(int length){
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < length + 1; j++) {
-                gameMap.maparr[y - j][x + i] = 0;
-            }
-        }
-        y = y - length;
-    }
-
-    private void bottomStep(int length){
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < length + height; j++) {
-                gameMap.maparr[y + j][x + i] = 0;
-            }
-        }
-        y = y + length;
-    }
-
-    public void nextStep(){
-        int direct = randomDirect();
-        int length = choiceStepLength(direct);
-        Random rand = new Random();
-        if(x < Data.mapWidth - 10)
-            width = rand.nextInt(1) + 1;
-        if (y < Data.mapHeight - 10)
-            height = rand.nextInt(1) + 1;
-        switch (direct){
-            case 1:
-                rightStep(length);
-                break;
-            case -1:
-                leftStep(length);
-                break;
-            case 2:
-                bottomStep(length);
-                break;
-            case -2:
-                topStep(length);
-                break;
+            });
         }
     }
 
-    public void finish(int finishX, int finishY) {
-        if (finishX > x) {
-            rightStep(finishX - x);
-        }else {
-            leftStep(x - finishX);
-        }
-        if (finishY > y) {
-            bottomStep(finishY - y);
-        }else {
-            topStep(y - finishY);
-        }
-    }
 }
