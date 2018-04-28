@@ -29,7 +29,7 @@ public class Turtle{
          */
     public Room Rooms[];
     public Turtle (int level){
-        for (i=0;i<level*50+100;){
+        /*for (i=0;i<level*50+100;){
             Rooms[i]=new Room(level*10);
         }
         while(!separated) {
@@ -64,7 +64,7 @@ public class Turtle{
             }
 
             });
-        }
+        }*/
     }
 
 }

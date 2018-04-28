@@ -93,7 +93,8 @@ public class GameMap extends View {
         }
     }
 
-    public void generate(int level, Player pl) {
+    {
+    /*public void generate(int level, Player pl) {
         this.level = level;
         entitys = new ArrayList<>();
         maparr = new int[Data.mapHeight][Data.mapWidth];
@@ -161,6 +162,7 @@ public class GameMap extends View {
         if(pl == null) {
             player.hp = 100;
         }
+    }*/
     }
 
     public void generateMonsters() {

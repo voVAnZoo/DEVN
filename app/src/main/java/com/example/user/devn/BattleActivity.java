@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-
+import com.example.user.devn.Activitys.GameActivity;
 
 
 public class BattleActivity extends AppCompatActivity {
@@ -98,8 +98,8 @@ public class BattleActivity extends AppCompatActivity {
                     if (damup)
                         if (defdown)
                             if (gm.entitys.get(i).defence/2<gm.player.damage*1.5) {
-                                gm.entitys.get(i).hp = gm.entitys.get(i).hp - gm.player.damage * 1.5 + gm.entitys.get(i).defence / 2;
-                                damage=gm.player.damage * 1.5 - gm.entitys.get(i).defence / 2;
+                                gm.entitys.get(i).hp = (float) (gm.entitys.get(i).hp - gm.player.damage * 1.5 + gm.entitys.get(i).defence / 2);
+                                damage= (float) (gm.player.damage * 1.5 - gm.entitys.get(i).defence / 2);
                                 Action[6].setText("@string/AttackAction2" + damage);
                                 if (gm.entitys.get(i).hp  <= 0)
                                     gm.entitys.get(i).death();
@@ -108,8 +108,8 @@ public class BattleActivity extends AppCompatActivity {
                                 gm.entitys.get(i).hp = gm.entitys.get(i).hp;
                         else
                         if (gm.entitys.get(i).defence<gm.player.damage*1.5) {
-                            gm.entitys.get(i).hp = gm.entitys.get(i).hp - gm.player.damage * 1.5 + gm.entitys.get(i).defence;
-                            damage=gm.player.damage * 1.5 - gm.entitys.get(i).defence ;
+                            gm.entitys.get(i).hp = (float) (gm.entitys.get(i).hp - gm.player.damage * 1.5 + gm.entitys.get(i).defence);
+                            damage= (float) (gm.player.damage * 1.5 - gm.entitys.get(i).defence);
                             Action[6].setText("@string/AttackAction2" + damage);
                             if (gm.entitys.get(i).hp <= 0)
                                 gm.entitys.get(i).death();
@@ -217,8 +217,8 @@ public class BattleActivity extends AppCompatActivity {
                         Action[6].setText("@string/EnemyAction2");
                     }
                     if (turn % 3 == 0 && gm.entitys.get(i).damage > defup / 2) {
-                        gm.player.hp = gm.player.hp - gm.entitys.get(i).damage + defup / 2;
-                        damage=gm.entitys.get(i).damage - defup / 2;
+                        gm.player.hp = (float) (gm.player.hp - gm.entitys.get(i).damage + defup / 2);
+                        damage= (float) (gm.entitys.get(i).damage - defup / 2);
                         for (i = 0; i < 10; i++) {
                             Action[i + 1] = Action[i];
                         }

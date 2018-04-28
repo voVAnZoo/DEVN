@@ -26,7 +26,7 @@ public class Monster extends Entity {
         super(mx, my, width, height, gm);
         BitmapFactory.Options options = new BitmapFactory.Options();
         bitmap1 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.monster2, options);
-        bitmap1 =  Bitmap.createScaledBitmap(bitmap1, (int)width, (int)height, false);
+        bitmap1 = Bitmap.createScaledBitmap(bitmap1, (int) width, (int) height, false);
 
     }
 
@@ -34,10 +34,10 @@ public class Monster extends Entity {
         super(mx, my, width, height, level, hp, gm);
         BitmapFactory.Options options = new BitmapFactory.Options();
         bitmap1 = BitmapFactory.decodeResource(gm.getContext().getApplicationContext().getResources(), R.drawable.monster2, options);
-        bitmap1 =  Bitmap.createScaledBitmap(bitmap1, (int)width, (int)height, false);
+        bitmap1 = Bitmap.createScaledBitmap(bitmap1, (int) width, (int) height, false);
     }
 
-    public Monster(String s,GameMap gm){
+    public Monster(String s, GameMap gm) {
         super();
         mx = Float.parseFloat(s.substring(0, s.indexOf(" ")));
         s = s.substring(s.indexOf(" ") + 1);
@@ -58,25 +58,25 @@ public class Monster extends Entity {
         try {
             out.write("m ");
             super.save(out);
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public void onDraw(Canvas canvas, Paint paint) {
-        canvas.drawBitmap(bitmap1,(int)mx - Data.camX, (int)my - Data.camY,paint);
+        canvas.drawBitmap(bitmap1, (int) mx - Data.camX, (int) my - Data.camY, paint);
     }
 
     @Override
     public void addMx(float dx) {
-        if(mx + dx < 0 ){
+        if (mx + dx < 0) {
             mx = 0;
-        }else{
-            if(mx + dx > Data.mapWidth * Data.cellWidth - width){
+        } else {
+            if (mx + dx > Data.mapWidth * Data.cellWidth - width) {
                 mx = Data.mapWidth * Data.cellWidth - width - dx;
-            }else{
-                if(dx < 0){
+            } else {
+                if (dx < 0) {
                     try {
                         if ((gm.maparr[(int) my / Data.cellHeight][(int) (mx + dx) / Data.cellWidth] == 1) || (
                                 gm.maparr[(int) (my + height - 1) / Data.cellHeight][(int) (mx + dx) / Data.cellWidth] == 1)) {
@@ -84,10 +84,10 @@ public class Monster extends Entity {
                         } else {
                             mx += dx;
                         }
-                    }catch (ArrayIndexOutOfBoundsException e){
+                    } catch (ArrayIndexOutOfBoundsException e) {
                         mx -= (mx % Data.cellWidth);
                     }
-                }else{
+                } else {
                     try {
                         if ((gm.maparr[(int) my / Data.cellHeight][(int) (mx + dx + width) / Data.cellWidth] == 1) || (
                                 gm.maparr[(int) (my + height - 1) / Data.cellHeight][(int) (mx + dx + width) / Data.cellWidth] == 1)) {
@@ -95,7 +95,7 @@ public class Monster extends Entity {
                         } else {
                             mx += dx;
                         }
-                    }catch (ArrayIndexOutOfBoundsException e){
+                    } catch (ArrayIndexOutOfBoundsException e) {
                         mx = mx + dx - (mx + dx + width) % Data.cellWidth;
                     }
                 }
@@ -105,13 +105,13 @@ public class Monster extends Entity {
 
     @Override
     public void addMy(float dy) {
-        if(my + dy < 0 ){
+        if (my + dy < 0) {
             my = 0;
-        }else{
-            if(my + dy > Data.mapHeight*Data.cellHeight - height){
-                my = Data.mapHeight*Data.cellHeight - height - dy;
-            }else{
-                if(dy < 0){
+        } else {
+            if (my + dy > Data.mapHeight * Data.cellHeight - height) {
+                my = Data.mapHeight * Data.cellHeight - height - dy;
+            } else {
+                if (dy < 0) {
                     try {
                         if ((gm.maparr[(int) (my + dy) / Data.cellHeight][(int) mx / Data.cellWidth] == 1) || (
                                 gm.maparr[(int) (my + dy) / Data.cellHeight][(int) (mx + width - 1) / Data.cellWidth] == 1)) {
@@ -119,10 +119,10 @@ public class Monster extends Entity {
                         } else {
                             my += dy;
                         }
-                    }catch (ArrayIndexOutOfBoundsException e){
+                    } catch (ArrayIndexOutOfBoundsException e) {
                         my -= (my % Data.cellHeight);
                     }
-                }else{
+                } else {
                     try {
                         if ((gm.maparr[(int) (my + dy + height) / Data.cellHeight][(int) mx / Data.cellWidth] == 1) || (
                                 gm.maparr[(int) (my + dy + height) / Data.cellHeight][(int) (mx + width - 1) / Data.cellWidth] == 1)) {
@@ -130,7 +130,7 @@ public class Monster extends Entity {
                         } else {
                             my += dy;
                         }
-                    }catch (ArrayIndexOutOfBoundsException e){
+                    } catch (ArrayIndexOutOfBoundsException e) {
                         my = my + dy - (my + dy + height) % Data.cellHeight;
                     }
                 }
@@ -162,17 +162,17 @@ public class Monster extends Entity {
             speedY = rand.nextFloat() * maxSpeedY * 2 - maxSpeedY;
     }
 
-    private void randomSpeedX(){
+    private void randomSpeedX() {
         speedX = rand.nextFloat() * maxSpeedX * 2 - maxSpeedX;
     }
 
-    private void randomSpeedY(){
+    private void randomSpeedY() {
         speedY = rand.nextFloat() * maxSpeedY * 2 - maxSpeedY;
     }
 
     @Override
-    public void action(){
-        if(hp < 0){
+    public void action() {
+        if (hp < 0) {
             this.death();
         }
         if (speedX != 0) {
@@ -183,7 +183,7 @@ public class Monster extends Entity {
         }
         dt++;
         float x = gm.player.mx;
-        float y =  gm.player.my;
+        float y = gm.player.my;
         if (dt > 10) {
             if (Math.abs(mx - x) < Data.sizeX / 2 && Math.abs(my - y) < Data.sizeY / 2) {
                 choiceSpeedX(x, y);
@@ -196,17 +196,17 @@ public class Monster extends Entity {
             }
             dt = 0;
         }
-    if (Math.abs(my-y)<height){
-            if(Math.abs(mx-x)<width){
-                speedY=-speedY;
-                speedX=-speedX;
+        if (Math.abs(my - y) < height) {
+            if (Math.abs(mx - x) < width) {
+                speedY = -speedY;
+                speedX = -speedX;
             }
-    }
+        }
     }
 
     @Override
     public void death() {
-        gm.player.addXp(5*level/gm.player.level);
+        gm.player.addXp(5 * level / gm.player.level);
         super.death();
     }
 }

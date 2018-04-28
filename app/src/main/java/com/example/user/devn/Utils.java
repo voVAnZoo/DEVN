@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.util.DisplayMetrics;
 
+import java.util.Random;
+
 /**
  * Created by user on 6/16/17.
  */
@@ -40,6 +42,28 @@ public class Utils {
     public static int pxToDp(final Context context, final int px) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+
+    public static Room goodrandom(){
+        double s = 10;
+        double h = 0,w = 0,height,width,t,u,r,x,y,radius = 0;
+        Random rnd=new Random(System.currentTimeMillis());
+        while ((s<=0) ||(s>1)) {
+            h = (-1000 + rnd.nextInt(2000)) / 1000;
+            w = (-1000 + rnd.nextInt(2000)) / 1000;
+            s=h*h+w*w;
+        }
+        height=Math.ceil(h*Math.sqrt(-2*Math.log(s)/s)*5);
+        width=Math.ceil(w*Math.sqrt(-2*Math.log(s)/s)*5);
+        t = 2*Math.PI*Math.random();
+        u = Math.random()+Math.random();
+        if (u > 1)
+            r = 2-u;
+        else
+            r = u;
+        x=radius*r*Math.cos(t);
+        y=radius*r*Math.sin(t);
+        return new Room((int)x,(int)y,(int)height,(int)width,radius);
     }
 
 }
