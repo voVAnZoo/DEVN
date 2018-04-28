@@ -17,4 +17,19 @@ public class Room {
         this.height = height;
         this.radius = radius;
     }
+
+    public Vector GetPosition() {
+        return new Vector(x,y);
+    }
+
+    public void SetPosition(Vector newPos) {
+        this.x = (int)newPos.x;
+        this.y = (int)newPos.y;
+    }
+    public Boolean TooCloseTo(Room room){
+
+        return x + width / 2 > room.GetPosition().x - room.width / 2 || y + height / 2 > room.GetPosition().y - room.height / 2 ||
+                x - width / 2 < room.GetPosition().x + room.width / 2 || y - height / 2 < room.GetPosition().y + room.height / 2;
+
+    }
 }
