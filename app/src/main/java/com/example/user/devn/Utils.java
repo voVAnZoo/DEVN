@@ -44,17 +44,17 @@ public class Utils {
         return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
-    public static Room goodrandom(){
+    public static Room goodrandom(int level){
         double s = 10;
-        double h = 0,w = 0,height,width,t,u,r,x,y,radius = 0;
+        double h = 0,w = 0,height,width,t,u,r,x,y,radius = level+5;
         Random rnd=new Random(System.currentTimeMillis());
         while ((s<=0) ||(s>1)) {
             h = -1+2*Math.random();
             w = -1+2*Math.random();
             s=h*h+w*w;
         }
-        height=Math.ceil(Math.abs(h)*Math.sqrt(-2*Math.log(s)/s)*7);
-        width=Math.ceil(Math.abs(w)*Math.sqrt(-2*Math.log(s)/s)*7);
+        height=2*Math.ceil(Math.abs(h)*Math.sqrt(-2*Math.log(s)/s)*6);
+        width=2*Math.ceil(Math.abs(w)*Math.sqrt(-2*Math.log(s)/s)*6);
         t = 2*Math.PI*Math.random();
         u = Math.random()+Math.random();
         if (u > 1)
@@ -63,7 +63,7 @@ public class Utils {
             r = u;
         x=radius*r*Math.cos(t);
         y=radius*r*Math.sin(t);
-        return new Room((int)x,(int)y,(int)height,(int)width,radius);
+        return new Room((int)x,(int)y,(int)height,(int)width);
     }
 
 }

@@ -10,12 +10,11 @@ public class Room {
     int y;
     double radius;
 
-    public Room(int x,int y,int height,int width, double radius){
+    public Room(int x,int y,int height,int width){
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.radius = radius;
     }
 
     public Vector GetPosition() {

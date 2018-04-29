@@ -5,8 +5,26 @@ import java.util.List;
 
 public class Level {
 
-    public int mappos;
+    int i;
+    int j;
+    int min;
+    int max;
+    int minx;
+    int miny;
+    int maxx;
+    int maxy;
+
+    public int mappos[][];
+
     List<Room> rooms = new ArrayList<Room>();
+    List<Room> roomsosn = new ArrayList<Room>();
+
+    void CreateRooms(int level){
+        for (i=0;i<50*level+100;i++){
+            rooms.add(Utils.goodrandom(level));
+        }
+    }
+
     void SeparateRooms(){
 
         for(Room room: rooms){
@@ -70,8 +88,37 @@ public class Level {
 
         }
     }
-
-
-
-
+    public Level(int level){
+        CreateRooms(level);
+        SeparateRooms();
+        for (i=0;i<50*level+100;i++) {
+            if (rooms.get(i).height*rooms.get(i).width<50){
+                roomsosn.add(rooms.get(i));
+            }
+        }
+        for (i=0;i<50*level+100;i++) {
+            if (roomsosn.get(i).x<minx){
+                if (roomsosn.get(i).y<miny){
+                    minx=roomsosn.get(i).x;
+                    miny=roomsosn.get(i).y;
+                    min=i;
+                }
+            }
+            else
+                if (roomsosn.get(i).x>maxx){
+                    if (roomsosn.get(i).y>maxy){
+                        maxx=roomsosn.get(i).x;
+                        maxy=roomsosn.get(i).y;
+                        max=i;
+                    }
+            }
+        }
+        //триангуляция
+        //сопоставление триангулированного графа плоскости
+        for (Room room: roomsosn){
+            for (i=0;i<room.height;i++)
+                for (j=0;j<room.width;j++)
+                    mappos[room.x-room.width/2+j][room.y-room.height/2+i]=1;
+        }
+    }
 }
