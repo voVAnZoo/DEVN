@@ -14,7 +14,7 @@ public class Level {
     int maxx;
     int maxy;
 
-    public int mappos[][];
+    public int maparr[][];
 
     List<Room> rooms = new ArrayList<Room>();
     List<Room> roomsosn = new ArrayList<Room>();
@@ -118,7 +118,7 @@ public class Level {
         for (Room room: roomsosn){
             for (i=0;i<room.height;i++)
                 for (j=0;j<room.width;j++)
-                    mappos[room.x-room.width/2+j][room.y-room.height/2+i]=1;
+                    maparr[room.x-room.width/2+j][room.y-room.height/2+i]=1;
         }
     }
 }

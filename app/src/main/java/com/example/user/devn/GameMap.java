@@ -89,7 +89,7 @@ public class GameMap extends View {
         int j;
         for (i = 0; i < Data.mapHeight; i++) {
             for (j = 0; j < Data.mapWidth; j++) {
-                maparr[i][j] = a;
+                map[level].maparr[i][j] = a;
             }
         }
     }
@@ -172,7 +172,7 @@ public class GameMap extends View {
         Monster monster;
         for (int y = 0; y < Data.mapHeight; y++)
             for (int x = 0; x < Data.mapWidth; x++)
-                if (maparr[y][x] == 0)
+                if (map[level].maparr[y][x] == 0)
                     if (rand.nextInt(30) == 1) {
                         monster = new Monster(x * Data.cellWidth, y * Data.cellHeight, Data.cellWidth / 10 * 8, Data.cellHeight / 10 * 8,level,a, this);
                         entitys.add(monster);
@@ -187,11 +187,11 @@ public class GameMap extends View {
         for (int i = 0; i < Data.mapHeight; i++) {
             imageX = -Data.camX;
             for (int j = 0; j < Data.mapWidth; j++) {
-                switch (maparr[i][j]) {
-                    case 0:
+                switch (map[level].maparr[i][j]) {
+                    case 1:
                         canvas.drawBitmap(ground,imageX, imageY,paint);
                         break;
-                    case 1:
+                    case 0:
                         canvas.drawBitmap(wall,imageX, imageY,paint);
                         break;
                     case 2:
@@ -225,7 +225,7 @@ public class GameMap extends View {
 
         for (int i = 0; i < Data.mapWidth; i++) {
             for (int j = 0; j < Data.mapHeight; j++) {
-                out.write(Integer.toString(maparr[j][i]) + " ");
+                out.write(Integer.toString(map[level].maparr[j][i]) + " ");
             }
             out.write("\n");
         }
@@ -249,11 +249,11 @@ public class GameMap extends View {
         Data.open(bufferedReader.readLine());
 
         String s;
-        maparr = new int[Data.mapHeight][Data.mapWidth];
+        map[level].maparr = new int[Data.mapHeight][Data.mapWidth];
         for (int i = 0; i < Data.mapWidth; i++) {
             s = bufferedReader.readLine();
             for (int j = 0; j < Data.mapHeight; j++) {
-                maparr[j][i] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+                map[level].maparr[j][i] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
                 s = s.substring(s.indexOf(" ") + 1);
             }
         }
