@@ -3,12 +3,9 @@ package com.example.user.devn;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Vova on 28.04.2018.
- */
+public class Level {
 
-public class SeparationSteering {
-
+    public int mappos;
     List<Room> rooms = new ArrayList<Room>();
     void SeparateRooms(){
 
@@ -73,4 +70,8 @@ public class SeparationSteering {
 
         }
     }
+
+
+
+
 }

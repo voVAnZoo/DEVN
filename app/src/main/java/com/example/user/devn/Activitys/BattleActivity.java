@@ -1,4 +1,4 @@
-package com.example.user.devn;
+package com.example.user.devn.Activitys;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.user.devn.Activitys.GameActivity;
+import com.example.user.devn.GameMap;
 
 
 public class BattleActivity extends AppCompatActivity {

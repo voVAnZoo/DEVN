@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PushbackInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -32,7 +33,7 @@ public class GameMap extends View {
     2 - start
     3 - finish
      */
-    public int maparr[][];
+    public  Level  map[];
     Bitmap wall;
     Bitmap start;
     Bitmap finish;
