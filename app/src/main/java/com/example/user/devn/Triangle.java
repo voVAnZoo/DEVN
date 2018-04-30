@@ -44,4 +44,7 @@ public class Triangle {
         double per = (e1.lengthEdge(e1)+e2.lengthEdge(e2)+e2.lengthEdge(e2))/2;
         return e1.lengthEdge(e1)*e2.lengthEdge(e2)*e2.lengthEdge(e2)/4/Math.sqrt(per*(per-e1.lengthEdge(e1))*(per-e2.lengthEdge(e2))*(per-e3.lengthEdge(e3)));
     }
+    public boolean isintcircle(Triangle t,Point p){
+        return Point.distance2(t.centre(t),p)<=t.radius(t);
+    }
 }

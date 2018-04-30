@@ -14,6 +14,8 @@ public class Level {
     int maxx;
     int maxy;
 
+    Triangle triangles[];
+    Point points[];
     public int maparr[][];
 
     List<Room> rooms = new ArrayList<Room>();
@@ -88,6 +90,12 @@ public class Level {
 
         }
     }
+
+    void triangulate(){
+        int i=0;
+        Point point=points[i];
+
+    }
     public Level(int level){
         CreateRooms(level);
         SeparateRooms();
@@ -96,7 +104,8 @@ public class Level {
                 roomsosn.add(rooms.get(i));
             }
         }
-        for (i=0;i<50*level+100;i++) {
+        for (i=0;i<roomsosn.size();i++) {
+            points[i]=new Point(i,roomsosn.get(i).x,roomsosn.get(i).y);
             if (roomsosn.get(i).x<minx){
                 if (roomsosn.get(i).y<miny){
                     minx=roomsosn.get(i).x;
@@ -120,5 +129,11 @@ public class Level {
                 for (j=0;j<room.width;j++)
                     maparr[room.x-room.width/2+j][room.y-room.height/2+i]=1;
         }
+        for (i=0;i<roomsosn.get(max).height;i++)
+            for (j=0;j<roomsosn.get(max).width;j++)
+                maparr[roomsosn.get(max).x-roomsosn.get(max).width/2+j][roomsosn.get(max).y-roomsosn.get(max).height/2+i]=3;
+        for (i=0;i<roomsosn.get(min).height;i++)
+            for (j=0;j<roomsosn.get(min).width;j++)
+                maparr[roomsosn.get(min).x-roomsosn.get(min).width/2+j][roomsosn.get(min).y-roomsosn.get(min).height/2+i]=2;
     }
 }
