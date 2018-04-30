@@ -14,8 +14,8 @@ public class Level {
     int maxx;
     int maxy;
 
-    Triangle triangles[];
-    Point points[];
+    List<Triangle> triangles=new ArrayList<Triangle>();
+    List<Point> points=new ArrayList<Point>();
     public int maparr[][];
 
     List<Room> rooms = new ArrayList<Room>();
@@ -91,10 +91,40 @@ public class Level {
         }
     }
 
-    void triangulate(){
-        int i=0;
-        Point point=points[i];
+    void triangulate() {
+        int i = 0;
+        for (i = 0; i < roomsosn.size(); i++) {
+            if (roomsosn.get(i).x < minx) {
+                minx = roomsosn.get(i).x;
+            }
+            if (roomsosn.get(i).y < miny) {
+                miny = roomsosn.get(i).y;
+            }
+            if (roomsosn.get(i).x>maxx){
+                maxx=roomsosn.get(i).x;
+            }
+            if (roomsosn.get(i).y>maxy){
+                maxy=roomsosn.get(i).y;
+            }
+        }
+        int trmax=roomsosn.size()*4;
+        int dx=maxx-minx;
+        int dy=maxy-miny;
+        int dmax=Math.max(dx,dy);
+        double midx =(minx + maxx) * 0.5;
+        double midy =(miny + maxy) * 0.5;
+        Point p1=new Point(roomsosn.size()+1,midx - 2 * dmax, midy - dmax);
+        Point p2=new Point(roomsosn.size()+2,midx , midy + 2 * dmax);
+        Point p3=new Point(roomsosn.size()+3,midx + 2 * dmax, midy - dmax);
+        points.add(roomsosn.size()+1,p1);
+        points.add(roomsosn.size()+2,p2);
+        points.add(roomsosn.size()+3,p3);
+        for (i=0;i<roomsosn.size();i++){
 
+        }
+        for (i=0;i<roomsosn.size();i++){
+
+        }
     }
     public Level(int level){
         CreateRooms(level);
@@ -105,7 +135,7 @@ public class Level {
             }
         }
         for (i=0;i<roomsosn.size();i++) {
-            points[i]=new Point(i,roomsosn.get(i).x,roomsosn.get(i).y);
+            points.set(i,new Point(i,roomsosn.get(i).x,roomsosn.get(i).y));
             if (roomsosn.get(i).x<minx){
                 if (roomsosn.get(i).y<miny){
                     minx=roomsosn.get(i).x;
