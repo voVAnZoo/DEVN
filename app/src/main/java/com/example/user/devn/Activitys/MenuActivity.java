@@ -22,16 +22,11 @@ public class MenuActivity extends AppCompatActivity {
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            display.getSize(size);
-            Data.sizeX = size.x;
-            Data.sizeY = size.y;
-        }else {
-            Data.sizeX = display.getWidth();
-            Data.sizeY = display.getHeight();
-        }
 
-       Data.sizeY -= 50;
+        Data.sizeX = display.getWidth();
+        Data.sizeY = display.getHeight();
+
+        Data.sizeY -= 50;
 
         final Intent game = new Intent(this, GameActivity.class);
         Button bStart = (Button) findViewById(R.id.start);

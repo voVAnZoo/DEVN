@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import com.example.user.devn.Activitys.GameActivity;
 import com.example.user.devn.GameMap;
 
+import com.example.user.devn.R;
+
 
 public class BattleActivity extends AppCompatActivity {
 

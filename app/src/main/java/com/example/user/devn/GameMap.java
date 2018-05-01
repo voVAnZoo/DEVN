@@ -33,7 +33,7 @@ public class GameMap extends View {
     2 - start
     3 - finish
      */
-    public  Level  map[];
+    public  Level  map;
     Bitmap wall;
     Bitmap start;
     Bitmap finish;
@@ -84,33 +84,17 @@ public class GameMap extends View {
         ground = Bitmap.createScaledBitmap(ground, Data.cellWidth, Data.cellHeight, false);
     }
 
-    public void clear(int a) {
-        int i;
-        int j;
-        for (i = 0; i < Data.mapHeight; i++) {
-            for (j = 0; j < Data.mapWidth; j++) {
-                map[level].maparr[i][j] = a;
-            }
-        }
-    }
 
-    {
-    /*public void generate(int level, Player pl) {
+
+    public void generate(int level, Player pl) {
         this.level = level;
         entitys = new ArrayList<>();
-        maparr = new int[Data.mapHeight][Data.mapWidth];
-        clear(1);
         Random rand = new Random();
-        int startX = rand.nextInt(Data.mapWidth - Data.startWidth + 1);
-        int startY = rand.nextInt(Data.mapHeight - Data.startHeight + 1);
-        int finishX;
-        int finishY;
+        int startX = map.minx;
+        int startY = map.miny;
+        int finishX= map.maxx;
+        int finishY= map.maxy;
         int i = 0;
-        do {
-            finishX = rand.nextInt(Data.mapWidth - Data.finishHeight + 1);
-            finishY = rand.nextInt(Data.mapHeight - Data.finishWidth + 1);
-            i++;
-        }while (finishX + finishY - startX - startY < (Data.mapHeight + Data.mapWidth) / 2 && i < 10000);
         if(pl == null) {
             player = new Player((startX + Data.startWidth / 2) * Data.cellWidth, (startY + Data.startHeight / 2) * Data.cellHeight, Data.cellWidth/2, (int) (Data.cellHeight*0.8), this);
         }else {
@@ -137,34 +121,14 @@ public class GameMap extends View {
             }
         }
 
-        Turtle turtle = new Turtle(this);
-        turtle.setX(startX);
-        turtle.setY(startY);
-        i = 0;
-        while (((turtle.getX() != finishX) || (turtle.getY() != finishY)) && i < 200) {
-            turtle.nextStep();
-            i++;
-        }
-        turtle.finish(finishX, finishY);
-        int j;
-        for (i = startY; i < startY + Data.startHeight; i++) {
-            for (j = startX; j < startX + Data.startWidth; j++) {
-                maparr[i][j] = 2;
-            }
-        }
-        for (i = finishY; i < finishY + Data.finishHeight; i++) {
-            for (j = finishX; j < finishX + Data.finishWidth; j++) {
-                maparr[i][j] = 3;
-            }
-        }
         entitys.add(player);
 
         generateMonsters();
         if(pl == null) {
             player.hp = 100;
         }
-    }*/
     }
+
 
     public void generateMonsters() {
         Random rand = new Random();
@@ -172,7 +136,7 @@ public class GameMap extends View {
         Monster monster;
         for (int y = 0; y < Data.mapHeight; y++)
             for (int x = 0; x < Data.mapWidth; x++)
-                if (map[level].maparr[y][x] == 0)
+                if (map.maparr[y][x] == 0)
                     if (rand.nextInt(30) == 1) {
                         monster = new Monster(x * Data.cellWidth, y * Data.cellHeight, Data.cellWidth / 10 * 8, Data.cellHeight / 10 * 8,level,a, this);
                         entitys.add(monster);
@@ -187,7 +151,7 @@ public class GameMap extends View {
         for (int i = 0; i < Data.mapHeight; i++) {
             imageX = -Data.camX;
             for (int j = 0; j < Data.mapWidth; j++) {
-                switch (map[level].maparr[i][j]) {
+                switch (map.maparr[i][j]) {
                     case 1:
                         canvas.drawBitmap(ground,imageX, imageY,paint);
                         break;
@@ -225,7 +189,7 @@ public class GameMap extends View {
 
         for (int i = 0; i < Data.mapWidth; i++) {
             for (int j = 0; j < Data.mapHeight; j++) {
-                out.write(Integer.toString(map[level].maparr[j][i]) + " ");
+                out.write(Integer.toString(map.maparr[j][i]) + " ");
             }
             out.write("\n");
         }
@@ -249,11 +213,11 @@ public class GameMap extends View {
         Data.open(bufferedReader.readLine());
 
         String s;
-        map[level].maparr = new int[Data.mapHeight][Data.mapWidth];
+        map.maparr = new int[Data.mapHeight][Data.mapWidth];
         for (int i = 0; i < Data.mapWidth; i++) {
             s = bufferedReader.readLine();
             for (int j = 0; j < Data.mapHeight; j++) {
-                map[level].maparr[j][i] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
+                map.maparr[j][i] = Integer.parseInt(s.substring(0, s.indexOf(" ")));
                 s = s.substring(s.indexOf(" ") + 1);
             }
         }

@@ -78,8 +78,8 @@ public class Monster extends Entity {
             } else {
                 if (dx < 0) {
                     try {
-                        if ((gm.map[level].maparr[(int) my / Data.cellHeight][(int) (mx + dx) / Data.cellWidth] == 1) || (
-                                gm.map[level].maparr[(int) (my + height - 1) / Data.cellHeight][(int) (mx + dx) / Data.cellWidth] == 1)) {
+                        if ((gm.map.maparr[(int) my / Data.cellHeight][(int) (mx + dx) / Data.cellWidth] == 1) || (
+                                gm.map.maparr[(int) (my + height - 1) / Data.cellHeight][(int) (mx + dx) / Data.cellWidth] == 1)) {
                             mx -= (mx % Data.cellWidth);
                         } else {
                             mx += dx;
@@ -89,8 +89,8 @@ public class Monster extends Entity {
                     }
                 } else {
                     try {
-                        if ((gm.map[level].maparr[(int) my / Data.cellHeight][(int) (mx + dx + width) / Data.cellWidth] == 1) || (
-                                gm.map[level].maparr[(int) (my + height - 1) / Data.cellHeight][(int) (mx + dx + width) / Data.cellWidth] == 1)) {
+                        if ((gm.map.maparr[(int) my / Data.cellHeight][(int) (mx + dx + width) / Data.cellWidth] == 1) || (
+                                gm.map.maparr[(int) (my + height - 1) / Data.cellHeight][(int) (mx + dx + width) / Data.cellWidth] == 1)) {
                             mx = mx + dx - (mx + dx + width) % Data.cellWidth;
                         } else {
                             mx += dx;
@@ -113,8 +113,8 @@ public class Monster extends Entity {
             } else {
                 if (dy < 0) {
                     try {
-                        if ((gm.map[level].maparr[(int) (my + dy) / Data.cellHeight][(int) mx / Data.cellWidth] == 1) || (
-                                gm.map[level].maparr[(int) (my + dy) / Data.cellHeight][(int) (mx + width - 1) / Data.cellWidth] == 1)) {
+                        if ((gm.map.maparr[(int) (my + dy) / Data.cellHeight][(int) mx / Data.cellWidth] == 1) || (
+                                gm.map.maparr[(int) (my + dy) / Data.cellHeight][(int) (mx + width - 1) / Data.cellWidth] == 1)) {
                             my -= (my % Data.cellHeight);
                         } else {
                             my += dy;
@@ -124,8 +124,8 @@ public class Monster extends Entity {
                     }
                 } else {
                     try {
-                        if ((gm.map[level].maparr[(int) (my + dy + height) / Data.cellHeight][(int) mx / Data.cellWidth] == 1) || (
-                                gm.map[level].maparr[(int) (my + dy + height) / Data.cellHeight][(int) (mx + width - 1) / Data.cellWidth] == 1)) {
+                        if ((gm.map.maparr[(int) (my + dy + height) / Data.cellHeight][(int) mx / Data.cellWidth] == 1) || (
+                                gm.map.maparr[(int) (my + dy + height) / Data.cellHeight][(int) (mx + width - 1) / Data.cellWidth] == 1)) {
                             my = my + dy - (my + dy + height) % Data.cellHeight;
                         } else {
                             my += dy;

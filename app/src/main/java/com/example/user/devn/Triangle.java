@@ -38,7 +38,7 @@ public class Triangle {
         double d =( p1.x * (p2.y - p3.y) +
                 p2.x * (p3.y - p1.y) +
                 p3.x * (p1.y - p2.y)) * 2;
-        return new Point(x/d,x/d,y/d);
+        return new Point(1,x/d,y/d);
     }
     public double radius(Triangle t){
         double per = (e1.lengthEdge(e1)+e2.lengthEdge(e2)+e2.lengthEdge(e2))/2;

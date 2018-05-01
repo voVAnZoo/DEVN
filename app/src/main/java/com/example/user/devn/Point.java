@@ -1,11 +1,11 @@
 package com.example.user.devn;
 
 public class Point {
-    double num;
+    int num;
     double x;
     double y;
 
-    public Point(double num, double x, double y){
+    public Point(int num, double x, double y){
         this.num=num;
         this.x=x;
         this.y=y;

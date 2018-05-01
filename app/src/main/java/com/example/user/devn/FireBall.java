@@ -54,7 +54,7 @@ public class FireBall extends Entity{
     @Override
     public void action() {
         try {
-            if (gm.maparr[(int) my / Data.cellHeight][(int) mx / Data.cellWidth] == 1) {
+            if (gm.map.maparr[(int) my / Data.cellHeight][(int) mx / Data.cellWidth] == 1) {
                 this.death();
             }
         }catch (ArrayIndexOutOfBoundsException e){

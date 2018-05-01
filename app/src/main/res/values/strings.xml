@@ -3,4 +3,27 @@
     <string name="title_activity_setting">SettingActivity</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_pause">PauseActivity</string>
+    <string name="startBt">Start game</string>
+    <string name="connectBt">Connect to game</string>
+    <string name="player1Bt">Player 1</string>
+    <string name="player2Bt">Player 2</string>
+    <string name="player3Bt">Player 3</string>
+    <string name="pBt">Pause</string>
+    <string name="saveBt">List your game</string>
+    <string name="exitBt">Exit to main menu</string>
+    <string name="ChangeStrBt">Change street</string>
+    <string name="ChangeLvlBt">Change street Level</string>
+    <string name="Hunger">Hunger:</string>
+    <string name="itemBt">Items</string>
+    <string name="equipmentBt">Equipment</string>
+    <string name="Turn">Now it is turn </string>
+    <string name="EndBt">End turn</string>
+    <string name="AttackAction1">Your damage is increased by one and a half times.</string>
+    <string name="AttackAction2">You attack for </string>
+    <string name="AttackAction3">You reduce the defence of the enemy twice.</string>
+    <string name="DefenceAction1">Your defence is increased by</string>
+    <string name="DefenceAction2">You dodge the next attack of the enemy.</string>
+    <string name="EnemyAction1">Enemy attacks you whit acid.</string>
+    <string name="EnemyAction2">Enemy attacks you whit fire.</string>
+    <string name="EnemyAction3">Enemy attacks you for</string>
 </resources>

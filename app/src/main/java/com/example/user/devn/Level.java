@@ -7,6 +7,7 @@ public class Level {
 
     int i;
     int j;
+    int k;
     int min;
     int max;
     int minx;
@@ -16,6 +17,8 @@ public class Level {
 
     List<Triangle> triangles=new ArrayList<Triangle>();
     List<Point> points=new ArrayList<Point>();
+    List<Edge> edges=new ArrayList<Edge>();
+
     public int maparr[][];
 
     List<Room> rooms = new ArrayList<Room>();
@@ -120,10 +123,34 @@ public class Level {
         points.add(roomsosn.size()+2,p2);
         points.add(roomsosn.size()+3,p3);
         for (i=0;i<roomsosn.size();i++){
-
+            for (j=0;j<triangles.size();j++){
+                if (triangles.get(j).isintcircle(triangles.get(j),points.get(i))){
+                    edges.add(edges.size(),triangles.get(j).e1);
+                    edges.add(edges.size(),triangles.get(j).e2);
+                    edges.add(edges.size(),triangles.get(j).e3);
+                    triangles.remove(j);
+                }
+            }
+            for (j=0;j<edges.size()-1;j++){
+                for (k=j;k<edges.size();k++){
+                    if(edges.get(j).sameEdge(edges.get(j),edges.get(k))){
+                        edges.remove(j);
+                        edges.remove(k+1);
+                    }
+                }
+            }
+            for (j=0;j<edges.size()-1;j++){
+                if (triangles.size()<=trmax){
+                    triangles.add(triangles.size()+1,new Triangle(edges.get(j).p1,edges.get(j).p2,points.get(i)));
+                }
+            }
         }
-        for (i=0;i<roomsosn.size();i++){
-
+        for (j=0;j<triangles.size();j++){
+            if (((triangles.get(j).p1.num>triangles.size()-3)||
+               (triangles.get(j).p1.num>triangles.size()-3))||
+               (triangles.get(j).p1.num>triangles.size()-3)){
+                triangles.remove(j);
+            }
         }
     }
     public Level(int level){
@@ -152,12 +179,16 @@ public class Level {
                     }
             }
         }
-        //триангуляция
-        //сопоставление триангулированного графа плоскости
+        triangulate();
+        for (i = 0; i < maxy+20; i++) {
+            for (j = 0; j < maxx+20; j++) {
+                maparr[i][j] = 1;
+            }
+        }
         for (Room room: roomsosn){
             for (i=0;i<room.height;i++)
                 for (j=0;j<room.width;j++)
-                    maparr[room.x-room.width/2+j][room.y-room.height/2+i]=1;
+                    maparr[room.x-room.width/2+j][room.y-room.height/2+i]=0;
         }
         for (i=0;i<roomsosn.get(max).height;i++)
             for (j=0;j<roomsosn.get(max).width;j++)
@@ -165,5 +196,12 @@ public class Level {
         for (i=0;i<roomsosn.get(min).height;i++)
             for (j=0;j<roomsosn.get(min).width;j++)
                 maparr[roomsosn.get(min).x-roomsosn.get(min).width/2+j][roomsosn.get(min).y-roomsosn.get(min).height/2+i]=2;
+        for (i=0;i<triangles.size();i++)
+            for (i=Math.min(roomsosn.get(triangles.get(i).p1.num).y,roomsosn.get(triangles.get(i).p2.num).y);i<Math.max(roomsosn.get(triangles.get(i).p1.num).y,roomsosn.get(triangles.get(i).p2.num).y);i++){
+                maparr[Math.min(roomsosn.get(triangles.get(i).p1.num).x,roomsosn.get(triangles.get(i).p2.num).x)][i]=0;
+            }
+            for (i=Math.min(roomsosn.get(triangles.get(i).p1.num).x,roomsosn.get(triangles.get(i).p2.num).x);i<Math.max(roomsosn.get(triangles.get(i).p1.num).x,roomsosn.get(triangles.get(i).p2.num).x);i++){
+                maparr[i][Math.max(roomsosn.get(triangles.get(i).p1.num).y,roomsosn.get(triangles.get(i).p2.num).y)]=0;
+            }
     }
 }
