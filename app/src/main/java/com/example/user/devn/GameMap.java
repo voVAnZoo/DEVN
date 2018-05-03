@@ -88,6 +88,7 @@ public class GameMap extends View {
 
     public void generate(int level, Player pl) {
         this.level = level;
+        map= new Level (level);
         entitys = new ArrayList<>();
         Random rand = new Random();
         int startX = map.minx;
